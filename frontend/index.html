@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#FAFAFB" />
+    <title>NEXORA LABS — Software, AI &amp; Automation Studio</title>
+    <meta
+      name="description"
+      content="Nexora Labs designs and builds software, agentic AI and automation for teams that ship. Image-led, fast, and built to scale."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nexora Labs" />
+    <meta property="og:title" content="NEXORA LABS — Software, AI & Automation Studio" />
+    <meta
+      property="og:description"
+      content="Software, agentic AI and automation for teams that ship."
+    />
+    <meta property="og:image" content="/img/hero.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Only enable "pre-hidden" reveal states when motion is allowed (prevents FOUC, keeps no-motion users safe) -->
+    <script>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion')
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/img/hero.webp" type="image/webp" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

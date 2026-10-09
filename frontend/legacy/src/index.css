@@ -1,0 +1,302 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-sans: "Geist", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  --color-bg: #FFFFFF;
+  --color-bg-soft: #F7F8FA;
+  --color-bg-tint: #F0F4FF;
+  --color-line: #E6E8EE;
+  
+  --color-ink: #0A0A0F;
+  --color-ink-2: #4A4F5C;
+  --color-ink-3: #8A90A0;
+
+  --color-blue-600: #2F5BFF;
+  --color-blue-400: #5B8CFF;
+  --color-blue-100: #E3EBFF;
+
+  --color-yellow-400: #FFD43B;
+  --color-yellow-100: #FFF4C2;
+
+  --color-violet-500: #7B5CFF;
+  --color-coral-400: #FF7A59;
+}
+
+:root {
+  --bg: #FFFFFF;
+  --bg-soft: #F7F8FA;
+  --bg-tint: #F0F4FF;
+  --line: #E6E8EE;
+
+  --ink: #0A0A0F;
+  --ink-2: #4A4F5C;
+  --ink-3: #8A90A0;
+
+  --blue-600: #2F5BFF;
+  --blue-400: #5B8CFF;
+  --blue-100: #E3EBFF;
+
+  --yellow-400: #FFD43B;
+  --yellow-100: #FFF4C2;
+
+  --violet-500: #7B5CFF;
+  --coral-400: #FF7A59;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga", "cv02", "cv03", "cv04";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Typography Fluid Clamps */
+.font-display {
+  font-family: "Instrument Serif", Georgia, serif;
+}
+
+.h1-hero {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+}
+
+/* Seamlessly blend Spline canvas/iframe into the white background with no box */
+.spline-robot-blend {
+  mix-blend-mode: multiply;
+  filter: brightness(1.13) contrast(1.06);
+}
+
+.h2-fluid {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(2.75rem, 5.2vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+}
+
+.h3-card {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+/* Gradient Text for Italic Accents */
+.text-gradient-brand {
+  background: linear-gradient(110deg, #2F5BFF 0%, #7B5CFF 55%, #FF7A59 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #2F5BFF 0%, #7B5CFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-aurora {
+  background: linear-gradient(120deg, #5B8CFF 0%, #FFD43B 60%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Yellow Highlighter Underline Accent */
+.highlight-yellow {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+.highlight-yellow::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 4px;
+  height: 28%;
+  background-color: var(--yellow-400);
+  opacity: 0.85;
+  z-index: -1;
+  border-radius: 4px;
+  transform: rotate(-0.5deg);
+}
+
+/* Film Grain Texture for Gradient Areas */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* 1px Gradient Border Cards (blue-100 -> white -> yellow-100) */
+.card-border-gradient {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 24px;
+  border: 1px solid #E6E8EE;
+  box-shadow: 0 4px 20px -2px rgba(10, 10, 15, 0.03), 0 12px 36px -8px rgba(47, 91, 255, 0.04);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-border-gradient:hover {
+  border-color: rgba(47, 91, 255, 0.35);
+  box-shadow: 0 8px 30px -4px rgba(47, 91, 255, 0.08), 0 24px 60px -12px rgba(123, 92, 255, 0.12);
+  transform: translateY(-4px);
+}
+
+/* Glass Panels */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(230, 232, 238, 0.8);
+  box-shadow: 0 4px 20px rgba(10, 10, 15, 0.04);
+}
+
+.glass-panel-dark {
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Primary Button with blue-to-violet gradient sheen sweep */
+.btn-primary-sheen {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ink);
+  color: #FFFFFF;
+}
+.btn-primary-sheen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 90%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(91, 140, 255, 0.4) 40%,
+    rgba(123, 92, 255, 0.45) 60%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-primary-sheen:hover::after {
+  left: 140%;
+}
+
+/* Keyframes for Hero light mesh drift (20s loop) */
+@keyframes lightMeshDrift1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.12); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes lightMeshDrift2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-35px, 35px) scale(0.92); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes darkAuroraDrift {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.25; }
+  50% { transform: translate(30px, -40px) scale(1.2) rotate(15deg); opacity: 0.4; }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.25; }
+}
+
+.animate-light-mesh-1 {
+  animation: lightMeshDrift1 20s ease-in-out infinite alternate;
+}
+
+.animate-light-mesh-2 {
+  animation: lightMeshDrift2 24s ease-in-out infinite alternate;
+}
+
+.animate-dark-aurora {
+  animation: darkAuroraDrift 18s ease-in-out infinite alternate;
+}
+
+/* Outlined Wordmark with Gradient Fill on Hover / Scroll */
+.wordmark-outlined {
+  font-family: "Instrument Serif", Georgia, serif;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(10, 10, 15, 0.12);
+  transition: all 0.5s ease;
+}
+.wordmark-outlined:hover {
+  -webkit-text-stroke: 1.5px rgba(47, 91, 255, 0.4);
+  background: linear-gradient(110deg, #2F5BFF 0%, #7B5CFF 50%, #FF7A59 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+}
+::-webkit-scrollbar-thumb {
+  background: #E6E8EE;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2F5BFF;
+}
+
+/* Selection */
+::selection {
+  background-color: #2F5BFF;
+  color: #FFFFFF;
+}
+
+/* Focus Visible AA */
+*:focus-visible {
+  outline: 2px solid #2F5BFF;
+  outline-offset: 3px;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
