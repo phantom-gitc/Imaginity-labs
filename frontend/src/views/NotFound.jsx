@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef } from 'react'
 import { Eyebrow, H, It, Section } from '../components/ui/Type'
 import { Button } from '../components/ui/Button'

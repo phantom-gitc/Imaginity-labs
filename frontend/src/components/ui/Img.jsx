@@ -1,24 +1,27 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { refreshScroll } from '../../lib/gsap'
 
 /** Lazy image with fade-in (blur-up feel via tinted frame), explicit width/height, ScrollTrigger refresh on load. */
 export function Img({ src, w, h, alt = '', className = '', eager = false, style }) {
   const ref = useRef(null)
   const [ok, setOk] = useState(false)
+
   useEffect(() => {
     if (ref.current?.complete && ref.current.naturalWidth) setOk(true)
   }, [])
+
   return (
-    <img
+    <Image
       ref={ref}
       src={src}
       width={w}
       height={h}
       alt={alt}
-      loading={eager ? 'eager' : 'lazy'}
-      decoding="async"
-      fetchPriority={eager ? 'high' : undefined}
-      data-inner
+      priority={eager}
+      data-inner=""
       onLoad={() => {
         setOk(true)
         refreshScroll(250)
@@ -52,14 +55,12 @@ export function Frame({ img, alt = '', ratio = '4/3', className = '', reveal = t
 /** Glossy 3D object on white, blended into pastel surfaces with multiply. */
 export function Obj({ img, className = '', alt = '', mult = false, style }) {
   return (
-    <img
+    <Image
       src={img.src}
       width={img.w}
       height={img.h}
       alt={alt}
       aria-hidden={alt ? undefined : true}
-      loading="lazy"
-      decoding="async"
       className={`select-none pointer-events-none ${mult ? 'mult' : ''} ${className}`}
       style={style}
     />
@@ -73,13 +74,11 @@ export function Portrait({ img, tint = '#E9E4FF', className = '', alt = '', arch
       className={`relative overflow-hidden ${className}`}
       style={{ aspectRatio: ratio, background: tint, borderRadius: arch ? '999px 999px 24px 24px' : 24 }}
     >
-      <img
+      <Image
         src={img.src}
         width={img.w}
         height={img.h}
         alt={alt}
-        loading="lazy"
-        decoding="async"
         className="absolute inset-0 size-full object-cover scale-[1.12] mult"
         style={{ objectPosition: pos }}
       />

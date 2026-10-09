@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef } from 'react'
 import { SERVICES } from '../data/services'
 import { PRICING, FAQ } from '../data/site'
@@ -8,7 +10,7 @@ import { Button } from '../components/ui/Button'
 import { Accordion } from '../components/ui/Accordion'
 import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
-import { ArrowUpRight, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 export default function Services() {
   const root = useRef(null)

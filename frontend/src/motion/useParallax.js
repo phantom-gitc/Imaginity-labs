@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { gsap, ScrollTrigger, prefersReducedMotion, MQ } from '../lib/gsap'
+import { gsap, prefersReducedMotion, MQ } from '../lib/gsap'
 
 /**
  * Scroll-driven parallax scrub hook.

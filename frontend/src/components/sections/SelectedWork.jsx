@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react'
 import { CASES } from '../../data/work'
 import { WorkCard } from '../ui/Cards'
 import { Eyebrow, H, It, Section } from '../ui/Type'

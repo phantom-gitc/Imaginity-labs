@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef, useState } from 'react'
 import { A } from '../data/site'
 import { useReveal } from '../hooks/useReveal'

@@ -1,12 +1,25 @@
 @import "tailwindcss";
+@source not "../../legacy";
+@source not "../../scripts";
 
 /* ============================================================
    IMAGINITY LABS — design system
    ============================================================ */
+@theme inline {
+  --font-serif: var(--font-instrument-serif), "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-inter), "Inter", "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* Server-rendered preloader markup stays hidden unless the early script flagged a first visit. */
+.nx-preloader {
+  display: none;
+}
+html.nx-pre .nx-preloader {
+  display: block;
+}
+
 @theme {
-  --font-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Inter", "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --color-bg: #fafafb;
   --color-ink: #0a0a0a;

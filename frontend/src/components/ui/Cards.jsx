@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import { TLink } from './TLink'
 import { ArrowCircle } from './Button'
@@ -68,7 +69,7 @@ export function BlogCard({ a, className = '', ratio = '4/5' }) {
   return (
     <TLink to={`/insights/${a.slug}`} className={`group relative block overflow-hidden rounded-[24px] bg-dark text-white ${className}`} data-cursor="Read" style={{ aspectRatio: ratio }}>
       <div className="card-media absolute inset-0 rounded-none">
-        <img src={a.cover.src} width={a.cover.w} height={a.cover.h} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
+        <Image src={a.cover.src} width={a.cover.w} height={a.cover.h} alt="" className="size-full object-cover" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-[#0a0a12]/40 to-transparent" />
       <div className="absolute inset-x-0 top-0 flex items-start justify-between p-5">

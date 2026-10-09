@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef } from 'react'
 import { SOLUTIONS, INDUSTRIES, GOALS, PRINCIPLES } from '../data/services'
 import { A } from '../data/site'

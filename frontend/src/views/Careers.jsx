@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef, useState } from 'react'
 import { ROLES, PERKS } from '../data/work'
 import { A } from '../data/site'

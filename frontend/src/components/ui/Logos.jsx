@@ -1,5 +1,3 @@
-﻿import React from 'react';
-
 // Brand Logos in clean monochrome currentColor with consistent optical height (24px)
 export function GoogleCloudLogo({ className = "h-6 w-auto" }) {
   return (

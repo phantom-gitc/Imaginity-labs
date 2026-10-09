@@ -1,5 +1,7 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
@@ -17,12 +19,20 @@ const itemV = {
 
 /** Floating pill nav: hides on scroll down, returns on scroll up. Enhanced with layoutId pill & text roll. */
 export function Navbar() {
-  const { pathname } = useLocation()
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const bar = useRef(null)
   const openRef = useRef(false)
-  openRef.current = open
+  const [prevPathname, setPrevPathname] = useState(pathname)
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname)
+    setOpen(false)
+  }
+
+  useEffect(() => {
+    openRef.current = open
+  }, [open])
 
   useEffect(() => {
     let hidden = false
@@ -42,10 +52,6 @@ export function Navbar() {
     })
     return () => st.kill()
   }, [])
-
-  useEffect(() => {
-    setOpen(false)
-  }, [pathname])
 
   useEffect(() => {
     stopScroll(open)

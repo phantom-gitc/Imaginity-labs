@@ -23,6 +23,7 @@ const THEMES = {
 }
 
 let activeThemeName = 'light'
+export const getActiveTheme = () => activeThemeName
 
 export function applyTheme(name, immediate = false) {
   const theme = THEMES[name] || THEMES.light

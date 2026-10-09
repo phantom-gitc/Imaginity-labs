@@ -18,7 +18,9 @@ export function useCountUp(targetValue, { duration = 2, decimals = 0 } = {}) {
     const end = typeof targetValue === 'number' ? targetValue : parseFloat(targetValue) || 0
 
     if (prefersReducedMotion()) {
-      setVal(decimals > 0 ? end.toFixed(decimals) : end)
+      queueMicrotask(() => {
+        setVal(decimals > 0 ? end.toFixed(decimals) : end)
+      })
       return undefined
     }
 

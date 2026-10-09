@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef } from 'react'
 import { useReveal } from '../hooks/useReveal'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'

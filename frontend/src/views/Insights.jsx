@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useRef } from 'react'
 import { ARTICLES, INSIGHTS_CATEGORIES } from '../data/articles'
 import { BlogCard } from '../components/ui/Cards'

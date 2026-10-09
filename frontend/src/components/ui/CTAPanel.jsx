@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Clock } from 'lucide-react'
 import { A } from '../../data/site'
 import { Button } from './Button'
@@ -33,7 +34,7 @@ export function CTAPanel({ title, line = 'Tell us what you are building. We repl
                   <div className="-space-x-2">
                     <div className="flex -space-x-2">
                       {A.portrait.slice(0, 3).map((p, i) => (
-                        <img key={i} src={p.src} width={40} height={40} alt="" loading="lazy" className="size-10 rounded-full border-2 border-white/80 object-cover" />
+                        <Image key={i} src={p.src} width={40} height={40} alt="" className="size-10 rounded-full border-2 border-white/80 object-cover" />
                       ))}
                     </div>
                   </div>

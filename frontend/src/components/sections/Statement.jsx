@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { Compass, Palette, TrendingUp, Zap } from 'lucide-react'
 import { gsap } from '../../lib/gsap'
 import { useMagnetic } from '../../hooks/useMagnetic'
@@ -43,12 +44,11 @@ function InteractiveImagePill({ img }) {
       className="group sw mr-[0.22em] inline-block h-[0.82em] w-[1.7em] -translate-y-[0.06em] cursor-pointer overflow-hidden rounded-full align-middle will-change-transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-115 hover:-translate-y-0.5 hover:rotate-1 hover:shadow-[0_14px_32px_-6px_rgba(0,0,0,0.3)] active:scale-98"
       aria-hidden="true"
     >
-      <img
+      <Image
         src={img.src}
         width={img.w}
         height={img.h}
         alt=""
-        loading="lazy"
         className="size-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
       />
     </span>

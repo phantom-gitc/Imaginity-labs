@@ -1,5 +1,7 @@
+'use client'
+
 import { useRef } from 'react'
-import { A, STATS } from '../data/site'
+import { A } from '../data/site'
 import { VALUES, TEAM, AWARDS } from '../data/work'
 import { useReveal } from '../hooks/useReveal'
 import { Eyebrow, H, It, Section, SectionHeader } from '../components/ui/Type'

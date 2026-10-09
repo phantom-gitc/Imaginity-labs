@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowUp } from 'lucide-react'
-import { gsap, ScrollTrigger, prefersReducedMotion } from '../../lib/gsap'
+import { ScrollTrigger, prefersReducedMotion } from '../../lib/gsap'
 import { scrollToTop } from '../../motion/useSmoothScroll'
 import { useMagnetic } from '../../motion/useMagnetic'
 

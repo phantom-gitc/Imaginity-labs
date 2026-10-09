@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Quote } from 'lucide-react'
 import { TESTIMONIALS } from '../../data/work'
@@ -40,10 +41,12 @@ export function Testimonials() {
                 </blockquote>
 
                 <div className="flex items-center gap-4">
-                  <div className="size-14 rounded-full overflow-hidden border-2 border-white/20 bg-white/10">
-                    <img
+                  <div className="size-14 rounded-full overflow-hidden border-2 border-white/20 bg-white/10 relative">
+                    <Image
                       src={A.portrait[current.p].src}
                       alt={current.name}
+                      width={56}
+                      height={56}
                       className="size-full object-cover"
                     />
                   </div>

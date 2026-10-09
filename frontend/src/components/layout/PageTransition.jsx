@@ -1,5 +1,7 @@
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+'use client'
+
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { gsap, refreshScroll, prefersReducedMotion } from '../../lib/gsap'
 import { TransitionContext } from '../../lib/transition'
 import { scrollToTop } from '../../motion/useSmoothScroll'
@@ -22,15 +24,19 @@ const ROUTE_LABELS = {
  * Provides `go(path)` via context (used by TLink).
  */
 export function PageTransition({ children }) {
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
+  const router = useRouter()
+  const pathname = usePathname()
+  const navigate = router.push
   const panels = useRef([])
   const titleRef = useRef(null)
   const [targetLabel, setTargetLabel] = useState('')
   const busy = useRef(false)
   const pending = useRef(false)
   const path = useRef(pathname)
-  path.current = pathname
+
+  useEffect(() => {
+    path.current = pathname
+  }, [pathname])
 
   const go = useCallback(
     (to) => {

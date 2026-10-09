@@ -1,5 +1,8 @@
+'use client'
+
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ScrollTrigger } from '../../lib/gsap'
 import { A } from '../../data/site'
@@ -7,13 +10,17 @@ import { Button } from '../ui/Button'
 
 /** Secondary floating bottom-pill CTA, appears after the hero, hides at the footer. */
 export function FloatingCTA() {
-  const { pathname } = useLocation()
+  const pathname = usePathname()
   const [past, setPast] = useState(false)
   const [atFooter, setAtFooter] = useState(false)
-
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname)
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname)
     setPast(false)
     setAtFooter(false)
+  }
+
+  useEffect(() => {
     const t = setTimeout(() => {
       ScrollTrigger.create({
         id: 'fcta',
@@ -45,7 +52,7 @@ export function FloatingCTA() {
           <div className="nav-pill !p-1.5 !pl-2.5 shadow-[0_10px_30px_-12px_rgba(20,20,60,.25)]">
             <div className="hidden -space-x-2 sm:flex" aria-hidden="true">
               {A.portrait.slice(0, 3).map((p, i) => (
-                <img key={i} src={p.src} width={32} height={32} alt="" loading="lazy" className="size-8 rounded-full border-2 border-white object-cover" />
+                <Image key={i} src={p.src} width={32} height={32} alt="" className="size-8 rounded-full border-2 border-white object-cover" />
               ))}
             </div>
             <span className="px-3 text-sm font-medium">Have a project in mind?</span>

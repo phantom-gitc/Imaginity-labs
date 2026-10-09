@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
 import { gsap, prefersReducedMotion } from '../../lib/gsap'
 import { Logo } from './Logo'
@@ -6,12 +8,13 @@ import { Logo } from './Logo'
  * 1.5s logo reveal + percentage counter + cinematic curtain split.
  * Reveals the hero underneath and starts hero intro as curtain splits.
  * Plays once per session.
+ *
+ * Hydration-safe: the first render is identical on server and client. The server markup is
+ * hidden by CSS unless the early script marked `html.nx-pre` (first visit, motion allowed);
+ * sessionStorage is only read inside the effect.
  */
 export function Preloader() {
-  const [show, setShow] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return !sessionStorage.getItem('nx_pre') && !prefersReducedMotion()
-  })
+  const [show, setShow] = useState(true)
 
   const root = useRef(null)
   const num = useRef(null)
@@ -22,8 +25,11 @@ export function Preloader() {
   const content = useRef(null)
 
   useEffect(() => {
-    if (!show) {
+    if (sessionStorage.getItem('nx_pre') || prefersReducedMotion()) {
       sessionStorage.setItem('nx_pre', '1')
+      document.documentElement.classList.remove('nx-pre')
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time mount decision that must not run during SSR
+      setShow(false)
       return undefined
     }
 
@@ -34,6 +40,7 @@ export function Preloader() {
       const tl = gsap.timeline({
         onComplete: () => {
           sessionStorage.setItem('nx_pre', '1')
+          document.documentElement.classList.remove('nx-pre')
           document.documentElement.style.overflow = ''
           setShow(false)
         },
@@ -89,14 +96,14 @@ export function Preloader() {
       ctx.revert()
       document.documentElement.style.overflow = ''
     }
-  }, [show])
+  }, [])
 
   if (!show) return null
 
   return (
     <div
       ref={root}
-      className="fixed inset-0 z-[400] pointer-events-none overflow-hidden select-none"
+      className="nx-preloader fixed inset-0 z-[400] pointer-events-none overflow-hidden select-none"
       role="status"
       aria-label="Loading"
     >

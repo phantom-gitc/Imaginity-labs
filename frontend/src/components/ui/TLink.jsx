@@ -1,6 +1,9 @@
+'use client'
+
+import Link from 'next/link'
 import { useTransitionNav } from '../../lib/transition'
 
-/** Internal link that routes through the page-transition wipe. */
+/** Internal link that routes through the page-transition wipe. Renders a real, crawlable, prefetched <a href>. */
 export function TLink({ to, children, className = '', onClick, ...rest }) {
   const { go } = useTransitionNav()
   const handle = (e) => {
@@ -10,8 +13,8 @@ export function TLink({ to, children, className = '', onClick, ...rest }) {
     go(to)
   }
   return (
-    <a href={to} onClick={handle} className={className} {...rest}>
+    <Link href={to} onClick={handle} className={className} {...rest}>
       {children}
-    </a>
+    </Link>
   )
 }

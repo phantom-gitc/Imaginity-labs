@@ -1,23 +1,21 @@
+'use client'
+
 import { useRef } from 'react'
-import { useParams, Navigate } from 'react-router-dom'
 import { ARTICLES } from '../data/articles'
 import { useReveal } from '../hooks/useReveal'
-import { Eyebrow, H, It, Section } from '../components/ui/Type'
+import { H, It, Section } from '../components/ui/Type'
 import { Frame } from '../components/ui/Img'
 import { ArrowLink } from '../components/ui/Button'
 import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
 import { ArrowLeft } from 'lucide-react'
 
-export default function Article() {
-  const { slug } = useParams()
+export default function Article({ slug }) {
   const root = useRef(null)
   useReveal(root)
 
   const a = ARTICLES.find((item) => item.slug === slug)
-  if (!a) {
-    return <Navigate to="/insights" replace />
-  }
+  if (!a) return null
 
   return (
     <div ref={root} className="relative isolate w-full pt-28">

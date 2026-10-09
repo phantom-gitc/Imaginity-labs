@@ -1,23 +1,21 @@
+'use client'
+
 import { useRef } from 'react'
-import { useParams, Navigate } from 'react-router-dom'
 import { CASES } from '../data/work'
 import { useReveal } from '../hooks/useReveal'
-import { Eyebrow, H, It, Section } from '../components/ui/Type'
-import { Frame, Obj } from '../components/ui/Img'
+import { H, It, Section } from '../components/ui/Type'
+import { Frame } from '../components/ui/Img'
 import { Button, ArrowLink } from '../components/ui/Button'
 import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
-import { Check, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 
-export default function CaseDetail() {
-  const { slug } = useParams()
+export default function CaseDetail({ slug }) {
   const root = useRef(null)
   useReveal(root)
 
   const c = CASES.find((item) => item.slug === slug)
-  if (!c) {
-    return <Navigate to="/work" replace />
-  }
+  if (!c) return null
 
   return (
     <div ref={root} className="relative isolate w-full pt-28">
