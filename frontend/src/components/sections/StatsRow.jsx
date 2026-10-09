@@ -10,7 +10,7 @@ export function StatsRow() {
     <Section bg="light" tight>
       <div className="g12 items-center gap-y-14">
         <div className="relative col-span-12 md:col-span-5">
-          <Frame img={A.team} ratio="4/5" parallax={8} grade pos="42% 50%" alt="The Nexora team collaborating at a long studio table" className="!rounded-t-[999px]" />
+          <Frame img={A.team} ratio="4/5" parallax={8} grade pos="42% 50%" alt="The Imaginity team collaborating at a long studio table" className="!rounded-t-[999px]" />
           <div className="glass float rot-a absolute -right-3 bottom-8 z-10 flex items-center gap-3 px-4 py-3 md:-right-8" style={{ '--rot': '-2deg' }}>
             <span className="ico-sq !size-10"><Globe size={18} /></span>
             <span className="leading-tight">

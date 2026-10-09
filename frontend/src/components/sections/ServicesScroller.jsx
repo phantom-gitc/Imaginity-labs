@@ -40,20 +40,21 @@ export function ServicesScroller() {
       if (window.innerWidth < 768) return
 
       ctx = gsap.context(() => {
-        const getScrollAmount = () => track.scrollWidth - window.innerWidth + 140
+        const getScrollAmount = () => track.scrollWidth - window.innerWidth + 200
 
         st = ScrollTrigger.create({
           trigger: pin,
           start: 'top top',
-          end: () => `+=${getScrollAmount()}`,
+          end: () => `+=${getScrollAmount() * 1.25}`,
           pin: true,
-          scrub: 1,
+          pinSpacing: true,
+          scrub: 1.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const rawIdx = self.progress * (SERVICES.length - 1)
             const idx = Math.min(SERVICES.length - 1, Math.max(0, Math.round(rawIdx)))
-            setActiveIdx(idx)
+            setActiveIdx((prev) => (prev !== idx ? idx : prev))
           },
           animation: gsap.to(track, {
             x: () => -getScrollAmount(),
@@ -109,12 +110,10 @@ export function ServicesScroller() {
       hasMoved.current = true
     }
     const targetY = dragStartScrollY.current - dx * 1.5
-    if (engine.loco?.lenisInstance) {
-      engine.loco.lenisInstance.scrollTo(targetY, { immediate: true })
-    } else if (engine.loco) {
-      engine.loco.scrollTo(targetY, { immediate: true, duration: 0 })
+    if (engine.lenis) {
+      engine.lenis.scrollTo(targetY, { duration: 1.2, immediate: false })
     } else {
-      window.scrollTo({ top: targetY, behavior: 'auto' })
+      window.scrollTo({ top: targetY, behavior: 'smooth' })
     }
   }
 
@@ -142,14 +141,14 @@ export function ServicesScroller() {
     <section
       ref={pinRef}
       data-bg="light"
-      className="relative overflow-hidden py-16 md:py-0 md:h-screen md:flex md:flex-col md:justify-center will-change-[background-color] transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      className="relative overflow-hidden py-16 md:py-0 md:h-screen md:flex md:flex-col md:justify-center will-change-[background-color] transition-colors duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
       style={{
         backgroundColor: currentTheme.bg,
       }}
     >
       {/* Ambient soft glow aura that transitions with active card color */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-70 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-70 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
         style={{
           background: `radial-gradient(ellipse 70% 60% at 50% 50%, ${currentTheme.glow} 0%, transparent 80%)`,
         }}
@@ -194,7 +193,7 @@ export function ServicesScroller() {
                 onClick={handleLinkClick}
                 onMouseEnter={() => setActiveIdx(idx)}
                 draggable={false}
-                className={`group tinted tint-${s.tint} card flex-none w-[85vw] max-w-[380px] sm:max-w-[420px] rounded-[24px] p-7 flex flex-col justify-between shadow-sm relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`group tinted tint-${s.tint} card flex-none w-[85vw] max-w-[380px] sm:max-w-[420px] rounded-[24px] p-7 flex flex-col justify-between shadow-sm relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${
                   isCurrent
                     ? 'scale-100 shadow-[0_20px_45px_-12px_rgba(40,30,90,0.18)] ring-2 ring-white/80'
                     : 'scale-[0.97] opacity-85 hover:opacity-100 hover:scale-[0.99]'

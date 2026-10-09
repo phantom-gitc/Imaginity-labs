@@ -117,7 +117,7 @@ export default function Solutions() {
       </Section>
 
       {/* 4. Industries as Pastel Tiles */}
-      <Section bg="warm" className="!bg-[#F4EFE6]">
+      <Section bg="warm">
         <SectionHeader
           eyebrow="Sector Expertise"
           dot="#FFD93D"
@@ -145,7 +145,7 @@ export default function Solutions() {
       </Section>
 
       {/* 5. Tabbed Goals in Dark Section ("what are you trying to achieve") */}
-      <Section bg="dark" className="dark-ui !bg-[#0A0A12] text-white">
+      <Section bg="dark" className="dark-ui text-white">
         <div className="mb-12">
           <Eyebrow dot="#FFD93D" className="!text-white/60">Strategic Alignment</Eyebrow>
           <H size="lg" className="mt-4">

@@ -37,7 +37,7 @@ export default function CaseDetail() {
             <span className="mono text-xs text-ink/40">COMPLETED {c.year}</span>
           </div>
           <H as="h1" size="xl">
-            {c.title} â€” <It>{c.line}</It>
+            {c.title} — <It>{c.line}</It>
           </H>
         </div>
 
@@ -114,7 +114,7 @@ export default function CaseDetail() {
             </div>
 
             <div>
-              <h2 className="display text-3xl text-ink mb-4">The Nexora Solution</h2>
+              <h2 className="display text-3xl text-ink mb-4">The Imaginity Solution</h2>
               <p className="text-lg text-ink/80 leading-relaxed max-w-[55ch]">
                 {c.solution} We architected and delivered a unified, fault-tolerant infrastructure equipped with real-time feedback loops, comprehensive telemetry, and intuitive operator dashboards.
               </p>

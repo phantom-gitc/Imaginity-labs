@@ -4,6 +4,7 @@ import { Footer } from './Footer'
 import { Cursor } from './Cursor'
 import { Preloader } from './Preloader'
 import { FloatingCTA } from './FloatingCTA'
+import { ScrollProgress } from './ScrollProgress'
 import { useSectionTheme } from '../../hooks/useSectionTheme'
 import { useSeo } from '../../hooks/useSeo'
 import { SEO } from '../../data/site'
@@ -20,6 +21,7 @@ export function Layout() {
     <>
       <a href="#main" className="skip-link">Skip to content</a>
       <div className="grain" aria-hidden="true" />
+      <ScrollProgress />
       <Preloader />
       <Cursor />
       <Navbar />

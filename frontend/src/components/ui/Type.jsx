@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { ArrowLink } from './Button'
 
@@ -22,13 +23,16 @@ export function H({ as: Tag = 'h2', size = 'lg', className = '', intro = false, 
 }
 
 /** Section wrapper. `bg` drives the body colour transition (light | dark | warm). */
-export function Section({ id, bg = 'light', className = '', tight = false, bleed = false, children, ...rest }) {
+export const Section = forwardRef(function Section(
+  { id, bg = 'light', className = '', tight = false, bleed = false, children, ...rest },
+  ref
+) {
   return (
-    <section id={id} data-bg={bg} className={`section${tight ? '-tight' : ''} ${className}`} {...rest}>
+    <section ref={ref} id={id} data-bg={bg} className={`section${tight ? '-tight' : ''} ${className}`} {...rest}>
       {bleed ? children : <div className="wrap">{children}</div>}
     </section>
   )
-}
+})
 
 /** Eyebrow + serif heading left, one-liner and ↗ link right. */
 export function SectionHeader({ eyebrow, dot, title, line, cta, className = '', size = 'lg' }) {

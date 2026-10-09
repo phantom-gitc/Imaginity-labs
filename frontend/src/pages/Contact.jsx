@@ -7,6 +7,8 @@ import { Button } from '../components/ui/Button'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
 import { Check, Mail, MapPin } from 'lucide-react'
 
+import { fireConfetti } from '../lib/confetti'
+
 export default function Contact() {
   const root = useRef(null)
   useReveal(root)
@@ -23,6 +25,7 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault()
     setSubmitted(true)
+    fireConfetti()
   }
 
   return (
@@ -143,18 +146,18 @@ export default function Contact() {
               <div className="space-y-4 pt-6 border-t border-black/10">
                 <div className="flex items-center gap-3 text-sm text-ink/80">
                   <Mail size={16} className="text-[#3B5BFF]" />
-                  <span>hello@nexoralabs.io</span>
+                  <span>hello@imaginitylabs.io</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-ink/80">
                   <MapPin size={16} className="text-[#3B5BFF]" />
-                  <span>Hyderabad &middot; Global Remote First</span>
+                  <span>Bhubaneswar &middot; Global Remote First</span>
                 </div>
               </div>
             </div>
 
             <div className="p-6 rounded-[24px] bg-[#FFF3B0]/60 border border-line flex items-center gap-4">
               <div className="size-10 rounded-full bg-yellow flex items-center justify-center font-bold text-ink">
-                âœ¦
+                ✦
               </div>
               <div>
                 <h4 className="font-semibold text-sm text-ink">Direct Partner Access</h4>

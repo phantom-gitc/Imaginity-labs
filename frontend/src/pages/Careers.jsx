@@ -21,7 +21,7 @@ export default function Careers() {
       {/* 1. Hero */}
       <Section bg="light" className="pt-8 pb-16">
         <div className="max-w-3xl">
-          <Eyebrow dot="#C45CB0">Careers at Nexora</Eyebrow>
+          <Eyebrow dot="#C45CB0">Careers at Imaginity</Eyebrow>
           <H as="h1" size="xl" className="mt-4">
             Build products that matter, <It>autonomously.</It>
           </H>
@@ -38,7 +38,7 @@ export default function Careers() {
             <Frame
               img={A.team}
               ratio="16/9"
-              alt="Nexora team workshop"
+              alt="Imaginity team workshop"
               grade
               radius={28}
             />
@@ -60,7 +60,7 @@ export default function Careers() {
       </Section>
 
       {/* 3. Perks Pastel Tiles */}
-      <Section bg="warm" className="!bg-[#F4EFE6]">
+      <Section bg="warm">
         <SectionHeader
           eyebrow="Studio Perks"
           dot="#FFD93D"

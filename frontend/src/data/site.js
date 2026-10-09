@@ -31,9 +31,9 @@ export const NAV = [
 ]
 
 export const SITE = {
-  name: 'NEXORA LABS',
-  email: 'hello@nexoralabs.io',
-  city: 'Hyderabad · Remote-first',
+  name: 'IMAGINITY LABS',
+  email: 'hello@imaginitylabs.io',
+  city: 'Bhubaneswar · Remote-first',
   tz: 'Asia/Kolkata',
 }
 
@@ -76,12 +76,12 @@ export const FOOTER_COLS = [
 ]
 
 export const SEO = {
-  '/': ['Nexora Labs — Software, AI & Automation Studio', 'Software, agentic AI and automation for teams that ship. Image-led product studio.'],
-  '/solutions': ['Solutions — Nexora Labs', 'Eight solution areas, from AI agents to enterprise platforms. Built to launch fast and scale safely.'],
-  '/services': ['Services — Nexora Labs', 'Product engineering, AI, automation, cloud and design. Pick a sprint, a squad or a partnership.'],
-  '/work': ['Work — Nexora Labs', 'Selected case studies across fintech, health, logistics and AI.'],
-  '/about': ['About — Nexora Labs', 'A small senior studio building software people actually enjoy using.'],
-  '/insights': ['Insights — Nexora Labs', 'Field notes on AI, engineering and product from the Nexora team.'],
-  '/careers': ['Careers — Nexora Labs', 'Join a senior team shipping AI and product work. See open roles.'],
-  '/contact': ['Contact — Nexora Labs', 'Tell us what you are building. We reply within one working day.'],
+  '/': ['Imaginity Labs — Software, AI & Automation Studio', 'Software, agentic AI and automation for teams that ship. Image-led product studio.'],
+  '/solutions': ['Solutions — Imaginity Labs', 'Eight solution areas, from AI agents to enterprise platforms. Built to launch fast and scale safely.'],
+  '/services': ['Services — Imaginity Labs', 'Product engineering, AI, automation, cloud and design. Pick a sprint, a squad or a partnership.'],
+  '/work': ['Work — Imaginity Labs', 'Selected case studies across fintech, health, logistics and AI.'],
+  '/about': ['About — Imaginity Labs', 'A small senior studio building software people actually enjoy using.'],
+  '/insights': ['Insights — Imaginity Labs', 'Field notes on AI, engineering and product from the Imaginity team.'],
+  '/careers': ['Careers — Imaginity Labs', 'Join a senior team shipping AI and product work. See open roles.'],
+  '/contact': ['Contact — Imaginity Labs', 'Tell us what you are building. We reply within one working day.'],
 }

@@ -58,7 +58,7 @@ export function ProcessTimeline() {
   }, [])
 
   return (
-    <Section ref={rootRef} bg="dark" className="dark-ui !bg-[#0A0A12] text-white relative overflow-hidden">
+    <Section ref={rootRef} bg="dark" className="dark-ui text-white relative overflow-hidden">
       <div className="line-grid" aria-hidden="true" />
       <div className="blob left-1/4 -top-20 h-96 w-96 opacity-25" aria-hidden="true" />
 

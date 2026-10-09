@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   NEXORA LABS — design system
+   IMAGINITY LABS — design system
    ============================================================ */
 @theme {
   --font-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
@@ -196,6 +196,32 @@ button {
   border-radius: 99px;
   background: var(--dot, #3b5bff);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot, #3b5bff) 18%, transparent);
+  animation: dotPulse 2.8s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.75;
+  }
+}
+
+/* Custom branded scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--page-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(10, 10, 30, 0.15);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(10, 10, 30, 0.32);
 }
 .muted {
   color: var(--page-muted);

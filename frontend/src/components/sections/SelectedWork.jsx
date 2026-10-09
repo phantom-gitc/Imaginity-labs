@@ -9,7 +9,7 @@ export function SelectedWork() {
   const selected = CASES.slice(0, 4)
 
   return (
-    <Section bg="warm" className="!bg-[#F4EFE6] text-[#0A0A0A]">
+    <Section bg="warm" className="text-[#0A0A0A]">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
         <div>
           <Eyebrow dot="#3B5BFF">Selected Work</Eyebrow>

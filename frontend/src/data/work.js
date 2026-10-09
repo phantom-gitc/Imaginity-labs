@@ -94,7 +94,7 @@ export const PERKS = [
 export const ROLES = [
   { id: 'fs', t: 'Senior Full-stack Engineer', meta: 'Remote · Full-time', d: 'Own features end to end across React, Node and cloud. You enjoy shipping, reviewing and mentoring.', req: ['5+ years shipping production apps', 'Strong TypeScript and system design', 'Comfortable talking to clients'] },
   { id: 'ai', t: 'AI Engineer', meta: 'Remote · Full-time', d: 'Design agents, retrieval and evals that stand up in production, not just in demos.', req: ['Hands-on LLM application experience', 'Python and evaluation mindset', 'Taste for pragmatic solutions'] },
-  { id: 'pd', t: 'Product Designer', meta: 'Hybrid · Hyderabad', d: 'Shape product experiences from research to polished UI, and grow our design system.', req: ['Portfolio with shipped work', 'Fluent in Figma and prototyping', 'Motion sensibility is a plus'] },
+  { id: 'pd', t: 'Product Designer', meta: 'Hybrid · Bhubaneswar', d: 'Shape product experiences from research to polished UI, and grow our design system.', req: ['Portfolio with shipped work', 'Fluent in Figma and prototyping', 'Motion sensibility is a plus'] },
   { id: 'dl', t: 'Delivery Lead', meta: 'Remote · Full-time', d: 'Keep squads calm, clients informed and releases boringly smooth.', req: ['3+ years leading software delivery', 'Excellent written communication', 'Calm in a crunch'] },
   { id: 'cr', t: 'Creative Technologist', meta: 'Remote · Contract', d: 'Prototype interactive experiences in WebGL, GSAP and AI-assisted tooling.', req: ['Motion and WebGL portfolio', 'Strong front-end fundamentals', 'Eye for detail'] },
 ]

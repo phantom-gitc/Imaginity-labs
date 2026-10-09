@@ -1,9 +1,11 @@
+import { useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { TLink } from './TLink'
 import { ArrowCircle } from './Button'
 import { Frame } from './Img'
 import { Tag } from './Type'
 import { AnimatedCounter } from './AnimatedCounter'
+import { useTilt } from '../../motion/useTilt'
 
 /** Giant serif number with superscript +, mono label, count-up on enter. */
 export function Stat({ n, suffix = '', label, decimals = 0, className = '' }) {
@@ -21,24 +23,43 @@ export function Stat({ n, suffix = '', label, decimals = 0, className = '' }) {
   )
 }
 
-/** Image-led work card. Hover: image zoom + "View case" cursor + arrow rotates. */
+/** Image-led work card. Hover: 3D tilt + spotlight glare + "View case" cursor + arrow rotates. */
 export function WorkCard({ c, ratio = '4/3', index, className = '', flip = false }) {
+  const cardRef = useRef(null)
+  useTilt(cardRef, { maxAngle: 5, glare: true })
+
   return (
-    <TLink to={`/work/${c.slug}`} className={`group block ${className}`} data-cursor="View case" {...(flip ? { 'data-flip-id': c.slug } : {})}>
-      <Frame img={c.img} ratio={ratio} grade bg={`var(--c-${c.tint}, #E9E4FF)`} alt={`${c.title} — ${c.line}`}>
-        <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between p-4 md:p-5">
-          <Tag tint={c.tint}>{c.category}</Tag>
-          {index != null && <span className="mono rounded-full bg-white/80 px-3 py-2 backdrop-blur">{String(index + 1).padStart(2, '0')}</span>}
+    <div ref={cardRef} className="will-change-transform [transform-style:preserve-3d]">
+      <TLink
+        to={`/work/${c.slug}`}
+        className={`group block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 ${className}`}
+        data-cursor="View case"
+        {...(flip ? { 'data-flip-id': c.slug } : {})}
+      >
+        <div className="relative overflow-hidden rounded-[24px]">
+          <Frame img={c.img} ratio={ratio} grade bg={`var(--c-${c.tint}, #E9E4FF)`} alt={`${c.title} — ${c.line}`}>
+            <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between p-4 md:p-5">
+              <Tag tint={c.tint}>{c.category}</Tag>
+              {index != null && <span className="mono rounded-full bg-white/80 px-3 py-2 backdrop-blur">{String(index + 1).padStart(2, '0')}</span>}
+            </div>
+            {/* Dynamic Spotlight Glare */}
+            <div
+              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10"
+              style={{
+                background: 'radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255,255,255,0.28) 0%, transparent 60%)',
+              }}
+            />
+          </Frame>
         </div>
-      </Frame>
-      <div className="mt-5 flex items-start justify-between gap-4">
-        <div>
-          <h3 className="display h-sm">{c.title}</h3>
-          <p className="muted mt-2 line-clamp-1 text-[15px]">{c.line}</p>
+        <div className="mt-5 flex items-start justify-between gap-4">
+          <div>
+            <h3 className="display h-sm">{c.title}</h3>
+            <p className="muted mt-2 line-clamp-1 text-[15px]">{c.line}</p>
+          </div>
+          <ArrowCircle />
         </div>
-        <ArrowCircle />
-      </div>
-    </TLink>
+      </TLink>
+    </div>
   )
 }
 

@@ -83,7 +83,7 @@ export default function Services() {
       </Section>
 
       {/* 3. Pricing / Engagement Cards */}
-      <Section bg="warm" className="!bg-[#F4EFE6]">
+      <Section bg="warm">
         <SectionHeader
           eyebrow="Engagement Models"
           dot="#FFD93D"

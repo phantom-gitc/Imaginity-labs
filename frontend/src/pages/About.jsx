@@ -18,7 +18,7 @@ export default function About() {
       {/* 1. Big Editorial Statement */}
       <Section bg="light" className="pt-8 pb-16">
         <div className="max-w-4xl">
-          <Eyebrow dot="#C45CB0">About Nexora Labs</Eyebrow>
+          <Eyebrow dot="#C45CB0">About Imaginity Labs</Eyebrow>
           <H as="h1" size="xl" className="mt-6 leading-[1.05]">
             A senior studio creating software that people <It>actually enjoy using.</It>
           </H>
@@ -34,7 +34,7 @@ export default function About() {
           <Frame
             img={A.team}
             ratio="21/9"
-            alt="The Nexora studio team"
+            alt="The Imaginity studio team"
             grade
             radius={28}
             className="shadow-md"
@@ -44,7 +44,7 @@ export default function About() {
             <span className="ico-sq !size-10"><Globe size={18} /></span>
             <div>
               <b className="display block text-2xl text-ink">Global Reach</b>
-              <span className="mono !text-[10px] text-ink/60">Hyderabad &middot; Remote Worldwide</span>
+              <span className="mono !text-[10px] text-ink/60">Bhubaneswar &middot; Remote Worldwide</span>
             </div>
           </div>
 
@@ -55,7 +55,7 @@ export default function About() {
       </Section>
 
       {/* 3. Values as Pastel Tiles */}
-      <Section bg="warm" className="!bg-[#F4EFE6]">
+      <Section bg="warm">
         <SectionHeader
           eyebrow="Core Values"
           dot="#3B5BFF"

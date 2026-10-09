@@ -47,7 +47,7 @@ export const INSIGHT_TYPES = [
   },
   {
     title: 'Company Updates',
-    desc: 'Important Nexora Labs announcements, engineering launches and milestone retrospectives.',
+    desc: 'Important Imaginity Labs announcements, engineering launches and milestone retrospectives.',
     tag: 'Milestones',
     color: 'from-[#6366F1]/10 to-[#8B5CF6]/10',
     border: 'border-[#6366F1]/20',
@@ -63,8 +63,8 @@ export const ARTICLES = [
     category: 'AI',
     readTime: '8 min read',
     publishedDate: 'October 2026',
-    author: 'Nexora Labs Engineering',
-    authorRole: 'Software â€¢ AI â€¢ Product Engineering',
+    author: 'Imaginity Labs Engineering',
+    authorRole: 'Software · AI · Product Engineering',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/insights-featured.webp',
     isFeatured: true,
@@ -73,7 +73,7 @@ export const ARTICLES = [
     detailedSummary:
       'What makes an AI agent useful in a real business environment? Explore the architecture, workflows and considerations behind practical AI agents.',
     introQuote:
-      'AI agents are becoming increasingly capable, but simply connecting a language model to a tool does not create a useful business system. A production AI agent needs context, reliable tools, clear workflows, appropriate guardrails and a measurable purpose. The real question isnâ€™t â€œCan we build an AI agent?â€ Itâ€™s â€œWhat should the agent actually do?â€',
+      'AI agents are becoming increasingly capable, but simply connecting a language model to a tool does not create a useful business system. A production AI agent needs context, reliable tools, clear workflows, appropriate guardrails and a measurable purpose. The real question isn\'t "Can we build an AI agent?" It\'s "What should the agent actually do?"',
     sections: [
       {
         num: '01',
@@ -127,7 +127,7 @@ export const ARTICLES = [
         num: '09',
         title: 'Conclusion',
         content:
-          'The future of enterprise software is not a chat box in the corner of your screenâ€”it is autonomous, reliable background intelligence that quietly does the heavy lifting so human teams can focus on strategy and craft.',
+          'The future of enterprise software is not a chat box in the corner of your screen — it is autonomous, reliable background intelligence that quietly does the heavy lifting so human teams can focus on strategy and craft.',
       },
     ],
     takeaways: [
@@ -136,7 +136,7 @@ export const ARTICLES = [
       'Give AI access to reliable context, structured schemas, and scoped tools.',
       'Design for failure, timeouts, and unexpected outputs with deterministic fallbacks.',
       'Measure the actual business outcome: completion rate and human intervention reduction.',
-      'Donâ€™t use AI where conventional deterministic software is faster and cheaper.',
+      'Don\'t use AI where conventional deterministic software is faster and cheaper.',
     ],
     relatedSlugs: ['02', '09', '07'],
   },
@@ -147,7 +147,7 @@ export const ARTICLES = [
     category: 'AI Engineering',
     readTime: '7 min read',
     publishedDate: 'October 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'AI & Data Systems',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/solutions-ai.webp',
@@ -198,14 +198,14 @@ export const ARTICLES = [
     category: 'Software Engineering',
     readTime: '10 min read',
     publishedDate: 'September 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'Architecture & Cloud Engineering',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/solutions-architecture.webp',
     summary:
-      'Scaling isnâ€™t simply adding more servers. Explore the architectural decisions that help software evolve as users, traffic and data increase.',
+      'Scaling isn\'t simply adding more servers. Explore the architectural decisions that help software evolve as users, traffic and data increase.',
     detailedSummary:
-      'Scaling isnâ€™t simply adding more servers. Explore the architectural decisions that help software evolve as users, traffic and data increase.',
+      'Scaling isn\'t simply adding more servers. Explore the architectural decisions that help software evolve as users, traffic and data increase.',
     introQuote:
       'Most software does not fail under scale because the programming language is too slow. It fails because of unindexed database queries, synchronous locks on third-party APIs, and tightly coupled database transactions. Scaling is an architectural discipline.',
     sections: [
@@ -243,7 +243,7 @@ export const ARTICLES = [
     category: 'Automation',
     readTime: '6 min read',
     publishedDate: 'September 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'Automation & Operations',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/services-cloud.webp',
@@ -258,7 +258,7 @@ export const ARTICLES = [
         num: '01',
         title: 'The Automation ROI Equation',
         content:
-          'Calculate: (Hours spent per week Ã— Hourly loaded labor cost) versus (Development cost + Monthly API/infrastructure maintenance). If an automation does not break even within 6 months, manual execution or standard tooling is often superior.',
+          'Calculate: (Hours spent per week × Hourly loaded labor cost) versus (Development cost + Monthly API/infrastructure maintenance). If an automation does not break even within 6 months, manual execution or standard tooling is often superior.',
       },
       {
         num: '02',
@@ -288,7 +288,7 @@ export const ARTICLES = [
     category: 'Software Engineering',
     readTime: '9 min read',
     publishedDate: 'August 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'Systems Architecture',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/solutions-architecture.webp',
@@ -333,7 +333,7 @@ export const ARTICLES = [
     category: 'Software Engineering',
     readTime: '8 min read',
     publishedDate: 'August 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'Real-time & Distributed Systems',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/solutions-ai.webp',
@@ -378,14 +378,14 @@ export const ARTICLES = [
     category: 'AI',
     readTime: '6 min read',
     publishedDate: 'July 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'AI Strategy & Product',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/about-hero.webp',
     summary:
-      'AI adoption doesnâ€™t always require a complex AI platform. Explore practical ways businesses can introduce AI incrementally.',
+      'AI adoption doesn\'t always require a complex AI platform. Explore practical ways businesses can introduce AI incrementally.',
     detailedSummary:
-      'AI adoption doesnâ€™t always require a complex AI platform. Explore practical ways businesses can introduce AI incrementally.',
+      'AI adoption doesn\'t always require a complex AI platform. Explore practical ways businesses can introduce AI incrementally.',
     introQuote:
       'You do not need a custom multi-agent cluster running on dedicated GPU instances to extract structured customer intent from support emails. Start with a single structured API call and scale complexity only when required.',
     sections: [
@@ -417,7 +417,7 @@ export const ARTICLES = [
     category: 'Product',
     readTime: '12 min read',
     publishedDate: 'July 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'SaaS & Enterprise Engineering',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/enterprise-platform.webp',
@@ -462,7 +462,7 @@ export const ARTICLES = [
     category: 'AI',
     readTime: '10 min read',
     publishedDate: 'June 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'AI Infrastructure',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/insights-featured.webp',
@@ -507,7 +507,7 @@ export const ARTICLES = [
     category: 'Automation',
     readTime: '7 min read',
     publishedDate: 'June 2026',
-    author: 'Nexora Labs Engineering',
+    author: 'Imaginity Labs Engineering',
     authorRole: 'Automation & Systems',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
     image: '/img/services-product.webp',

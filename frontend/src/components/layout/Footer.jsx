@@ -6,7 +6,7 @@ import { TLink } from '../ui/TLink'
 import { Logo } from './Logo'
 import { scrollToTop } from '../../hooks/useScrollSmooth'
 
-const WORD = 'NEXORA LABS'
+const WORD = 'IMAGINITY LABS'
 
 /** Giant wordmark scaled to full width. Letters rise in, then fill with colour as you scroll. */
 function Wordmark() {
@@ -147,7 +147,7 @@ export function Footer() {
         </div>
 
         <div className="relative mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/55">
-          <span>© 2026 Nexora Labs · {SITE.city}</span>
+          <span>© 2026 Imaginity Labs · {SITE.city}</span>
           <a href={`mailto:${SITE.email}`} className="min-h-6 hover:text-white">{SITE.email}</a>
           <button type="button" onClick={() => scrollToTop(false)} className="inline-flex min-h-11 items-center gap-2 hover:text-white">
             Back to top <ArrowUp size={16} />
