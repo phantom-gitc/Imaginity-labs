@@ -72,7 +72,6 @@ export function applyTheme(name, immediate = false) {
 export function useSectionTheme(deps = []) {
   useEffect(() => {
     let triggers = []
-    let observer = null
     let rafId = null
 
     const setup = () => {
@@ -199,18 +198,8 @@ export function useSectionTheme(deps = []) {
 
     scheduleSetup()
 
-    // MutationObserver to detect lazy-loaded components entering #main
-    const main = document.getElementById('main')
-    if (main) {
-      observer = new MutationObserver(() => {
-        scheduleSetup()
-      })
-      observer.observe(main, { childList: true, subtree: true })
-    }
-
     return () => {
       cancelAnimationFrame(rafId)
-      if (observer) observer.disconnect()
       triggers.forEach((t) => t.kill())
       triggers = []
     }

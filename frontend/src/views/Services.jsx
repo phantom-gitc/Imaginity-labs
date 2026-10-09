@@ -1,9 +1,10 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { SERVICES } from '../data/services'
 import { PRICING, FAQ } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
+import { gsap } from '../lib/gsap'
 import { Eyebrow, H, It, Section, SectionHeader } from '../components/ui/Type'
 import { Frame } from '../components/ui/Img'
 import { Button } from '../components/ui/Button'
@@ -14,7 +15,47 @@ import { Check } from 'lucide-react'
 
 export default function Services() {
   const root = useRef(null)
+  const cardsRef = useRef([])
+  const stackRef = useRef(null)
   useReveal(root)
+
+  useEffect(() => {
+    const cards = cardsRef.current.filter(Boolean)
+    if (cards.length <= 1) return undefined
+
+    const mm = gsap.matchMedia()
+    const ROTATIONS = [-1.8, 1.5, -1.2, 1.8, -1.0, 0]
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const isMobile = window.innerWidth < 768
+      const rotMultiplier = isMobile ? 0.45 : 1
+
+      cards.forEach((card, idx) => {
+        if (idx === cards.length - 1) return
+
+        const nextCard = cards[idx + 1]
+        const targetRot = (ROTATIONS[idx] || 0) * rotMultiplier
+
+        gsap.to(card, {
+          scale: isMobile ? 0.96 : 0.94,
+          rotation: targetRot,
+          y: isMobile ? -6 : -10,
+          filter: 'brightness(0.96)',
+          transformOrigin: '50% 12%',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: nextCard,
+            start: isMobile ? 'top 90%' : 'top 82%',
+            end: isMobile ? 'top 22%' : 'top 18%',
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        })
+      })
+    })
+
+    return () => mm.revert()
+  }, [])
 
   return (
     <div ref={root} className="relative isolate w-full pt-28">
@@ -32,52 +73,57 @@ export default function Services() {
         </div>
       </Section>
 
-      {/* 2. Drop.Studio List Rows: title, 2-line desc, chips, image right */}
-      <Section bg="light" tight>
-        <div className="space-y-16">
+      {/* 2. Pinned Stacking & Rotating Cards Section */}
+      <Section bg="light" tight className="overflow-x-clip">
+        <div ref={stackRef} className="relative pb-16 md:pb-24">
           {SERVICES.map((s, idx) => (
             <div
               key={s.id}
-              data-reveal="up"
-              className="border-t border-line pt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              ref={(el) => (cardsRef.current[idx] = el)}
+              className="sticky top-24 md:top-28 rounded-[28px] md:rounded-[36px] bg-white border border-line/90 p-6 sm:p-8 lg:p-10 shadow-[0_18px_45px_-15px_rgba(15,15,40,0.08)] mb-8 md:mb-12 will-change-transform transition-shadow duration-500 hover:shadow-[0_24px_55px_-15px_rgba(15,15,40,0.12)]"
+              style={{
+                zIndex: idx + 1,
+              }}
             >
-              <div className="lg:col-span-1 mono text-ink/30 text-sm">
-                0{idx + 1}
-              </div>
-
-              <div className="lg:col-span-6 flex flex-col justify-between">
-                <div>
-                  <h2 className="display text-3xl md:text-4xl text-ink font-semibold mb-3">
-                    {s.t}
-                  </h2>
-                  <p className="text-base text-ink/70 max-w-[42ch] leading-relaxed mb-6">
-                    {s.desc}
-                  </p>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-1 mono text-ink/30 text-sm">
+                  0{idx + 1}
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {s.chips.map((chip) => (
-                    <span key={chip} className="chip">
-                      {chip}
-                    </span>
-                  ))}
+                <div className="lg:col-span-6 flex flex-col justify-between">
+                  <div>
+                    <h2 className="display text-3xl md:text-4xl text-ink font-semibold mb-3">
+                      {s.t}
+                    </h2>
+                    <p className="text-base text-ink/70 max-w-[42ch] leading-relaxed mb-6">
+                      {s.desc}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {s.chips.map((chip) => (
+                      <span key={chip} className="chip">
+                        {chip}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div>
+                    <Button to="/contact" size="sm" variant="outline">
+                      Inquire for {s.t}
+                    </Button>
+                  </div>
                 </div>
 
-                <div>
-                  <Button to="/contact" size="sm" variant="outline">
-                    Inquire for {s.t}
-                  </Button>
+                <div className="lg:col-span-5">
+                  <Frame
+                    img={s.preview}
+                    ratio="16/10"
+                    alt={s.t}
+                    radius={24}
+                    className="shadow-sm"
+                  />
                 </div>
-              </div>
-
-              <div className="lg:col-span-5">
-                <Frame
-                  img={s.preview}
-                  ratio="16/10"
-                  alt={s.t}
-                  radius={24}
-                  className="shadow-sm"
-                />
               </div>
             </div>
           ))}

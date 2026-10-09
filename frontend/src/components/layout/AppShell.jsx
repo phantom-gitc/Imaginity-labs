@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
@@ -8,7 +9,7 @@ import { Preloader } from './Preloader'
 import { FloatingCTA } from './FloatingCTA'
 import { ScrollProgress } from './ScrollProgress'
 import { PageTransition } from './PageTransition'
-import { ScrollProvider } from '../../hooks/useScrollSmooth'
+import { ScrollProvider, syncScrollEngine } from '../../hooks/useScrollSmooth'
 import { useSectionTheme } from '../../hooks/useSectionTheme'
 
 /**
@@ -18,6 +19,13 @@ import { useSectionTheme } from '../../hooks/useSectionTheme'
 export function AppShell({ children }) {
   const pathname = usePathname()
   useSectionTheme([pathname])
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      syncScrollEngine()
+    }, 120)
+    return () => clearTimeout(t)
+  }, [pathname])
 
   return (
     <ScrollProvider>

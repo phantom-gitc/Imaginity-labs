@@ -5,4 +5,5 @@ export {
   scrollToTarget,
   scrollToTop,
   stopScroll,
+  syncScrollEngine,
 } from '../motion/useSmoothScroll'

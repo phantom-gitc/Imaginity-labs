@@ -19,15 +19,17 @@ export function SmoothScrollProvider({ children }) {
     if (typeof window === 'undefined') return undefined
     if (prefersReducedMotion()) return undefined
 
-    // 1. Initialize Lenis instance with ultra-smooth cinematic duration-based easing
+    // 1. Initialize Lenis instance with responsive, buttery-smooth cinematic duration
     const lenis = new Lenis({
-      duration: 2.2,
+      duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.05,
-      touchMultiplier: 2.0,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.0,
+      syncTouch: false,
+      autoResize: true,
       infinite: false,
     })
 
@@ -37,12 +39,12 @@ export function SmoothScrollProvider({ children }) {
     // 2. Synchronize with ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update)
 
-    // 3. Drive Lenis through GSAP ticker for 120fps sync
+    // 3. Drive Lenis through GSAP ticker for 120fps sync with zero lagSmoothing skips
     const tickerUpdate = (time) => {
       lenis.raf(time * 1000)
     }
     gsap.ticker.add(tickerUpdate)
-    gsap.ticker.lagSmoothing(500, 33)
+    gsap.ticker.lagSmoothing(0)
 
     ScrollTrigger.refresh()
 
@@ -108,4 +110,12 @@ export function stopScroll(stop = true) {
   } else {
     document.documentElement.style.overflow = stop ? 'hidden' : ''
   }
+}
+
+/** Recalculate dimensions across route changes and layout shifts */
+export function syncScrollEngine() {
+  if (scrollState.lenis) {
+    scrollState.lenis.resize()
+  }
+  ScrollTrigger.refresh()
 }
