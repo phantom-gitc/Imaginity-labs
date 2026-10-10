@@ -1,21 +1,21 @@
 /** Image registry – every asset with intrinsic size so we never cause layout shift. */
-const a = (name, w, h) => ({ src: `/img/${name}.webp`, w, h })
+const a = (name, w, h, ext = 'jpg') => ({ src: `/img/${name}.${ext}`, w, h })
 export const A = {
-  hero: a('hero', 1024, 1024),
-  team: a('team', 1376, 768),
-  about: a('about-hero', 1376, 768),
-  svcHero: a('services-hero', 1376, 768),
-  cloud: a('services-cloud', 1376, 768),
-  ai: a('ai-intelligence', 1376, 768),
-  enterprise: a('enterprise-platform', 1376, 768),
-  arch: a('system-architecture', 1376, 768),
-  insights: a('insights-featured', 1376, 768),
-  avenya: a('work-avenya', 1200, 896),
-  imaginity: a('work-imaginity', 1200, 896),
-  lake: a('work-enterprise', 1200, 896),
-  obj: [1, 2, 3, 4, 5, 6].map((n) => a(`obj-${n}`, 413, 416)),
-  portrait: [1, 2, 3, 4].map((n) => a(`team-${n}`, 512, 640)),
-  case: [1, 2, 3, 4].map((n) => a(`case-${n}`, 688, 384)),
+  hero: a('hero', 1024, 1024, 'webp'),
+  team: a('team', 1920, 1080, 'jpg'),
+  about: a('about-hero', 1920, 1080, 'jpg'),
+  svcHero: a('services-hero', 1920, 1080, 'jpg'),
+  cloud: a('services-cloud', 1920, 1080, 'jpg'),
+  ai: a('ai-intelligence', 1920, 1080, 'jpg'),
+  enterprise: a('enterprise-platform', 1920, 1080, 'jpg'),
+  arch: a('system-architecture', 1920, 1080, 'jpg'),
+  insights: a('insights-featured', 1920, 1080, 'jpg'),
+  avenya: a('work-avenya', 1600, 1200, 'jpg'),
+  imaginity: a('work-imaginity', 1600, 1200, 'jpg'),
+  lake: a('work-imaginity', 1600, 1200, 'jpg'),
+  obj: [1, 2, 3, 4, 5, 6].map((n) => a(`obj-${n}`, 413, 416, 'webp')),
+  portrait: [1, 2, 3, 4].map((n) => a(`team-${n}`, 512, 640, 'webp')),
+  case: [1, 2, 3, 4].map((n) => a(`case-${n}`, 1920, 1080, 'jpg')),
 }
 
 export const NAV = [

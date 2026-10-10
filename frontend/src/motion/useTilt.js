@@ -51,7 +51,7 @@ export function useTilt(ref, { maxAngle = 6, glare = true } = {}) {
       return () => {
         el.removeEventListener('pointermove', handlePointerMove)
         el.removeEventListener('pointerleave', handlePointerLeave)
-        gsap.set(el, { clearProps: 'rotationX,rotationY,transformPerspective' })
+        gsap.set(el, { rotationX: 0, rotationY: 0 })
       }
     })
 

@@ -38,7 +38,6 @@ export default function About() {
             ratio="21/9"
             alt="The Imaginity studio team"
             eager={true}
-            grade
             radius={28}
             className="shadow-md"
           />

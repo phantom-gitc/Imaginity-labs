@@ -108,7 +108,6 @@ export default function Solutions() {
                     ratio="16/10"
                     alt={s.t}
                     eager={idx === 0}
-                    grade
                     radius={28}
                     className="shadow-md"
                   />

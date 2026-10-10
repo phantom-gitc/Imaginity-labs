@@ -8,7 +8,8 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
-    formats: ['image/avif', 'image/webp'],
+    unoptimized: true,
+    qualities: [75, 95],
   },
   turbopack: {
     root: __dirname,

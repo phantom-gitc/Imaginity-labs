@@ -45,8 +45,9 @@ export function Testimonials() {
                     <Image
                       src={A.portrait[current.p].src}
                       alt={current.name}
-                      width={56}
-                      height={56}
+                      width={112}
+                      height={112}
+                      unoptimized
                       className="size-full object-cover"
                     />
                   </div>

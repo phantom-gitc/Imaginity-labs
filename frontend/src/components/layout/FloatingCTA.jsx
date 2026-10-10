@@ -52,7 +52,7 @@ export function FloatingCTA() {
           <div className="nav-pill !p-1.5 !pl-2.5 shadow-[0_10px_30px_-12px_rgba(20,20,60,.25)]">
             <div className="hidden -space-x-2 sm:flex" aria-hidden="true">
               {A.portrait.slice(0, 3).map((p, i) => (
-                <Image key={i} src={p.src} width={32} height={32} alt="" className="size-8 rounded-full border-2 border-white object-cover" />
+                <Image key={i} src={p.src} width={64} height={64} unoptimized alt="" className="size-8 rounded-full border-2 border-white object-cover" />
               ))}
             </div>
             <span className="px-3 text-sm font-medium">Have a project in mind?</span>

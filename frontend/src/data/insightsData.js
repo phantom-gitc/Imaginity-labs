@@ -1,4 +1,4 @@
-﻿export const INSIGHTS_CATEGORIES = [
+export const INSIGHTS_CATEGORIES = [
   'All',
   'AI',
   'Software Engineering',
@@ -66,7 +66,7 @@ export const ARTICLES = [
     author: 'Imaginity Labs Engineering',
     authorRole: 'Software · AI · Product Engineering',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
-    image: '/img/insights-featured.webp',
+    image: '/img/insights-featured.jpg',
     isFeatured: true,
     summary:
       'AI agents are moving beyond simple chat interfaces. Explore how businesses can use agents to automate workflows, connect systems and solve meaningful operational problems.',
@@ -246,7 +246,7 @@ export const ARTICLES = [
     author: 'Imaginity Labs Engineering',
     authorRole: 'Automation & Operations',
     authorBio: 'We build software, AI systems and digital products for businesses solving meaningful problems.',
-    image: '/img/services-cloud.webp',
+    image: '/img/services-cloud.jpg',
     summary:
       'Not every process needs automation. Learn how to identify repetitive workflows where automation can create meaningful business value.',
     detailedSummary:

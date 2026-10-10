@@ -41,9 +41,8 @@ export function WorkCard({ c, ratio = '4/3', index, className = '', flip = false
           <Frame
             img={c.img}
             ratio={ratio}
-            grade
             eager={eager}
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 100vw, 100vw"
             bg={`var(--c-${c.tint}, #E9E4FF)`}
             alt={`${c.title} — ${c.line}`}
           >
@@ -83,7 +82,8 @@ export function BlogCard({ a, className = '', ratio = '4/5', eager = false }) {
           height={a.cover.h}
           alt={`${a.title} cover`}
           priority={eager}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          unoptimized
+          sizes="(max-width: 768px) 100vw, 100vw"
           className="size-full object-cover"
         />
       </div>

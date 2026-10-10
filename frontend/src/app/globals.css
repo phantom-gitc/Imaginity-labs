@@ -65,6 +65,8 @@ html.nx-pre .nx-preloader {
 
 html {
   -webkit-text-size-adjust: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 html.lenis,
 html.lenis body {
@@ -83,6 +85,21 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge, Opera, and all modern browsers */
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+*::-webkit-scrollbar,
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
 }
 img,
 svg,
@@ -572,22 +589,9 @@ button.chip:hover {
 .mult {
   mix-blend-mode: multiply;
 }
-.grade::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(160deg, rgb(59 91 255 / 0.28), rgb(123 97 255 / 0.22) 55%, rgb(196 92 176 / 0.18));
-  mix-blend-mode: soft-light;
-}
+.grade::after,
 .grade::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(160deg, rgb(59 91 255 / 0.22), rgb(123 97 255 / 0.18));
-  mix-blend-mode: color;
+  display: none !important;
 }
 
 /* ---------- reveal initial states (only when motion allowed) ---------- */

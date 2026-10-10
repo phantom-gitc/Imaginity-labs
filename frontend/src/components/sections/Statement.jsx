@@ -49,6 +49,7 @@ function InteractiveImagePill({ img }) {
         width={img.w}
         height={img.h}
         alt=""
+        unoptimized
         className="size-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
       />
     </span>

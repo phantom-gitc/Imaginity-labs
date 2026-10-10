@@ -68,7 +68,6 @@ export default function Careers() {
               ratio="16/9"
               alt="Imaginity team workshop"
               eager={true}
-              grade
               radius={28}
             />
           </div>

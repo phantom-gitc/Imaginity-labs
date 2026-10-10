@@ -191,7 +191,7 @@ export function Hero() {
             <div data-reveal="up" data-intro data-delay="0.55" className="mt-2 flex items-center gap-4">
               <div className="flex -space-x-3">
                 {A.portrait.map((p, i) => (
-                  <Image key={i} src={p.src} width={44} height={44} alt="" className="size-11 rounded-full border-2 border-bg object-cover" style={{ background: ['#E9E4FF', '#FFE1EA', '#DCEBFF', '#DDF5E6'][i] }} />
+                  <Image key={i} src={p.src} width={88} height={88} unoptimized alt="" className="size-11 rounded-full border-2 border-bg object-cover" style={{ background: ['#E9E4FF', '#FFE1EA', '#DCEBFF', '#DDF5E6'][i] }} />
                 ))}
               </div>
               <div>
@@ -253,6 +253,7 @@ export function Hero() {
                       height={A.hero.h}
                       alt="Glossy 3D iridescent orb and planetary ring"
                       priority
+                      unoptimized
                       draggable="false"
                       className="pointer-events-none size-full select-none object-contain drop-shadow-[0_20px_35px_rgba(50,30,120,0.22)]"
                     />
