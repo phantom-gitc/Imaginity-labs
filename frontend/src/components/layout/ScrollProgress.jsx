@@ -71,6 +71,7 @@ export function ScrollProgress() {
         <button
           ref={buttonRef}
           type="button"
+          suppressHydrationWarning
           onClick={() => scrollToTop(false)}
           aria-label="Scroll back to top"
           className="group relative flex size-12 items-center justify-center rounded-full bg-white/90 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-md border border-line text-ink hover:text-blue hover:shadow-lg transition-colors cursor-pointer"

@@ -52,7 +52,7 @@ export function TickerBand({ dark = true }) {
         {TICKER.map((t, i) => (
           <span key={t} className="flex items-center gap-[clamp(40px,6vw,88px)] whitespace-nowrap">
             <span className={`display text-[clamp(32px,5vw,64px)] ${i % 2 ? 'italic text-yellow' : ''}`}>{t}</span>
-            <span className="text-yellow">✦</span>
+            <span className="size-2 rounded-full bg-yellow inline-block" />
           </span>
         ))}
       </Marquee>

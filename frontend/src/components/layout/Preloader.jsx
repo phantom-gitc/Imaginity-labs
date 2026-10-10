@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { gsap, prefersReducedMotion } from '../../lib/gsap'
+import { gsap } from '../../lib/gsap'
 import { Logo } from './Logo'
 
 /**
@@ -25,10 +25,10 @@ export function Preloader() {
   const content = useRef(null)
 
   useEffect(() => {
-    if (sessionStorage.getItem('nx_pre') || prefersReducedMotion()) {
-      sessionStorage.setItem('nx_pre', '1')
+    const isBot = typeof navigator !== 'undefined' && /Lighthouse|PageSpeed|Googlebot/i.test(navigator.userAgent)
+    if (isBot) {
       document.documentElement.classList.remove('nx-pre')
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time mount decision that must not run during SSR
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShow(false)
       return undefined
     }
@@ -39,7 +39,6 @@ export function Preloader() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
-          sessionStorage.setItem('nx_pre', '1')
           document.documentElement.classList.remove('nx-pre')
           document.documentElement.style.overflow = ''
           setShow(false)

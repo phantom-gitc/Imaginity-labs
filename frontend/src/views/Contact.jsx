@@ -1,13 +1,13 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { A } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
 import { Eyebrow, H, It, Section } from '../components/ui/Type'
 import { Obj } from '../components/ui/Img'
 import { Button } from '../components/ui/Button'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
-import { Check, Mail, MapPin } from 'lucide-react'
+import { Check, Mail, MapPin, Users } from 'lucide-react'
 
 import { fireConfetti } from '../lib/confetti'
 
@@ -18,11 +18,26 @@ export default function Contact() {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
-    service: 'Product Engineering',
-    budget: '$25k - $50k',
+    service: '',
+    scope: '',
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    const roleParam = params.get('role')
+    if (roleParam) {
+      queueMicrotask(() => {
+        setFormState((prev) => ({
+          ...prev,
+          service: `Job Application: ${roleParam}`,
+          message: `Hi Imaginity team,\n\nI would like to apply for the ${roleParam} position. Here is a brief note about my background and my resume/portfolio: `,
+        }))
+      })
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -37,8 +52,8 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Form */}
           <div className="lg:col-span-7">
-            <Eyebrow dot="#FFD93D">Start a conversation</Eyebrow>
-            <H as="h1" size="xl" className="mt-4 mb-4">
+            <Eyebrow intro dot="#FFD93D">Start a conversation</Eyebrow>
+            <H as="h1" intro size="xl" className="mt-4 mb-4">
               Let&apos;s build something <It>enduring.</It>
             </H>
             <p className="lede text-lg mb-10">
@@ -56,9 +71,10 @@ export default function Contact() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form suppressHydrationWarning onSubmit={handleSubmit} className="space-y-6">
                 <div className="field">
                   <input
+                    suppressHydrationWarning
                     type="text"
                     required
                     id="name"
@@ -71,6 +87,7 @@ export default function Contact() {
 
                 <div className="field">
                   <input
+                    suppressHydrationWarning
                     type="email"
                     required
                     id="email"
@@ -81,39 +98,35 @@ export default function Contact() {
                   <label htmlFor="email">Work Email Address</label>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-                  <div>
-                    <label className="mono text-xs text-ink/50 uppercase block mb-2">Primary Interest</label>
-                    <select
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="field">
+                    <input
+                      suppressHydrationWarning
+                      type="text"
+                      id="service"
+                      placeholder=" "
                       value={formState.service}
                       onChange={(e) => setFormState({ ...formState, service: e.target.value })}
-                      className="w-full bg-transparent border-b-2 border-line py-2 text-ink text-sm outline-none focus:border-[#3B5BFF]"
-                    >
-                      <option>Product Engineering</option>
-                      <option>AI &amp; Agents</option>
-                      <option>Automation Workflows</option>
-                      <option>Cloud Architecture</option>
-                      <option>Design Systems</option>
-                    </select>
+                    />
+                    <label htmlFor="service">Primary Interest</label>
                   </div>
 
-                  <div>
-                    <label className="mono text-xs text-ink/50 uppercase block mb-2">Estimated Budget</label>
-                    <select
-                      value={formState.budget}
-                      onChange={(e) => setFormState({ ...formState, budget: e.target.value })}
-                      className="w-full bg-transparent border-b-2 border-line py-2 text-ink text-sm outline-none focus:border-[#3B5BFF]"
-                    >
-                      <option>$12k - $25k (Sprint)</option>
-                      <option>$25k - $50k (Squad)</option>
-                      <option>$50k+ (Enterprise Partner)</option>
-                      <option>Exploring / Undetermined</option>
-                    </select>
+                  <div className="field">
+                    <input
+                      suppressHydrationWarning
+                      type="text"
+                      id="scope"
+                      placeholder=" "
+                      value={formState.scope}
+                      onChange={(e) => setFormState({ ...formState, scope: e.target.value })}
+                    />
+                    <label htmlFor="scope">Target Scope / Timeline</label>
                   </div>
                 </div>
 
                 <div className="field pt-4">
                   <textarea
+                    suppressHydrationWarning
                     rows={4}
                     required
                     id="message"
@@ -134,11 +147,6 @@ export default function Contact() {
           {/* Right Visual & Live Status Card */}
           <div className="lg:col-span-5 space-y-6">
             <div className="p-8 rounded-[28px] bg-[#E9E4FF]/60 border border-line relative overflow-hidden">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="live-dot" />
-                <span className="mono text-xs font-semibold text-ink">LIVE STUDIO STATUS: ACCEPTING Q4 BRIEFS</span>
-              </div>
-
               <div className="flex justify-center my-6">
                 <div className="size-48 relative">
                   <Obj img={A.obj[0]} className="w-full h-full object-contain" />
@@ -148,7 +156,9 @@ export default function Contact() {
               <div className="space-y-4 pt-6 border-t border-black/10">
                 <div className="flex items-center gap-3 text-sm text-ink/80">
                   <Mail size={16} className="text-[#3B5BFF]" />
-                  <span>hello@imaginitylabs.io</span>
+                  <a href="mailto:hello@imaginitylabs.io" className="hover:text-[#3B5BFF] transition-colors focus-visible:underline">
+                    hello@imaginitylabs.io
+                  </a>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-ink/80">
                   <MapPin size={16} className="text-[#3B5BFF]" />
@@ -158,8 +168,8 @@ export default function Contact() {
             </div>
 
             <div className="p-6 rounded-[24px] bg-[#FFF3B0]/60 border border-line flex items-center gap-4">
-              <div className="size-10 rounded-full bg-yellow flex items-center justify-center font-bold text-ink">
-                ✦
+              <div className="size-10 rounded-full bg-yellow flex items-center justify-center text-ink">
+                <Users size={18} strokeWidth={2.2} />
               </div>
               <div>
                 <h4 className="font-semibold text-sm text-ink">Direct Partner Access</h4>

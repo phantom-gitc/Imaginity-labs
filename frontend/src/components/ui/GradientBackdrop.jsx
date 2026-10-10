@@ -101,9 +101,17 @@ export function GradientBackdrop({
         const setWarmX = gsap.quickTo(warmMouseRef.current, 'x', { duration: 1.4, ease: 'power2.out' })
         const setWarmY = gsap.quickTo(warmMouseRef.current, 'y', { duration: 1.4, ease: 'power2.out' })
 
+        let winW = window.innerWidth
+        let winH = window.innerHeight
+        const onResize = () => {
+          winW = window.innerWidth
+          winH = window.innerHeight
+        }
+        window.addEventListener('resize', onResize, { passive: true })
+
         const handlePointerMove = (e) => {
-          const nx = (e.clientX / window.innerWidth - 0.5) * 36
-          const ny = (e.clientY / window.innerHeight - 0.5) * 36
+          const nx = (e.clientX / (winW || 1) - 0.5) * 36
+          const ny = (e.clientY / (winH || 1) - 0.5) * 36
           setCoolX(nx)
           setCoolY(ny)
           setWarmX(-nx * 0.8)
@@ -111,7 +119,10 @@ export function GradientBackdrop({
         }
 
         window.addEventListener('pointermove', handlePointerMove, { passive: true })
-        return () => window.removeEventListener('pointermove', handlePointerMove)
+        return () => {
+          window.removeEventListener('resize', onResize)
+          window.removeEventListener('pointermove', handlePointerMove)
+        }
       })
 
       // 3. ScrollTrigger: parallax translate up at 0.3x speed & fade out

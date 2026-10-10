@@ -13,15 +13,17 @@ export function useMagnetic(ref, max = 12) {
 
     const mm = gsap.matchMedia()
     mm.add({ ok: `${MQ.fine} and ${MQ.motion}` }, () => {
-      const xTo = gsap.quickTo(el, 'x', { duration: 0.8, ease: 'power2.out' })
-      const yTo = gsap.quickTo(el, 'y', { duration: 0.8, ease: 'power2.out' })
-
       const move = (e) => {
         const r = el.getBoundingClientRect()
         const dx = e.clientX - (r.left + r.width / 2)
         const dy = e.clientY - (r.top + r.height / 2)
-        xTo(gsap.utils.clamp(-max, max, dx * 0.35))
-        yTo(gsap.utils.clamp(-max, max, dy * 0.35))
+        gsap.to(el, {
+          x: gsap.utils.clamp(-max, max, dx * 0.35),
+          y: gsap.utils.clamp(-max, max, dy * 0.35),
+          duration: 0.45,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        })
       }
 
       const leave = () => {

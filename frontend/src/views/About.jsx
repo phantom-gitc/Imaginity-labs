@@ -20,12 +20,12 @@ export default function About() {
       {/* 1. Big Editorial Statement */}
       <Section bg="light" className="pt-8 pb-16">
         <div className="max-w-4xl">
-          <Eyebrow dot="#C45CB0">About Imaginity Labs</Eyebrow>
-          <H as="h1" size="xl" className="mt-6 leading-[1.05]">
+          <Eyebrow intro dot="#C45CB0">About Imaginity Labs</Eyebrow>
+          <H as="h1" intro size="xl" className="mt-6 leading-[1.05]">
             A senior studio creating software that people <It>actually enjoy using.</It>
           </H>
           <p className="lede mt-8 text-xl leading-relaxed max-w-[48ch]">
-            We operate without middlemen, inflated decks, or corporate theater. Just direct collaboration between visionary leaders and senior technologists who take pride in craftsmanship.
+            Imaginity Labs (also known as Imaginity) is a senior product and AI technology studio. We operate without middlemen, inflated decks, or corporate theater—just direct collaboration between visionary leaders and senior technologists who take pride in craftsmanship.
           </p>
         </div>
       </Section>
@@ -37,6 +37,7 @@ export default function About() {
             img={A.team}
             ratio="21/9"
             alt="The Imaginity studio team"
+            eager={true}
             grade
             radius={28}
             className="shadow-md"
@@ -116,8 +117,8 @@ export default function About() {
         <div className="border-y border-line py-10 flex flex-wrap items-center justify-between gap-6">
           <span className="mono text-xs text-ink/40">INDUSTRY HONORS</span>
           {AWARDS.map((aw) => (
-            <span key={aw} className="display text-lg text-ink/80 flex items-center gap-3">
-              <span className="text-yellow text-sm">âœ¦</span> {aw}
+            <span key={aw} className="display text-lg text-ink/80">
+              {aw}
             </span>
           ))}
         </div>

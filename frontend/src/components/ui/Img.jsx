@@ -5,9 +5,18 @@ import Image from 'next/image'
 import { refreshScroll } from '../../lib/gsap'
 
 /** Lazy image with fade-in (blur-up feel via tinted frame), explicit width/height, ScrollTrigger refresh on load. */
-export function Img({ src, w, h, alt = '', className = '', eager = false, style }) {
+export function Img({
+  src,
+  w,
+  h,
+  alt = '',
+  className = '',
+  eager = false,
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+  style,
+}) {
   const ref = useRef(null)
-  const [ok, setOk] = useState(false)
+  const [ok, setOk] = useState(eager)
 
   useEffect(() => {
     if (ref.current?.complete && ref.current.naturalWidth) setOk(true)
@@ -21,19 +30,34 @@ export function Img({ src, w, h, alt = '', className = '', eager = false, style 
       height={h}
       alt={alt}
       priority={eager}
+      sizes={sizes}
       data-inner=""
       onLoad={() => {
         setOk(true)
         refreshScroll(250)
       }}
-      className={`transition-opacity duration-700 ${ok ? 'opacity-100' : 'opacity-0'} ${className}`}
+      className={`${eager ? 'opacity-100' : `transition-opacity duration-500 ${ok ? 'opacity-100' : 'opacity-0'}`} ${className}`}
       style={style}
     />
   )
 }
 
 /** Framed image: rounded, masked reveal, optional parallax, blue/violet grade, overlay children. */
-export function Frame({ img, alt = '', ratio = '4/3', className = '', reveal = true, parallax = 0, grade = false, eager = false, bg = '#E9E4FF', radius = 24, children, pos = 'center' }) {
+export function Frame({
+  img,
+  alt = '',
+  ratio = '4/3',
+  className = '',
+  reveal = true,
+  parallax = 0,
+  grade = false,
+  eager = false,
+  sizes,
+  bg = '#E9E4FF',
+  radius = 24,
+  children,
+  pos = 'center',
+}) {
   return (
     <div
       data-reveal={reveal ? 'mask' : undefined}
@@ -42,10 +66,10 @@ export function Frame({ img, alt = '', ratio = '4/3', className = '', reveal = t
     >
       {parallax ? (
         <div data-parallax={parallax} className="absolute inset-x-0" style={{ top: '-10%', bottom: '-10%' }}>
-          <Img {...img} alt={alt} eager={eager} className="absolute inset-0 size-full object-cover" style={{ objectPosition: pos }} />
+          <Img {...img} alt={alt} eager={eager} sizes={sizes} className="absolute inset-0 size-full object-cover" style={{ objectPosition: pos }} />
         </div>
       ) : (
-        <Img {...img} alt={alt} eager={eager} className="absolute inset-0 size-full object-cover" style={{ objectPosition: pos }} />
+        <Img {...img} alt={alt} eager={eager} sizes={sizes} className="absolute inset-0 size-full object-cover" style={{ objectPosition: pos }} />
       )}
       {children}
     </div>
@@ -68,7 +92,7 @@ export function Obj({ img, className = '', alt = '', mult = false, style }) {
 }
 
 /** Portrait on a solid pastel background, arch crop. */
-export function Portrait({ img, tint = '#E9E4FF', className = '', alt = '', arch = true, ratio = '4/5', pos = '50% 20%' }) {
+export function Portrait({ img, tint = '#E9E4FF', className = '', alt = '', arch = true, ratio = '4/5', pos = 'center', mult = false }) {
   return (
     <div
       className={`relative overflow-hidden ${className}`}
@@ -79,7 +103,7 @@ export function Portrait({ img, tint = '#E9E4FF', className = '', alt = '', arch
         width={img.w}
         height={img.h}
         alt={alt}
-        className="absolute inset-0 size-full object-cover scale-[1.12] mult"
+        className={`absolute inset-0 size-full object-cover scale-[1.02] ${mult ? 'mult' : ''}`}
         style={{ objectPosition: pos }}
       />
     </div>

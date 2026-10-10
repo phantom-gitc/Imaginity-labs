@@ -118,6 +118,7 @@ export function Navbar() {
             {/* Morphing Hamburger / Close Icon */}
             <button
               type="button"
+              suppressHydrationWarning
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="mobile-menu"

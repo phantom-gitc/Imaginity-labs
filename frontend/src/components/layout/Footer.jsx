@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowUp, Check } from 'lucide-react'
 import { gsap, MQ } from '../../lib/gsap'
@@ -8,11 +10,21 @@ import { scrollToTop } from '../../hooks/useScrollSmooth'
 
 const WORD = 'IMAGINITY LABS'
 
-/** Giant wordmark scaled to full width. Letters rise in, then fill with colour as you scroll. */
+/** Giant wordmark scaled to full width. Transparent outline by default; circular glowing spotlight illuminates vibrant colors on hover. */
 function Wordmark() {
   const box = useRef(null)
   const probe = useRef(null)
+  const glowRef = useRef(null)
+  const fillRef = useRef(null)
   const [fs, setFs] = useState(160)
+  const [isHovered, setIsHovered] = useState(false)
+
+  // Smooth lerp tracking for 120fps buttery performance
+  const targetX = useRef(0)
+  const targetY = useRef(0)
+  const currentX = useRef(0)
+  const currentY = useRef(0)
+  const rafId = useRef(null)
 
   useLayoutEffect(() => {
     const fit = () => {
@@ -27,59 +39,167 @@ function Wordmark() {
     return () => ro.disconnect()
   }, [])
 
+  // Smooth spring / lerp animation loop for the circular spotlight
   useEffect(() => {
-    const mm = gsap.matchMedia()
-    const ctx = gsap.context(() => {
-      mm.add({ ok: MQ.motion, reduce: MQ.reduce }, (c) => {
-        const fills = box.current.querySelectorAll('.ch-f')
-        const outs = box.current.querySelectorAll('.ch-o')
-        if (c.conditions.reduce) {
-          gsap.set(fills, { clipPath: 'inset(0 0% 0 0)' })
-          return
-        }
-        gsap.set(fills, { clipPath: 'inset(0 100% 0 0)' })
-        gsap.from([...outs, ...fills], {
-          yPercent: 105,
-          duration: 1.3,
-          ease: 'expo.out',
-          stagger: 0.045,
-          scrollTrigger: { trigger: box.current, start: 'top 98%', once: true },
-        })
-        gsap.to(fills, {
-          clipPath: 'inset(0 0% 0 0)',
-          ease: 'none',
-          stagger: 0.12,
-          scrollTrigger: { trigger: box.current, start: 'top 92%', end: 'bottom 55%', scrub: 0.6 },
-        })
-      })
-    }, box)
+    const loop = () => {
+      currentX.current += (targetX.current - currentX.current) * 0.16
+      currentY.current += (targetY.current - currentY.current) * 0.16
+
+      const x = Math.round(currentX.current)
+      const y = Math.round(currentY.current)
+
+      if (fillRef.current) {
+        const mask = `radial-gradient(circle 280px at ${x}px ${y}px, black 30%, rgba(0,0,0,0.4) 65%, transparent 100%)`
+        fillRef.current.style.maskImage = mask
+        fillRef.current.style.webkitMaskImage = mask
+      }
+
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
+      }
+
+      rafId.current = requestAnimationFrame(loop)
+    }
+
+    rafId.current = requestAnimationFrame(loop)
     return () => {
-      mm.revert()
-      ctx.revert()
+      if (rafId.current) cancelAnimationFrame(rafId.current)
     }
   }, [])
+
+  // Entrance animation: Ensure letters are always visible by default (never trapped at yPercent 105)
+  useEffect(() => {
+    if (!box.current) return
+    const letters = box.current.querySelectorAll('.mask > span')
+    gsap.set(letters, { yPercent: 0, opacity: 1 })
+
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            gsap.fromTo(
+              letters,
+              { yPercent: 40, opacity: 0 },
+              { yPercent: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.02, overwrite: 'auto' }
+            )
+            obs.disconnect()
+          }
+        },
+        { threshold: 0.05 }
+      )
+      obs.observe(box.current)
+      return () => obs.disconnect()
+    }
+  }, [])
+
+  const handleMouseEnter = (e) => {
+    if (!box.current) return
+    const rect = box.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    targetX.current = x
+    targetY.current = y
+    currentX.current = x
+    currentY.current = y
+    setIsHovered(true)
+  }
+
+  const handleMouseMove = (e) => {
+    if (!box.current) return
+    const rect = box.current.getBoundingClientRect()
+    targetX.current = e.clientX - rect.left
+    targetY.current = e.clientY - rect.top
+    if (!isHovered) setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+  }
+
+  const handleTouchMove = (e) => {
+    if (!box.current || !e.touches[0]) return
+    const rect = box.current.getBoundingClientRect()
+    targetX.current = e.touches[0].clientX - rect.left
+    targetY.current = e.touches[0].clientY - rect.top
+    setIsHovered(true)
+  }
+
+  const handleTouchEnd = () => {
+    setIsHovered(false)
+  }
 
   const chars = WORD.split('')
   const color = (i) => gsap.utils.interpolate(['#3B5BFF', '#7B61FF', '#C45CB0', '#FFD93D'], i / (chars.length - 1))
   const row = (kind) =>
     chars.map((ch, i) => (
       <span key={i} className="mask">
-        <span className={kind === 'f' ? 'ch-f inline-block' : 'ch-o outline'} style={kind === 'f' ? { color: color(i) } : undefined}>
+        <span
+          className={
+            kind === 'f'
+              ? 'ch-f inline-block transition-transform duration-300 hover:scale-105'
+              : 'ch-o outline inline-block transition-opacity duration-300'
+          }
+          style={
+            kind === 'f'
+              ? {
+                  color: color(i),
+                  textShadow: `0 0 24px ${color(i)}80, 0 0 48px ${color(i)}40`,
+                }
+              : undefined
+          }
+        >
           {ch === ' ' ? '\u00A0' : ch}
         </span>
       </span>
     ))
 
   return (
-    <div ref={box} className="relative w-full select-none overflow-hidden" aria-hidden="true">
+    <div
+      ref={box}
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleMouseEnter}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      className="relative w-full select-none overflow-hidden cursor-default group py-2"
+      aria-hidden="true"
+    >
+      {/* 1. Interactive Circular Glowing Spotlight (Background Light) */}
+      <div
+        ref={glowRef}
+        className={`pointer-events-none absolute size-[420px] rounded-full blur-[80px] transition-opacity duration-500 will-change-transform z-0 ${
+          isHovered ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{
+          background:
+            'radial-gradient(circle, rgba(123, 97, 255, 0.75) 0%, rgba(59, 91, 255, 0.5) 35%, rgba(255, 101, 132, 0.35) 65%, rgba(255, 217, 61, 0.25) 85%, transparent 95%)',
+        }}
+      />
+
       <span ref={probe} className="wordmark pointer-events-none invisible absolute left-0 top-0" style={{ fontSize: 100 }}>
         {WORD.replace(' ', '\u00A0')}
       </span>
-      <div className="wordmark-stack" style={{ height: `${fs * 0.86}px` }}>
-        <div className="wordmark absolute inset-0" style={{ fontSize: fs }}>
+
+      <div className="wordmark-stack relative z-10" style={{ height: `${fs * 0.86}px` }}>
+        {/* 2. Base Outline Layer: Crisp white architectural stroke across ALL letters */}
+        <div className="wordmark absolute inset-0 select-none pointer-events-none" style={{ fontSize: fs }}>
           {row('o')}
         </div>
-        <div className="wordmark fill" style={{ fontSize: fs }}>
+
+        {/* 3. Base Color Layer: Elegant subtle gradient fill so IMAGINITY LABS is always 100% visible */}
+        <div className="wordmark absolute inset-0 select-none opacity-45 pointer-events-none" style={{ fontSize: fs }}>
+          {row('f')}
+        </div>
+
+        {/* 4. Illuminated Spotlight Layer: 100% Intense Neon Radiance inside the cursor light beam */}
+        <div
+          ref={fillRef}
+          className={`wordmark fill absolute inset-0 select-none pointer-events-none transition-opacity duration-300 ease-out ${
+            isHovered ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ fontSize: fs }}
+        >
           {row('f')}
         </div>
       </div>
@@ -106,24 +226,22 @@ export function Footer() {
             <p className="mt-6 max-w-[28ch] font-serif text-[clamp(28px,3vw,40px)] leading-[1.02]">
               Software, AI and automation for teams that <em className="it">ship.</em>
             </p>
-            <form onSubmit={submit} className="mt-8 flex max-w-md items-center gap-2 rounded-full border border-white/20 p-1.5 pl-5 focus-within:border-yellow">
+            <form suppressHydrationWarning onSubmit={submit} className="mt-8 flex max-w-md items-center gap-2 rounded-full border border-white/20 p-1.5 pl-5 focus-within:border-yellow">
               <label htmlFor="ft-email" className="sr-only">Email address</label>
               <input
+                suppressHydrationWarning
                 id="ft-email"
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email for field notes"
-                className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none placeholder:text-white/40"
+                className="min-w-0 flex-1 bg-transparent text-[15px] text-white border-0 border-none outline-none ring-0 shadow-none focus:border-0 focus:border-none focus:outline-none focus:ring-0 focus-visible:outline-none placeholder:text-white/40"
               />
-              <button type="submit" className="btn btn-yellow btn-sm !px-5" aria-live="polite">
+              <button suppressHydrationWarning type="submit" className="btn btn-yellow btn-sm !px-5" aria-live="polite">
                 {done ? (<><Check size={16} /> Subscribed</>) : 'Subscribe'}
               </button>
             </form>
-            <p className="mt-6 flex items-center gap-3 text-sm text-white/70">
-              <span className="live-dot" aria-hidden="true" /> Taking on projects for Q4 — 2 slots left
-            </p>
           </div>
 
           <nav aria-label="Footer" className="col-span-12 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7 lg:pl-16">
@@ -149,7 +267,7 @@ export function Footer() {
         <div className="relative mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/55">
           <span>© 2026 Imaginity Labs · {SITE.city}</span>
           <a href={`mailto:${SITE.email}`} className="min-h-6 hover:text-white">{SITE.email}</a>
-          <button type="button" onClick={() => scrollToTop(false)} className="inline-flex min-h-11 items-center gap-2 hover:text-white">
+          <button suppressHydrationWarning type="button" onClick={() => scrollToTop(false)} className="inline-flex min-h-11 items-center gap-2 hover:text-white">
             Back to top <ArrowUp size={16} />
           </button>
         </div>

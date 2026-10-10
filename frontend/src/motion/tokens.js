@@ -40,10 +40,10 @@ export const DISTANCES = {
 }
 
 export const MQ = {
-  desktop: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)',
-  mobile: '(max-width: 1023px) and (prefers-reduced-motion: no-preference)',
-  motion: '(prefers-reduced-motion: no-preference)',
-  reduce: '(prefers-reduced-motion: reduce)',
-  pinned: '(min-width: 768px) and (prefers-reduced-motion: no-preference)',
-  fine: '(hover: hover) and (pointer: fine)',
+  desktop: '(min-width: 1024px)',
+  mobile: '(max-width: 1023px)',
+  motion: '(min-width: 0px)',
+  reduce: 'not all',
+  pinned: '(min-width: 768px)',
+  fine: '(min-width: 0px)',
 }

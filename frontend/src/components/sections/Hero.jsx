@@ -40,12 +40,13 @@ export function Hero() {
 
       const setOrbRotX = gsap.quickTo(orb, 'rotationX', { duration: 0.9, ease: 'power2.out' })
       const setOrbRotY = gsap.quickTo(orb, 'rotationY', { duration: 0.9, ease: 'power2.out' })
-      const setOrbRotZ = gsap.quickTo(orb, 'rotationZ', { duration: 1.1, ease: 'power2.out' })
+      const setOrbRotZ = gsap.quickTo(orb, 'rotation', { duration: 1.1, ease: 'power2.out' })
       const setOrbX = gsap.quickTo(orb, 'x', { duration: 1, ease: 'power2.out' })
       const setOrbY = gsap.quickTo(orb, 'y', { duration: 1, ease: 'power2.out' })
       
       const setShadowX = shadow ? gsap.quickTo(shadow, 'x', { duration: 1, ease: 'power2.out' }) : null
-      const setShadowScale = shadow ? gsap.quickTo(shadow, 'scale', { duration: 1, ease: 'power2.out' }) : null
+      const setShadowScaleX = shadow ? gsap.quickTo(shadow, 'scaleX', { duration: 1, ease: 'power2.out' }) : null
+      const setShadowScaleY = shadow ? gsap.quickTo(shadow, 'scaleY', { duration: 1, ease: 'power2.out' }) : null
 
       const handleMouseMove = (e) => {
         if (dragStart.current.active) return
@@ -81,9 +82,11 @@ export function Hero() {
         setOrbX(transX)
         setOrbY(transY)
 
-        if (shadow && setShadowX && setShadowScale) {
+        if (shadow && setShadowX && setShadowScaleX && setShadowScaleY) {
+          const s = 1 - clampDy * 0.12
           setShadowX(-transX * 0.8)
-          setShadowScale(1 - clampDy * 0.12)
+          setShadowScaleX(s)
+          setShadowScaleY(s)
         }
 
         // Move dynamic light glare
@@ -131,7 +134,7 @@ export function Hero() {
     gsap.to(orb3dRef.current, {
       rotationX: newRotX,
       rotationY: newRotY,
-      rotationZ: newRotZ,
+      rotation: newRotZ,
       duration: 0.15,
       ease: 'power1.out',
     })
@@ -155,7 +158,7 @@ export function Hero() {
       gsap.to(orb3dRef.current, {
         rotationX: 0,
         rotationY: 0,
-        rotationZ: 0,
+        rotation: 0,
         x: 0,
         y: 0,
         duration: 1.2,
@@ -172,14 +175,14 @@ export function Hero() {
       <div className="wrap relative">
         <div className="g12 items-center gap-y-14">
           <div className="col-span-12 flex flex-col items-start gap-7 lg:col-span-7">
-            <Eyebrow intro dot="#FFD93D">Software · AI · Automation studio</Eyebrow>
+            <Eyebrow intro dot="#FFD93D">Imaginity Labs · Software &amp; AI Studio</Eyebrow>
             <div className="relative">
               <h1 data-reveal="lines" data-intro className="display h-hero">
                 Software that <span className="relative inline-block"><It>moves</It><Underline intro className="-bottom-[0.08em] h-[0.2em]" /></span> business
               </h1>
             </div>
             <p data-reveal="up" data-intro data-delay="0.35" className="lede max-w-[34ch] !text-[17px]">
-              Products, AI and automation for teams that ship.
+              Imaginity Labs engineers web applications, autonomous AI agents, and resilient automations for teams that ship.
             </p>
             <div data-reveal="up" data-intro data-delay="0.45" className="flex flex-wrap items-center gap-3">
               <Button to="/contact">Start a project</Button>
@@ -293,7 +296,7 @@ export function Hero() {
                     style={{ transform: 'translateZ(95px)' }}
                   >
                     <span className="sticker rot-b inline-block shadow-md transition-transform hover:scale-105">
-                      Booking Q4 ✦
+                      Booking Q4
                     </span>
                   </div>
                 </div>

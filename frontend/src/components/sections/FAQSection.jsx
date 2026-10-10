@@ -13,7 +13,7 @@ export function FAQSection() {
             Common questions, <It>straight answers.</It>
           </H>
           <p className="lede mt-6">
-            Transparent pricing, clear intellectual property ownership, and agile delivery timelines.
+            Clear scoping, full intellectual property ownership, and agile delivery timelines.
           </p>
         </div>
 

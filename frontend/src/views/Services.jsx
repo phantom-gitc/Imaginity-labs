@@ -2,16 +2,15 @@
 
 import { useEffect, useRef } from 'react'
 import { SERVICES } from '../data/services'
-import { PRICING, FAQ } from '../data/site'
+import { FAQ } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
-import { gsap } from '../lib/gsap'
-import { Eyebrow, H, It, Section, SectionHeader } from '../components/ui/Type'
+import { gsap, MQ } from '../lib/gsap'
+import { Eyebrow, H, It, Section } from '../components/ui/Type'
 import { Frame } from '../components/ui/Img'
 import { Button } from '../components/ui/Button'
 import { Accordion } from '../components/ui/Accordion'
 import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
-import { Check } from 'lucide-react'
 
 export default function Services() {
   const root = useRef(null)
@@ -26,7 +25,7 @@ export default function Services() {
     const mm = gsap.matchMedia()
     const ROTATIONS = [-1.8, 1.5, -1.2, 1.8, -1.0, 0]
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
+    mm.add(MQ.motion, () => {
       const isMobile = window.innerWidth < 768
       const rotMultiplier = isMobile ? 0.45 : 1
 
@@ -63,8 +62,8 @@ export default function Services() {
       {/* 1. Services Hero */}
       <Section bg="light" className="pt-8 pb-16">
         <div className="max-w-3xl">
-          <Eyebrow dot="#7B61FF">Studio Services</Eyebrow>
-          <H as="h1" size="xl" className="mt-4">
+          <Eyebrow intro dot="#7B61FF">Studio Services</Eyebrow>
+          <H as="h1" intro size="xl" className="mt-4">
             Direct collaboration with senior <It>craftspeople.</It>
           </H>
           <p className="lede mt-6 text-lg">
@@ -120,6 +119,7 @@ export default function Services() {
                     img={s.preview}
                     ratio="16/10"
                     alt={s.t}
+                    eager={idx === 0}
                     radius={24}
                     className="shadow-sm"
                   />
@@ -130,64 +130,8 @@ export default function Services() {
         </div>
       </Section>
 
-      {/* 3. Pricing / Engagement Cards */}
+      {/* 3. FAQ */}
       <Section bg="warm">
-        <SectionHeader
-          eyebrow="Engagement Models"
-          dot="#FFD93D"
-          title={<>Predictable terms, <It>no surprises.</It></>}
-          line="Flexible structures designed for rapid sprints or dedicated engineering squads."
-        />
-
-        <div data-reveal="stagger" className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-14">
-          {PRICING.map((plan) => (
-            <div
-              key={plan.id}
-              className={`tinted tint-${plan.tint} p-8 rounded-[26px] flex flex-col justify-between shadow-sm relative ${
-                plan.featured ? 'ring-2 ring-[#3B5BFF]' : ''
-              }`}
-            >
-              {plan.featured && (
-                <span className="sticker rot-b absolute -top-3 right-6 bg-[#3B5BFF] text-white">
-                  RECOMMENDED
-                </span>
-              )}
-
-              <div>
-                <span className="tag mb-4">{plan.name}</span>
-                <div className="display text-3xl md:text-4xl text-ink mt-2 font-bold">
-                  {plan.price}
-                </div>
-                <p className="text-sm text-ink/70 mt-2 mb-8">{plan.line}</p>
-
-                <div className="space-y-3 pt-4 border-t border-black/10">
-                  {plan.includes.map((inc) => (
-                    <div key={inc} className="flex items-center gap-3 text-sm text-ink/80">
-                      <span className="size-4 rounded-full bg-white flex items-center justify-center text-[#3B5BFF]">
-                        <Check size={12} strokeWidth={3} />
-                      </span>
-                      <span>{inc}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <Button
-                  to="/contact"
-                  variant={plan.featured ? 'primary' : 'outline'}
-                  className="w-full justify-center"
-                >
-                  Get started
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* 4. FAQ */}
-      <Section bg="light">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
             <Eyebrow dot="#3B5BFF">Clarity First</Eyebrow>

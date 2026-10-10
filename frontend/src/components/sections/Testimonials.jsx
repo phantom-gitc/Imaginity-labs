@@ -67,6 +67,8 @@ export function Testimonials() {
               return (
                 <button
                   key={t.name}
+                  type="button"
+                  suppressHydrationWarning
                   onClick={() => setActiveIdx(idx)}
                   className={`text-left p-4 rounded-xl transition-all duration-300 flex items-center justify-between ${
                     isActive

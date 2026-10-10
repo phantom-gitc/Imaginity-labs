@@ -10,12 +10,38 @@ import { Button } from '../components/ui/Button'
 import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Plus, Minus, Check } from 'lucide-react'
+import { Check, ArrowUpRight } from 'lucide-react'
+import { syncScrollEngine } from '../hooks/useScrollSmooth'
+
+const ROLE_DEPARTMENTS = {
+  fs: 'Engineering',
+  ai: 'AI & Data',
+  mern: 'Engineering',
+  java: 'Engineering',
+  python: 'Engineering',
+  pd: 'Design & UX',
+  dl: 'Operations',
+  cr: 'Engineering',
+}
+
+const CATEGORIES = ['All', 'Engineering', 'AI & Data', 'Design & UX', 'Operations']
+
 
 export default function Careers() {
   const root = useRef(null)
   useReveal(root)
   const [expandedRole, setExpandedRole] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
+  const toggleRole = (id) => {
+    setExpandedRole((prev) => (prev === id ? null : id))
+    setTimeout(() => syncScrollEngine(), 100)
+    setTimeout(() => syncScrollEngine(), 420)
+  }
+
+  const filteredRoles = selectedCategory === 'All'
+    ? ROLES
+    : ROLES.filter((r) => ROLE_DEPARTMENTS[r.id] === selectedCategory)
 
   return (
     <div ref={root} className="relative isolate w-full pt-28">
@@ -23,8 +49,8 @@ export default function Careers() {
       {/* 1. Hero */}
       <Section bg="light" className="pt-8 pb-16">
         <div className="max-w-3xl">
-          <Eyebrow dot="#C45CB0">Careers at Imaginity</Eyebrow>
-          <H as="h1" size="xl" className="mt-4">
+          <Eyebrow intro dot="#C45CB0">Careers at Imaginity</Eyebrow>
+          <H as="h1" intro size="xl" className="mt-4">
             Build products that matter, <It>autonomously.</It>
           </H>
           <p className="lede mt-6 text-lg">
@@ -41,6 +67,7 @@ export default function Careers() {
               img={A.team}
               ratio="16/9"
               alt="Imaginity team workshop"
+              eager={true}
               grade
               radius={28}
             />
@@ -91,62 +118,205 @@ export default function Careers() {
 
       {/* 4. Open Roles List (Expandable Rows) */}
       <Section bg="light">
-        <SectionHeader
-          eyebrow="Open Positions"
-          dot="#3B5BFF"
-          title={<>Current <It>openings.</It></>}
-          line="Explore our open seats across software engineering, AI, and design."
-        />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <SectionHeader
+              eyebrow="Open Positions"
+              dot="#3B5BFF"
+              title={<>Current <It>openings.</It></>}
+              line="Explore our open seats across software engineering, AI, and design."
+            />
+          </div>
+        </div>
 
-        <div className="mt-14 space-y-4">
-          {ROLES.map((role) => {
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2 pb-6 border-b border-black/[0.06]">
+          {CATEGORIES.map((cat) => {
+            const isActive = selectedCategory === cat
+            const count = cat === 'All' 
+              ? ROLES.length 
+              : ROLES.filter((r) => ROLE_DEPARTMENTS[r.id] === cat).length
+            return (
+              <button
+                key={cat}
+                type="button"
+                suppressHydrationWarning
+                onClick={() => setSelectedCategory(cat)}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? 'bg-ink text-white shadow-sm'
+                    : 'bg-white/80 text-ink/70 hover:text-ink hover:bg-white border border-line shadow-[0_1px_2px_rgba(0,0,0,0.03)]'
+                }`}
+              >
+                <span>{cat}</span>
+                <span
+                  className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                    isActive ? 'bg-white/20 text-white' : 'bg-black/[0.05] text-ink/60'
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Roles List (Full-width, Straight Edge, Ultra-smooth Grayish Transition) */}
+        <div className="mt-10 border-t border-black/[0.08]">
+          {filteredRoles.map((role) => {
             const isOpen = expandedRole === role.id
+            const department = ROLE_DEPARTMENTS[role.id] || 'Engineering'
+            const metaParts = role.meta ? role.meta.split('·').map((t) => t.trim()) : []
+            const location = 'Remote'
+            const commitment = metaParts[1] || 'Full-time'
+            const exp = metaParts[2] || role.exp || ''
+
             return (
               <div
                 key={role.id}
-                className="border border-line rounded-[22px] overflow-hidden transition-all duration-300 hover:border-black/30"
+                className={`border-b border-black/[0.08] transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  isOpen
+                    ? 'bg-black/[0.02]'
+                    : 'hover:bg-black/[0.025]'
+                }`}
               >
                 <button
                   type="button"
-                  onClick={() => setExpandedRole(isOpen ? null : role.id)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4"
+                  suppressHydrationWarning
+                  onClick={() => toggleRole(role.id)}
+                  aria-expanded={isOpen}
+                  className="w-full text-left cursor-pointer group px-3 sm:px-6 py-7 sm:py-8 transition-all duration-300"
                 >
-                  <div>
-                    <span className="mono text-xs text-ink/40 uppercase">{role.meta}</span>
-                    <h3 className="display text-2xl text-ink mt-1">{role.t}</h3>
-                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-12 items-center gap-3 sm:gap-4 w-full">
+                    {/* Column 1: Title in the cursive/serif display font */}
+                    <div className="md:col-span-6 min-w-0">
+                      <h3 className="display text-2xl sm:text-3xl md:text-4xl font-normal text-ink group-hover:text-[#3B5BFF] transition-colors duration-300 tracking-normal pl-1.5 flex items-center">
+                        <span className="group-hover:translate-x-1.5 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] inline-block">
+                          {role.t}
+                        </span>
+                      </h3>
+                    </div>
 
-                  <span className="size-10 rounded-full border border-line flex items-center justify-center text-ink/60">
-                    {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                  </span>
+                    {/* Column 2: Department */}
+                    <div className="hidden md:block md:col-span-2 text-sm text-ink/50 font-sans font-medium">
+                      {department}
+                    </div>
+
+                    {/* Column 3: Commitment & Experience */}
+                    <div className="hidden md:block md:col-span-3 text-sm text-ink/60 font-sans font-medium">
+                      {commitment} · {exp}
+                    </div>
+
+                    {/* Column 4: Remote & Arrow */}
+                    <div className="flex items-center justify-between md:justify-end gap-3 md:col-span-1">
+                      <div className="flex items-center gap-2 md:hidden text-xs text-ink/50 font-sans">
+                        <span>{commitment}</span>
+                        <span>·</span>
+                        <span>{exp}</span>
+                      </div>
+                      <ArrowUpRight
+                        className={`size-4 shrink-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                          isOpen
+                            ? 'text-[#3B5BFF] rotate-90 scale-110'
+                            : 'text-ink/30 group-hover:text-[#3B5BFF] group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
+                        }`}
+                      />
+                    </div>
+                  </div>
                 </button>
 
+                {/* Expanded Details Drawer */}
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="p-6 pt-0 border-t border-line/60">
-                        <p className="text-base text-ink/80 mb-6">{role.d}</p>
-                        <h4 className="mono text-xs text-ink/40 mb-3 uppercase">What we look for:</h4>
-                        <ul className="space-y-2 mb-8">
-                          {role.req.map((r) => (
-                            <li key={r} className="flex items-center gap-2.5 text-sm text-ink/80">
-                              <span className="size-4 rounded-full bg-[#E9E4FF] text-[#3B5BFF] flex items-center justify-center">
-                                <Check size={11} strokeWidth={3} />
-                              </span>
-                              <span>{r}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      <div className="px-3 sm:px-6 pb-12 pt-3 border-t border-black/[0.05]">
+                        {/* Role Overview */}
+                        <p className="text-base sm:text-lg text-ink/75 leading-relaxed max-w-3xl mb-9 font-normal">
+                          {role.d}
+                        </p>
 
-                        <Button to={`/contact?role=${encodeURIComponent(role.t)}`} size="sm">
-                          Apply for this role
-                        </Button>
+                        {/* Tech Stack */}
+                        {role.stack && (
+                          <div className="mb-9">
+                            <h4 className="text-xs font-semibold uppercase tracking-wider text-ink/40 mb-3.5 font-sans">
+                              Technologies &amp; Tools
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {role.stack.map((item) => (
+                                <span
+                                  key={item}
+                                  className="text-xs sm:text-sm font-medium text-ink/80 bg-black/[0.04] border border-black/[0.06] px-3.5 py-1.5 rounded-md hover:bg-black/[0.08] transition-colors font-sans"
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Responsibilities & Qualifications Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-14 mb-10">
+                          {role.responsibilities && (
+                            <div>
+                              <h4 className="text-xs font-semibold uppercase tracking-wider text-ink/40 mb-3.5 font-sans">
+                                Key Responsibilities
+                              </h4>
+                              <ul className="space-y-3">
+                                {role.responsibilities.map((resp) => (
+                                  <li key={resp} className="flex items-start gap-3 text-sm sm:text-base text-ink/75 leading-relaxed font-sans">
+                                    <span className="size-1.5 rounded-full bg-ink/40 shrink-0 mt-2.5" />
+                                    <span>{resp}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {role.req && (
+                            <div>
+                              <h4 className="text-xs font-semibold uppercase tracking-wider text-ink/40 mb-3.5 font-sans">
+                                Qualifications &amp; Skills
+                              </h4>
+                              <ul className="space-y-3">
+                                {role.req.map((r) => (
+                                  <li key={r} className="flex items-start gap-3 text-sm sm:text-base text-ink/75 leading-relaxed font-sans">
+                                    <span className="size-1.5 rounded-full bg-ink/40 shrink-0 mt-2.5" />
+                                    <span>{r}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Minimal Apply Action Bar */}
+                        <div className="pt-8 border-t border-black/[0.05] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                          <div>
+                            <h5 className="display text-xl sm:text-2xl text-ink font-normal mb-1">
+                              Ready to apply for {role.t}?
+                            </h5>
+                            <p className="text-sm text-ink/60">
+                              Submit your resume or email{' '}
+                              <a
+                                href={`mailto:hello@imaginitylabs.io?subject=Application for ${encodeURIComponent(role.t)}`}
+                                className="text-ink font-medium underline underline-offset-4 hover:text-[#3B5BFF]"
+                              >
+                                hello@imaginitylabs.io
+                              </a>
+                              .
+                            </p>
+                          </div>
+
+                          <Button to={`/contact?role=${encodeURIComponent(role.t)}`} size="sm" className="shrink-0">
+                            Apply for this Position
+                          </Button>
+                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -154,6 +324,20 @@ export default function Careers() {
               </div>
             )
           })}
+
+          {filteredRoles.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-ink/50 text-sm font-medium">No positions currently open in this category.</p>
+              <button
+                type="button"
+                suppressHydrationWarning
+                onClick={() => setSelectedCategory('All')}
+                className="mt-3 text-xs font-mono uppercase tracking-wider text-[#3B5BFF] hover:underline"
+              >
+                View all open positions &rarr;
+              </button>
+            </div>
+          )}
         </div>
       </Section>
 

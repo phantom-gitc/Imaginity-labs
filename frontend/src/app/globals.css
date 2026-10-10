@@ -115,6 +115,13 @@ button {
 [data-bg="dark"] :focus-visible {
   outline-color: #ffd93d;
 }
+.dark-ui,
+[data-bg="dark"] {
+  --page-bg: #0a0a12;
+  --page-fg: #f4f4fa;
+  --page-muted: rgba(244, 244, 250, 0.6);
+  --page-line: rgba(255, 255, 255, 0.12);
+}
 
 .skip-link {
   position: fixed;
@@ -584,17 +591,17 @@ button.chip:hover {
 }
 
 /* ---------- reveal initial states (only when motion allowed) ---------- */
-html.motion [data-reveal="lines"] {
+html.motion [data-reveal="lines"]:not([data-intro]) {
   visibility: hidden;
 }
-html.motion [data-reveal="up"],
-html.motion [data-reveal="fade"] {
+html.motion [data-reveal="up"]:not([data-intro]),
+html.motion [data-reveal="fade"]:not([data-intro]) {
   opacity: 0;
 }
-html.motion [data-reveal="stagger"] > * {
+html.motion [data-reveal="stagger"]:not([data-intro]) > * {
   opacity: 0;
 }
-html.motion [data-reveal="mask"] {
+html.motion [data-reveal="mask"]:not([data-intro]) {
   clip-path: inset(100% 0 0 0);
 }
 [data-reveal="mask"] {
@@ -797,6 +804,10 @@ html.motion [data-reveal="mask"] {
   color: rgb(10 10 10 / 0.5);
   pointer-events: none;
   transform-origin: left top;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: transform 0.4s var(--ease-expo), color 0.3s;
 }
 .field input:focus + label,
@@ -805,6 +816,16 @@ html.motion [data-reveal="mask"] {
 .field textarea:not(:placeholder-shown) + label {
   transform: translateY(-22px) scale(0.72);
   color: #3b5bff;
+}
+
+#ft-email,
+#ft-email:focus,
+#ft-email:focus-visible,
+#ft-email:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
 }
 
 /* ---------- footer wordmark ---------- */
@@ -832,78 +853,20 @@ html.motion [data-reveal="mask"] {
 }
 .wordmark .outline {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.28);
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.6);
+  text-stroke: 1.5px rgb(255 255 255 / 0.6);
   display: inline-block;
 }
 
 /* ---------- cursor ---------- */
-.cursor-dot,
-.cursor-ring {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 300;
-  pointer-events: none;
-  border-radius: 99px;
-  will-change: transform;
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
 }
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  margin: -4px 0 0 -4px;
-  background: #3b5bff;
-}
-.cursor-ring {
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
-  border: 1px solid rgb(59 91 255 / 0.6);
-  display: grid;
-  place-items: center;
-  transition: background 0.3s, border-color 0.3s, width 0.4s var(--ease-expo), height 0.4s var(--ease-expo), margin 0.4s var(--ease-expo);
-  mix-blend-mode: normal;
-}
-.cursor-ring span {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #fff;
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.cursor-ring.is-link {
-  width: 64px;
-  height: 64px;
-  margin: -32px 0 0 -32px;
-  background: rgb(59 91 255 / 0.1);
-}
-.cursor-ring.is-label {
-  width: 88px;
-  height: 88px;
-  margin: -44px 0 0 -44px;
-  background: #3b5bff;
-  border-color: #3b5bff;
-}
-.cursor-ring.is-label span {
-  opacity: 1;
-}
-@media (hover: none), (pointer: coarse) {
-  .cursor-dot,
-  .cursor-ring {
-    display: none;
-  }
-}
-@media (hover: hover) and (pointer: fine) {
-  html.has-cursor,
-  html.has-cursor a,
-  html.has-cursor button {
-    cursor: none;
-  }
-  html.has-cursor input,
-  html.has-cursor textarea {
-    cursor: text;
-  }
+html.has-cursor input,
+html.has-cursor textarea,
+html.has-cursor [contenteditable="true"] {
+  cursor: text !important;
 }
 
 /* ---------- misc ---------- */
@@ -929,18 +892,7 @@ html.motion [data-reveal="mask"] {
   border: 2px solid color-mix(in srgb, currentColor 30%, transparent);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* ---------- hover reveals (always open on touch / small screens) ---------- */
+/* ---------- hover reveals (accordion on desktop, always open on mobile) ---------- */
 .reveal-rows {
   display: grid;
   grid-template-rows: 1fr;
@@ -948,7 +900,7 @@ html.motion [data-reveal="mask"] {
 .reveal-rows > * {
   min-height: 0;
 }
-@media (min-width: 1024px) and (hover: hover) {
+@media (min-width: 1024px) {
   .reveal-rows {
     grid-template-rows: 0fr;
     opacity: 0;

@@ -25,7 +25,7 @@ export function Stat({ n, suffix = '', label, decimals = 0, className = '' }) {
 }
 
 /** Image-led work card. Hover: 3D tilt + spotlight glare + "View case" cursor + arrow rotates. */
-export function WorkCard({ c, ratio = '4/3', index, className = '', flip = false }) {
+export function WorkCard({ c, ratio = '4/3', index, className = '', flip = false, eager = false }) {
   const cardRef = useRef(null)
   useTilt(cardRef, { maxAngle: 5, glare: true })
 
@@ -38,7 +38,15 @@ export function WorkCard({ c, ratio = '4/3', index, className = '', flip = false
         {...(flip ? { 'data-flip-id': c.slug } : {})}
       >
         <div className="relative overflow-hidden rounded-[24px]">
-          <Frame img={c.img} ratio={ratio} grade bg={`var(--c-${c.tint}, #E9E4FF)`} alt={`${c.title} — ${c.line}`}>
+          <Frame
+            img={c.img}
+            ratio={ratio}
+            grade
+            eager={eager}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            bg={`var(--c-${c.tint}, #E9E4FF)`}
+            alt={`${c.title} — ${c.line}`}
+          >
             <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between p-4 md:p-5">
               <Tag tint={c.tint}>{c.category}</Tag>
               {index != null && <span className="mono rounded-full bg-white/80 px-3 py-2 backdrop-blur">{String(index + 1).padStart(2, '0')}</span>}
@@ -65,11 +73,19 @@ export function WorkCard({ c, ratio = '4/3', index, className = '', flip = false
 }
 
 /** Blog card with image overlay + category tag. */
-export function BlogCard({ a, className = '', ratio = '4/5' }) {
+export function BlogCard({ a, className = '', ratio = '4/5', eager = false }) {
   return (
     <TLink to={`/insights/${a.slug}`} className={`group relative block overflow-hidden rounded-[24px] bg-dark text-white ${className}`} data-cursor="Read" style={{ aspectRatio: ratio }}>
       <div className="card-media absolute inset-0 rounded-none">
-        <Image src={a.cover.src} width={a.cover.w} height={a.cover.h} alt="" className="size-full object-cover" />
+        <Image
+          src={a.cover.src}
+          width={a.cover.w}
+          height={a.cover.h}
+          alt={`${a.title} cover`}
+          priority={eager}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="size-full object-cover"
+        />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-[#0a0a12]/40 to-transparent" />
       <div className="absolute inset-x-0 top-0 flex items-start justify-between p-5">

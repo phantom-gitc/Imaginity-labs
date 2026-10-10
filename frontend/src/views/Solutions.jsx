@@ -22,8 +22,8 @@ export default function Solutions() {
       {/* 1. Hero */}
       <Section bg="light" className="pt-8 pb-16">
         <div className="max-w-3xl">
-          <Eyebrow dot="#3B5BFF">Solutions Architecture</Eyebrow>
-          <H as="h1" size="xl" className="mt-4">
+          <Eyebrow intro dot="#3B5BFF">Solutions Architecture</Eyebrow>
+          <H as="h1" intro size="xl" className="mt-4">
             Engineered for measurable <It>business outcomes.</It>
           </H>
           <p className="lede mt-6 text-lg">
@@ -107,6 +107,7 @@ export default function Solutions() {
                     img={s.img}
                     ratio="16/10"
                     alt={s.t}
+                    eager={idx === 0}
                     grade
                     radius={28}
                     className="shadow-md"
@@ -147,7 +148,7 @@ export default function Solutions() {
       </Section>
 
       {/* 5. Tabbed Goals in Dark Section ("what are you trying to achieve") */}
-      <Section bg="dark" className="dark-ui text-white">
+      <Section bg="dark" className="dark-ui !bg-[#0A0A12] text-white border-y border-white/[0.08]">
         <div className="mb-12">
           <Eyebrow dot="#FFD93D" className="!text-white/60">Strategic Alignment</Eyebrow>
           <H size="lg" className="mt-4">

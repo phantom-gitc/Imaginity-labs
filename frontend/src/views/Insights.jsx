@@ -27,8 +27,8 @@ export default function Insights() {
       {/* 1. Header */}
       <Section bg="light" className="pt-8 pb-12">
         <div className="max-w-3xl">
-          <Eyebrow dot="#3B5BFF">Studio Publications</Eyebrow>
-          <H as="h1" size="xl" className="mt-4">
+          <Eyebrow intro dot="#3B5BFF">Studio Publications</Eyebrow>
+          <H as="h1" intro size="xl" className="mt-4">
             Notes from the <It>engineering floor.</It>
           </H>
           <p className="lede mt-6 text-lg">
@@ -61,6 +61,7 @@ export default function Insights() {
               img={featured.cover}
               ratio="16/10"
               alt={featured.title}
+              eager={true}
               radius={24}
               className="shadow-md"
             />
@@ -74,6 +75,7 @@ export default function Insights() {
           {INSIGHTS_CATEGORIES.map((cat) => (
             <button
               key={cat}
+              suppressHydrationWarning
               onClick={() => setActiveCat(cat)}
               className={`chip ${activeCat === cat ? 'on' : ''}`}
             >

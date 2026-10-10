@@ -58,13 +58,14 @@ export function ProcessTimeline() {
   }, [])
 
   return (
-    <Section ref={rootRef} bg="dark" className="dark-ui text-white relative overflow-hidden">
+    <Section ref={rootRef} bg="dark" className="dark-ui !bg-[#0A0A12] text-white relative overflow-hidden border-y border-white/[0.08]">
       <div className="line-grid" aria-hidden="true" />
       <div className="blob left-1/4 -top-20 h-96 w-96 opacity-25" aria-hidden="true" />
+      <div className="blob -right-20 bottom-0 h-80 w-80 opacity-20" aria-hidden="true" />
 
       <div className="relative z-10 mb-16 md:mb-20">
-        <Eyebrow dot="#FFD93D" className="!text-white/60">Our Process</Eyebrow>
-        <H size="lg" className="mt-4">
+        <Eyebrow dot="#FFD93D" className="!text-white/70">Our Process</Eyebrow>
+        <H size="lg" className="mt-4 text-white">
           From first talk to <It>continuous launch.</It>
         </H>
       </div>
@@ -85,22 +86,22 @@ export function ProcessTimeline() {
             <div
               key={p.t}
               data-reveal="up"
-              className="glass-dark !border-white/10 p-6 rounded-[22px] flex flex-col justify-between relative group hover:!border-white/30 transition-colors"
+              className="glass-dark bg-white/[0.035] !border-white/10 p-6 rounded-[22px] flex flex-col justify-between relative group hover:!border-white/30 hover:bg-white/[0.07] hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-black/30"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="timeline-node size-4 rounded-full border-2 border-white/20 transition-all duration-500" />
-                  <span className="mono text-xs text-white/40">STEP 0{idx + 1}</span>
+                  <div className="timeline-node size-4 rounded-full border-2 border-white/20 bg-[#0A0A12] transition-all duration-500" />
+                  <span className="mono text-xs text-white/50">STEP 0{idx + 1}</span>
                 </div>
-                <h3 className="display h-sm text-white mb-2">{p.t}</h3>
+                <h3 className="display h-sm text-white mb-2 font-medium">{p.t}</h3>
                 <p className="text-sm text-white/70 leading-relaxed">{p.d}</p>
               </div>
 
               <div className="mt-6 pt-4 border-t border-white/10">
                 <ul className="space-y-1.5">
                   {p.detail.map((item) => (
-                    <li key={item} className="text-xs text-white/50 flex items-center gap-2">
-                      <span className="size-1 rounded-full bg-[#FFD93D]" />
+                    <li key={item} className="text-xs text-white/60 flex items-center gap-2">
+                      <span className="size-1 rounded-full bg-[#FFD93D] shadow-[0_0_8px_#FFD93D]" />
                       <span>{item}</span>
                     </li>
                   ))}

@@ -48,7 +48,7 @@ export function CTAPanel({ title, line = 'Tell us what you are building. We repl
                   <span className="mono">Free</span>
                 </div>
               </div>
-              <div className="sticker rot-a absolute -bottom-2 left-4 md:left-12">24h reply ✦</div>
+              <div className="sticker rot-a absolute -bottom-2 left-4 md:left-12">24h reply</div>
             </div>
           </div>
         </div>

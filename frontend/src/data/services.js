@@ -1,7 +1,7 @@
 import {
   Bot, Building2, Layers, Workflow, Cloud, BarChart3, Smartphone, Plug, Cpu, Code2, Database, Palette,
   Landmark, HeartPulse, Truck, ShoppingBag, GraduationCap, Zap, Clapperboard, Building, Rocket, ShieldCheck,
-  Gauge, PiggyBank, Compass, Sparkles, TrendingUp,
+  Gauge, PiggyBank, Compass, Award, TrendingUp,
 } from 'lucide-react'
 import { A } from './site'
 
@@ -56,7 +56,7 @@ export const GOALS = [
 ]
 
 export const PRINCIPLES = [
-  { t: 'Senior only', d: 'Experienced people do the work.', tint: 'lavender', icon: Sparkles, span: 'md:col-span-2' },
+  { t: 'Senior only', d: 'Experienced people do the work.', tint: 'lavender', icon: Award, span: 'md:col-span-2' },
   { t: 'Ship weekly', d: 'Real demos, every week.', tint: 'butter', icon: Gauge, span: '' },
   { t: 'Own your code', d: 'Your repos, your IP.', tint: 'mint', icon: ShieldCheck, span: '' },
   { t: 'Measured outcomes', d: 'Metrics before opinions.', tint: 'sky', icon: TrendingUp, span: '' },

@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import Article from '../../../views/Article'
 import { ARTICLES } from '../../../data/articles'
 import { buildMetadata } from '../../../lib/seo'
-import { JsonLd } from '../../../components/seo/JsonLd'
-import { absoluteUrl, SITE_NAME } from '../../../lib/site-url'
+import { BreadcrumbJsonLd, ArticleJsonLd } from '../../../components/seo/JsonLd'
+import { SITE_NAME } from '../../../lib/site-url'
 
 export const dynamicParams = false
 
@@ -28,20 +28,17 @@ export default async function Page({ params }) {
   const { slug } = await params
   const a = ARTICLES.find((item) => item.slug === slug)
   if (!a) notFound()
+
   return (
     <>
-      <JsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'Article',
-          headline: a.title,
-          description: a.summary,
-          author: { '@type': 'Organization', name: a.author },
-          publisher: { '@type': 'Organization', name: SITE_NAME },
-          image: absoluteUrl(a.cover.src),
-          mainEntityOfPage: absoluteUrl(`/insights/${a.slug}`),
-        }}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Insights', url: '/insights' },
+          { name: a.title, url: `/insights/${a.slug}` },
+        ]}
       />
+      <ArticleJsonLd a={a} />
       <Article slug={slug} />
     </>
   )

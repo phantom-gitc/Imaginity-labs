@@ -19,7 +19,7 @@ export function Button({ to, href, onClick, variant = 'primary', size, children,
   )
   if (to) return <TLink ref={ref} to={to} className={cls} {...rest}>{inner}</TLink>
   if (href) return <a ref={ref} href={href} className={cls} {...rest}>{inner}</a>
-  return <button ref={ref} type={type} onClick={onClick} className={cls} {...rest}>{inner}</button>
+  return <button ref={ref} type={type} onClick={onClick} className={cls} suppressHydrationWarning {...rest}>{inner}</button>
 }
 
 export function ArrowLink({ to, href, children, className = '' }) {

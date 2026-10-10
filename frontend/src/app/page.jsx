@@ -1,12 +1,13 @@
 import Home from '../views/Home'
 import { staticRouteMetadata } from '../lib/seo'
-import { OrganizationJsonLd } from '../components/seo/JsonLd'
+import { WebSiteJsonLd, OrganizationJsonLd } from '../components/seo/JsonLd'
 
 export const metadata = staticRouteMetadata('/')
 
 export default function Page() {
   return (
     <>
+      <WebSiteJsonLd />
       <OrganizationJsonLd />
       <Home />
     </>

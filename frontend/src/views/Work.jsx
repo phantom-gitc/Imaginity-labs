@@ -24,8 +24,8 @@ export default function Work() {
       {/* 1. Hero */}
       <Section bg="light" className="pt-8 pb-12">
         <div className="max-w-3xl">
-          <Eyebrow dot="#FFD93D">Portfolio</Eyebrow>
-          <H as="h1" size="xl" className="mt-4">
+          <Eyebrow intro dot="#FFD93D">Portfolio</Eyebrow>
+          <H as="h1" intro size="xl" className="mt-4">
             Products shipped, metrics <It>measured.</It>
           </H>
           <p className="lede mt-6 text-lg">
@@ -41,6 +41,7 @@ export default function Work() {
               <button
                 key={cat}
                 type="button"
+                suppressHydrationWarning
                 onClick={() => setActiveFilter(cat)}
                 className={`chip relative cursor-pointer ${active ? 'on text-white' : ''}`}
               >
@@ -70,7 +71,7 @@ export default function Work() {
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
-              <WorkCard c={c} index={i} ratio="16/10" />
+              <WorkCard c={c} index={i} eager={i < 2} ratio="16/10" />
             </motion.div>
           ))}
         </div>

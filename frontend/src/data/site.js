@@ -1,5 +1,3 @@
-import { ArrowUpRight } from 'lucide-react'
-
 /** Image registry – every asset with intrinsic size so we never cause layout shift. */
 const a = (name, w, h) => ({ src: `/img/${name}.webp`, w, h })
 export const A = {
@@ -16,7 +14,7 @@ export const A = {
   imaginity: a('work-imaginity', 1200, 896),
   lake: a('work-enterprise', 1200, 896),
   obj: [1, 2, 3, 4, 5, 6].map((n) => a(`obj-${n}`, 413, 416)),
-  portrait: [1, 2, 3, 4].map((n) => a(`portrait-${n}`, 512, 512)),
+  portrait: [1, 2, 3, 4].map((n) => a(`team-${n}`, 512, 640)),
   case: [1, 2, 3, 4].map((n) => a(`case-${n}`, 688, 384)),
 }
 
@@ -57,16 +55,10 @@ export const PROCESS = [
 export const FAQ = [
   { q: 'How fast can we start?', a: 'Most projects kick off within two weeks of a signed scope. Urgent builds can start in five days.' },
   { q: 'Do you work with early-stage teams?', a: 'Yes. About half our work is zero-to-one products with founders and small in-house teams.' },
-  { q: 'What does a project cost?', a: 'Sprints start around $12k, squads from $28k a month. You get a fixed quote after discovery.' },
+  { q: 'How do you scope and structure engagements?', a: 'Every engagement begins with an in-depth discovery sprint. We deliver a transparent roadmap, architecture blueprint, and milestone timeline before development begins.' },
   { q: 'Who owns the code and IP?', a: 'You do — from the first commit. Repos live in your accounts and we hand over full documentation.' },
   { q: 'Can you join our existing team?', a: 'Absolutely. We embed with your engineers, follow your rituals and ship inside your stack.' },
   { q: 'How do you use AI in delivery?', a: 'We pair engineers with AI tooling for speed, but humans review every line that reaches production.' },
-]
-
-export const PRICING = [
-  { id: 'sprint', name: 'Sprint', price: 'from $12k', line: 'A focused 3–4 week build.', tint: 'butter', includes: ['Scoped MVP or prototype', 'Design + engineering pod', 'Weekly demos', 'Launch-ready handover'], icon: ArrowUpRight },
-  { id: 'squad', name: 'Squad', price: 'from $28k / mo', line: 'A dedicated cross-functional team.', tint: 'lavender', includes: ['Product, design, 2–4 engineers', 'Roadmap ownership', 'Fortnightly planning', 'Scale up or down monthly'], icon: ArrowUpRight, featured: true },
-  { id: 'partner', name: 'Partner', price: "let's talk", line: 'Long-term product and AI partnership.', tint: 'sky', includes: ['Embedded leadership', 'AI strategy & delivery', 'SLA support & on-call', 'Quarterly business reviews'], icon: ArrowUpRight },
 ]
 
 export const FOOTER_COLS = [
@@ -76,12 +68,12 @@ export const FOOTER_COLS = [
 ]
 
 export const SEO = {
-  '/': ['Imaginity Labs — Software, AI & Automation Studio', 'Software, agentic AI and automation for teams that ship. Image-led product studio.'],
-  '/solutions': ['Solutions — Imaginity Labs', 'Eight solution areas, from AI agents to enterprise platforms. Built to launch fast and scale safely.'],
-  '/services': ['Services — Imaginity Labs', 'Product engineering, AI, automation, cloud and design. Pick a sprint, a squad or a partnership.'],
-  '/work': ['Work — Imaginity Labs', 'Selected case studies across fintech, health, logistics and AI.'],
-  '/about': ['About — Imaginity Labs', 'A small senior studio building software people actually enjoy using.'],
-  '/insights': ['Insights — Imaginity Labs', 'Field notes on AI, engineering and product from the Imaginity team.'],
-  '/careers': ['Careers — Imaginity Labs', 'Join a senior team shipping AI and product work. See open roles.'],
-  '/contact': ['Contact — Imaginity Labs', 'Tell us what you are building. We reply within one working day.'],
+  '/': ['Imaginity Labs — Software, AI & Automation Studio', 'Software, agentic AI and automation for teams that ship. Production-ready digital products with senior craft.'],
+  '/solutions': ['Solutions Architecture & Engineering Paradigms | Imaginity Labs', 'Explore eight interconnected software and AI solution paradigms engineered for scaleups and category leaders.'],
+  '/services': ['Studio Services & Dedicated Squads | Imaginity Labs', 'Product engineering, agentic AI, workflow automation, cloud systems, and design. Choose between focused sprints, embedded squads, or long-term partnerships.'],
+  '/work': ['Case Studies & Shipped Products Portfolio | Imaginity Labs', 'Selected production case studies across fintech, health, logistics, and dev tools with measurable business impact.'],
+  '/about': ['About Imaginity Labs — Senior Product & AI Studio', 'A senior technology studio creating software people actually enjoy using. Direct collaboration, no middle layers, uncompromising craft.'],
+  '/insights': ['Insights, Research & Engineering Field Notes | Imaginity Labs', 'Field notes on autonomous AI agents, system architecture, RAG pipelines, and digital craft from the Imaginity team.'],
+  '/careers': ['Careers at Imaginity Labs — Senior Engineering & Design Roles', 'Join a compact senior squad shipping real AI products. Autonomous pods, remote-first culture, generous equity, and quiet focus time.'],
+  '/contact': ['Start a Project — Contact Our Founding Partners | Imaginity Labs', 'Tell us what you are building. Founding partners review all inquiries and respond within one working day with a clear scope roadmap.'],
 }
