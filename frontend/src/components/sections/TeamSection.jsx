@@ -40,14 +40,9 @@ export function TeamSection() {
                 ratio="4/5"
               />
             </div>
-            <div className="mt-4 flex items-center justify-between">
-              <div>
-                <h4 className="display text-xl text-ink">{member.name}</h4>
-                <p className="text-sm text-ink/60">{member.role}</p>
-              </div>
-              <span className="mono text-[10px] text-ink/40 uppercase bg-black/5 px-2.5 py-1 rounded-full">
-                PARTNER
-              </span>
+            <div className="mt-4">
+              <h4 className="display text-xl text-ink">{member.name}</h4>
+              <p className="text-sm text-ink/60">{member.role}</p>
             </div>
           </div>
         ))}

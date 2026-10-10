@@ -21,10 +21,15 @@ export default function Contact() {
     service: '',
     scope: '',
     message: '',
+    website: '', // honeypot field
   })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const mountTime = useRef(0)
 
   useEffect(() => {
+    mountTime.current = Date.now()
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
     const roleParam = params.get('role')
@@ -39,10 +44,36 @@ export default function Contact() {
     }
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    fireConfetti()
+    setErrorMessage('')
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formState,
+          _timestamp: mountTime.current,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to dispatch enquiry. Please try again.')
+      }
+
+      setSubmitted(true)
+      fireConfetti()
+    } catch (err) {
+      setErrorMessage(err.message || 'Something went wrong. Please email us directly at hello@imaginitylabs.io.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -72,6 +103,26 @@ export default function Contact() {
               </div>
             ) : (
               <form suppressHydrationWarning onSubmit={handleSubmit} className="space-y-6">
+                {errorMessage && (
+                  <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 text-sm font-medium">
+                    {errorMessage}
+                  </div>
+                )}
+
+                {/* Honeypot field for bot detection (hidden from human users) */}
+                <div style={{ opacity: 0, position: 'absolute', top: 0, left: 0, height: 0, width: 0, zIndex: -1, pointerEvents: 'none' }}>
+                  <label htmlFor="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formState.website}
+                    onChange={(e) => setFormState({ ...formState, website: e.target.value })}
+                  />
+                </div>
+
                 <div className="field">
                   <input
                     suppressHydrationWarning
@@ -79,6 +130,7 @@ export default function Contact() {
                     required
                     id="name"
                     placeholder=" "
+                    disabled={isSubmitting}
                     value={formState.name}
                     onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                   />
@@ -92,6 +144,7 @@ export default function Contact() {
                     required
                     id="email"
                     placeholder=" "
+                    disabled={isSubmitting}
                     value={formState.email}
                     onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                   />
@@ -105,6 +158,7 @@ export default function Contact() {
                       type="text"
                       id="service"
                       placeholder=" "
+                      disabled={isSubmitting}
                       value={formState.service}
                       onChange={(e) => setFormState({ ...formState, service: e.target.value })}
                     />
@@ -117,6 +171,7 @@ export default function Contact() {
                       type="text"
                       id="scope"
                       placeholder=" "
+                      disabled={isSubmitting}
                       value={formState.scope}
                       onChange={(e) => setFormState({ ...formState, scope: e.target.value })}
                     />
@@ -131,6 +186,7 @@ export default function Contact() {
                     required
                     id="message"
                     placeholder=" "
+                    disabled={isSubmitting}
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                   />
@@ -138,7 +194,9 @@ export default function Contact() {
                 </div>
 
                 <div className="pt-4">
-                  <Button type="submit">Submit Brief</Button>
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Dispatching Brief...' : 'Submit Brief'}
+                  </Button>
                 </div>
               </form>
             )}

@@ -38,7 +38,7 @@ export const SITE = {
 export const TICKER = ['Software', 'AI Agents', 'Automation', 'Cloud', 'Product Design', 'Data Platforms']
 
 export const STATS = [
-  { n: 120, suffix: '+', label: 'Products shipped', tint: 'lavender' },
+  { n: 45, suffix: '+', label: 'Products shipped', tint: 'lavender' },
   { n: 18, suffix: '+', label: 'Teams we backed', tint: 'sky' },
   { n: 98, suffix: '%', label: 'Client retention', tint: 'blush' },
   { n: 6, suffix: 'wk', label: 'Avg. time to launch', tint: 'butter' },

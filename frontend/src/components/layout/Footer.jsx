@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowUp, Check } from 'lucide-react'
-import { gsap, MQ } from '../../lib/gsap'
+import { gsap } from '../../lib/gsap'
 import { FOOTER_COLS, SITE } from '../../data/site'
 import { TLink } from '../ui/TLink'
 import { Logo } from './Logo'
@@ -209,11 +209,33 @@ function Wordmark() {
 
 export function Footer() {
   const [email, setEmail] = useState('')
+  const [hp, setHp] = useState('')
   const [done, setDone] = useState(false)
-  const submit = (e) => {
+  const [loading, setLoading] = useState(false)
+  const [err, setErr] = useState('')
+
+  const submit = async (e) => {
     e.preventDefault()
-    if (!email) return
-    setDone(true)
+    if (!email || loading) return
+    setErr('')
+    setLoading(true)
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, hp }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Subscription failed. Please try again.')
+      }
+      setDone(true)
+    } catch (error) {
+      setErr(error.message)
+    } finally {
+      setLoading(false)
+    }
   }
   return (
     <footer id="footer" data-bg="light" className="px-3 pb-3 pt-10 md:px-5 md:pb-5">
@@ -227,21 +249,32 @@ export function Footer() {
               Software, AI and automation for teams that <em className="it">ship.</em>
             </p>
             <form suppressHydrationWarning onSubmit={submit} className="mt-8 flex max-w-md items-center gap-2 rounded-full border border-white/20 p-1.5 pl-5 focus-within:border-yellow">
+              {/* Honeypot field */}
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={hp}
+                onChange={(e) => setHp(e.target.value)}
+                style={{ display: 'none' }}
+              />
               <label htmlFor="ft-email" className="sr-only">Email address</label>
               <input
                 suppressHydrationWarning
                 id="ft-email"
                 type="email"
                 required
+                disabled={loading || done}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email for field notes"
                 className="min-w-0 flex-1 bg-transparent text-[15px] text-white border-0 border-none outline-none ring-0 shadow-none focus:border-0 focus:border-none focus:outline-none focus:ring-0 focus-visible:outline-none placeholder:text-white/40"
               />
-              <button suppressHydrationWarning type="submit" className="btn btn-yellow btn-sm !px-5" aria-live="polite">
-                {done ? (<><Check size={16} /> Subscribed</>) : 'Subscribe'}
+              <button suppressHydrationWarning type="submit" disabled={loading || done} className="btn btn-yellow btn-sm !px-5" aria-live="polite">
+                {done ? (<><Check size={16} /> Subscribed</>) : loading ? 'Joining...' : 'Subscribe'}
               </button>
             </form>
+            {err && <p className="mt-2 text-xs text-red-400">{err}</p>}
           </div>
 
           <nav aria-label="Footer" className="col-span-12 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7 lg:pl-16">

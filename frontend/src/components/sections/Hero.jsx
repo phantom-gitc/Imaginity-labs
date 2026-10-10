@@ -8,7 +8,7 @@ import { Eyebrow, It, Underline } from '../ui/Type'
 import { GradientBackdrop } from '../ui/GradientBackdrop'
 
 const CHIPS = [
-  { a: '-20deg', icon: Rocket, big: '120+', small: 'products shipped', rot: 'rot-a' },
+  { a: '-20deg', icon: Rocket, big: '45+', small: 'products shipped', rot: 'rot-a' },
   { a: '110deg', icon: TrendingUp, big: '98%', small: 'client retention', rot: 'rot-b' },
   { a: '225deg', icon: Star, big: '4.9', small: 'average rating', rot: 'rot-a' },
 ]

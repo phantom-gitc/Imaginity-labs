@@ -39,7 +39,6 @@ export default function Services() {
           scale: isMobile ? 0.96 : 0.94,
           rotation: targetRot,
           y: isMobile ? -6 : -10,
-          filter: 'brightness(0.96)',
           transformOrigin: '50% 12%',
           ease: 'none',
           scrollTrigger: {
@@ -82,6 +81,7 @@ export default function Services() {
               className="sticky top-24 md:top-28 rounded-[28px] md:rounded-[36px] bg-white border border-line/90 p-6 sm:p-8 lg:p-10 shadow-[0_18px_45px_-15px_rgba(15,15,40,0.08)] mb-8 md:mb-12 will-change-transform transition-shadow duration-500 hover:shadow-[0_24px_55px_-15px_rgba(15,15,40,0.12)]"
               style={{
                 zIndex: idx + 1,
+                backgroundColor: '#ffffff',
               }}
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

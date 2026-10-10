@@ -27,6 +27,36 @@ export function AppShell({ children }) {
     return () => clearTimeout(t)
   }, [pathname])
 
+  // Content protection against copying and dragging
+  useEffect(() => {
+    const handleCopy = (e) => {
+      const target = e.target
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+        return
+      }
+      e.preventDefault()
+      if (e.clipboardData) {
+        e.clipboardData.setData('text/plain', '© Imaginity Labs. Content is protected.')
+      }
+    }
+
+    const handleDragStart = (e) => {
+      const target = e.target
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+        return
+      }
+      e.preventDefault()
+    }
+
+    document.addEventListener('copy', handleCopy)
+    document.addEventListener('dragstart', handleDragStart)
+
+    return () => {
+      document.removeEventListener('copy', handleCopy)
+      document.removeEventListener('dragstart', handleDragStart)
+    }
+  }, [])
+
   return (
     <ScrollProvider>
       <PageTransition>

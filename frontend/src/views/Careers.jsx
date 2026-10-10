@@ -10,7 +10,7 @@ import { Button } from '../components/ui/Button'
 import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Check, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { syncScrollEngine } from '../hooks/useScrollSmooth'
 
 const ROLE_DEPARTMENTS = {
@@ -166,7 +166,7 @@ export default function Careers() {
             const isOpen = expandedRole === role.id
             const department = ROLE_DEPARTMENTS[role.id] || 'Engineering'
             const metaParts = role.meta ? role.meta.split('·').map((t) => t.trim()) : []
-            const location = 'Remote'
+            const _location = 'Remote'
             const commitment = metaParts[1] || 'Full-time'
             const exp = metaParts[2] || role.exp || ''
 

@@ -101,6 +101,36 @@ body {
   height: 0 !important;
   background: transparent !important;
 }
+
+/* ---------- Content Protection & Anti-Copy (Restrict text selection & drag) ---------- */
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div,
+section,
+article {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Form input fields and textareas remain fully selectable and editable */
+input,
+textarea,
+select,
+[contenteditable="true"] {
+  -webkit-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  user-select: auto !important;
+}
 img,
 svg,
 video {
