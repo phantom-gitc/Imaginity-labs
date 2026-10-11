@@ -6,7 +6,13 @@ import { Eyebrow, H, It } from './Type'
 import { Obj } from './Img'
 
 /** Blue→violet CTA panel (28px radius) with floating glass card on the right. */
-export function CTAPanel({ title, line = 'Tell us what you are building. We reply within one working day.' }) {
+export function CTAPanel({
+  title,
+  line = 'Tell us what you are building. We reply within one working day.',
+  eyebrow = 'Start a project',
+  primaryBtn = { label: 'Start a project', to: '/contact', variant: 'yellow' },
+  secondaryBtn = { label: 'See our work', to: '/work', variant: 'ghost-light' },
+}) {
   return (
     <section data-bg="light" className="section-tight">
       <div className="wrap">
@@ -16,12 +22,30 @@ export function CTAPanel({ title, line = 'Tell us what you are building. We repl
           <div className="absolute inset-0 -z-10 opacity-40" aria-hidden="true" style={{ backgroundImage: 'radial-gradient(circle, rgb(255 255 255 / .35) 1px, transparent 1.4px)', backgroundSize: '28px 28px', maskImage: 'linear-gradient(120deg, #000, transparent 60%)', WebkitMaskImage: 'linear-gradient(120deg, #000, transparent 60%)' }} />
           <div className="relative grid items-center gap-12 lg:grid-cols-12">
             <div className="flex flex-col items-start gap-6 lg:col-span-7">
-              <Eyebrow dot="#FFD93D" className="!text-white/70">Start a project</Eyebrow>
+              <Eyebrow dot="#FFD93D" className="!text-white/70">{eyebrow}</Eyebrow>
               <H size="xl">{title || (<>Let&apos;s build something <It>remarkable</It></>)}</H>
               <p data-reveal="up" className="max-w-[34ch] text-white/75">{line}</p>
               <div data-reveal="up" className="flex flex-wrap gap-3 pt-2">
-                <Button to="/contact" variant="yellow">Start a project</Button>
-                <Button to="/work" variant="ghost-light">See our work</Button>
+                {primaryBtn && (
+                  <Button
+                    to={primaryBtn.to}
+                    href={primaryBtn.href}
+                    onClick={primaryBtn.onClick}
+                    variant={primaryBtn.variant || 'yellow'}
+                  >
+                    {primaryBtn.label}
+                  </Button>
+                )}
+                {secondaryBtn && (
+                  <Button
+                    to={secondaryBtn.to}
+                    href={secondaryBtn.href}
+                    onClick={secondaryBtn.onClick}
+                    variant={secondaryBtn.variant || 'ghost-light'}
+                  >
+                    {secondaryBtn.label}
+                  </Button>
+                )}
               </div>
             </div>
 

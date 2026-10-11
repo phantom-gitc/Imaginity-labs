@@ -7,7 +7,7 @@ import { Eyebrow, H, It, Section } from '../components/ui/Type'
 import { Obj } from '../components/ui/Img'
 import { Button } from '../components/ui/Button'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
-import { Check, Mail, MapPin, Users } from 'lucide-react'
+import { Check, Mail, MapPin, Users, Copy, Paperclip } from 'lucide-react'
 
 import { fireConfetti } from '../lib/confetti'
 
@@ -28,17 +28,29 @@ export default function Contact() {
   const [errorMessage, setErrorMessage] = useState('')
   const mountTime = useRef(0)
 
+  const [roleParam, setRoleParam] = useState('')
+  const [copiedEmail, setCopiedEmail] = useState(false)
+
+  const handleCopyEmail = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText('hello.imaginitylabs@gmail.com')
+      setCopiedEmail(true)
+      setTimeout(() => setCopiedEmail(false), 2000)
+    }
+  }
+
   useEffect(() => {
     mountTime.current = Date.now()
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
-    const roleParam = params.get('role')
-    if (roleParam) {
+    const role = params.get('role')
+    if (role) {
       queueMicrotask(() => {
+        setRoleParam(role)
         setFormState((prev) => ({
           ...prev,
-          service: `Job Application: ${roleParam}`,
-          message: `Hi Imaginity team,\n\nI would like to apply for the ${roleParam} position. Here is a brief note about my background and my resume/portfolio: `,
+          service: `Job Application: ${role}`,
+          message: `Hi Imaginity team,\n\nI would like to apply for the ${role} position.`,
         }))
       })
     }
@@ -70,7 +82,7 @@ export default function Contact() {
       setSubmitted(true)
       fireConfetti()
     } catch (err) {
-      setErrorMessage(err.message || 'Something went wrong. Please email us directly at hello@imaginitylabs.io.')
+      setErrorMessage(err.message || 'Something went wrong. Please email us directly at hello.imaginitylabs@gmail.com.')
     } finally {
       setIsSubmitting(false)
     }
@@ -90,6 +102,44 @@ export default function Contact() {
             <p className="lede text-lg mb-10">
               Tell us about your product, timeline, and ambitions. We review all inquiries and respond within one business day.
             </p>
+
+            {/* Career / CV Submission Alert Banner */}
+            {(roleParam || formState.service.toLowerCase().includes('job') || formState.service.toLowerCase().includes('resume') || formState.service.toLowerCase().includes('career') || formState.service.toLowerCase().includes('cv')) && (
+              <div className="p-6 rounded-[24px] bg-[#E9E4FF] border border-[#3B5BFF]/30 mb-8 space-y-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="size-10 rounded-xl bg-[#3B5BFF] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Mail size={18} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-ink text-base">
+                      {roleParam ? `Applying for ${roleParam}?` : 'Applying for a Career Role?'}
+                    </h4>
+                    <p className="text-sm text-ink/75 mt-1 leading-relaxed">
+                      To send your CV, resume, or portfolio attachments directly to our founding engineers, please submit your application via email to{' '}
+                      <strong className="text-ink font-semibold">hello.imaginitylabs@gmail.com</strong>.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <a
+                    href={`mailto:hello.imaginitylabs@gmail.com?subject=${encodeURIComponent(roleParam ? `Application for ${roleParam}` : 'Job Application / Resume')}&body=${encodeURIComponent(`Hi Imaginity Labs team,\n\nI would like to apply for ${roleParam || 'an open role'}.\n\nPlease find my CV / Resume and portfolio attached to this email.\n\nFull Name: \nPhone Number: \nLinkedIn / Portfolio: \n\nLooking forward to speaking with you!`)}`}
+                    className="btn btn-primary btn-sm inline-flex items-center gap-2"
+                  >
+                    <Mail size={14} /> Open Email Client &amp; Send CV
+                  </a>
+                  <button
+                    type="button"
+                    suppressHydrationWarning
+                    onClick={handleCopyEmail}
+                    className="btn btn-outline btn-sm inline-flex items-center gap-2 bg-white"
+                  >
+                    {copiedEmail ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
+                    {copiedEmail ? 'Email Copied!' : 'Copy Email Address'}
+                  </button>
+                </div>
+              </div>
+            )}
 
             {submitted ? (
               <div className="p-8 rounded-[24px] bg-[#DDF5E6] border border-[#167A4A]/20">
@@ -214,13 +264,30 @@ export default function Contact() {
               <div className="space-y-4 pt-6 border-t border-black/10">
                 <div className="flex items-center gap-3 text-sm text-ink/80">
                   <Mail size={16} className="text-[#3B5BFF]" />
-                  <a href="mailto:hello@imaginitylabs.io" className="hover:text-[#3B5BFF] transition-colors focus-visible:underline">
-                    hello@imaginitylabs.io
+                  <a href="mailto:hello.imaginitylabs@gmail.com" className="hover:text-[#3B5BFF] transition-colors focus-visible:underline">
+                    hello.imaginitylabs@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-ink/80">
                   <MapPin size={16} className="text-[#3B5BFF]" />
                   <span>Bhubaneswar &middot; Global Remote First</span>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/70 border border-black/[0.08] space-y-2 mt-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-ink/60">Career &amp; CV Submission</span>
+                    <span className="text-[10px] font-mono font-medium text-[#3B5BFF] bg-[#3B5BFF]/10 px-2 py-0.5 rounded-full">Direct Mail</span>
+                  </div>
+                  <p className="text-xs text-ink/70">
+                    Applying for engineering or design? Email your CV and portfolio directly with file attachments intact.
+                  </p>
+                  <div className="flex items-center gap-3 pt-1">
+                    <a
+                      href="mailto:hello.imaginitylabs@gmail.com?subject=Resume%20Submission%20-%20Job%20Application&body=Hi%20Imaginity%20Labs%20team%2C%0D%0A%0D%0APlease%20find%20my%20CV%2FResume%20attached.%0D%0A%0D%0AName%3A%20%0D%0APhone%3A%20%0D%0APortfolio%20%2F%20LinkedIn%3A%20"
+                      className="text-xs font-semibold text-[#3B5BFF] hover:underline inline-flex items-center gap-1"
+                    >
+                      <Paperclip size={12} /> Send CV via Email &rarr;
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

@@ -10,7 +10,7 @@ import { Button } from '../components/ui/Button'
 import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Mail, Copy, Check, Paperclip } from 'lucide-react'
 import { syncScrollEngine } from '../hooks/useScrollSmooth'
 
 const ROLE_DEPARTMENTS = {
@@ -32,6 +32,21 @@ export default function Careers() {
   useReveal(root)
   const [expandedRole, setExpandedRole] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [copiedId, setCopiedId] = useState(null)
+  const [copiedGeneral, setCopiedGeneral] = useState(false)
+
+  const handleCopyEmail = (id) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText('hello.imaginitylabs@gmail.com')
+      if (id) {
+        setCopiedId(id)
+        setTimeout(() => setCopiedId(null), 2000)
+      } else {
+        setCopiedGeneral(true)
+        setTimeout(() => setCopiedGeneral(false), 2000)
+      }
+    }
+  }
 
   const toggleRole = (id) => {
     setExpandedRole((prev) => (prev === id ? null : id))
@@ -158,6 +173,32 @@ export default function Careers() {
               </button>
             )
           })}
+        </div>
+
+        {/* Direct Email Application Guidance Banner */}
+        <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-[#E9E4FF]/70 border border-[#3B5BFF]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="size-9 rounded-xl bg-[#3B5BFF] text-white flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 shadow-xs">
+              <Mail size={17} />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-ink">
+                Direct Email Application
+              </p>
+              <p className="text-xs text-ink/75 leading-relaxed">
+                Click <strong>Send CV via Email</strong> on any role below to open a pre-filled draft in your mail app, attach your resume PDF, and send directly to <span className="font-semibold text-ink">hello.imaginitylabs@gmail.com</span>.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            suppressHydrationWarning
+            onClick={() => handleCopyEmail()}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium border border-[#3B5BFF]/30 bg-white hover:bg-[#F5F3FF] text-[#2F4AD0] transition-colors shrink-0 cursor-pointer self-start sm:self-auto"
+          >
+            {copiedGeneral ? <Check size={13} className="text-emerald-600" /> : <Copy size={13} />}
+            <span>{copiedGeneral ? 'Copied hello.imaginitylabs@gmail.com' : 'Copy Application Email'}</span>
+          </button>
         </div>
 
         {/* Roles List (Full-width, Straight Edge, Ultra-smooth Grayish Transition) */}
@@ -294,27 +335,56 @@ export default function Careers() {
                           )}
                         </div>
 
-                        {/* Minimal Apply Action Bar */}
+                        {/* Direct Apply Action Bar */}
                         <div className="pt-8 border-t border-black/[0.05] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                           <div>
                             <h5 className="display text-xl sm:text-2xl text-ink font-normal mb-1">
                               Ready to apply for {role.t}?
                             </h5>
-                            <p className="text-sm text-ink/60">
-                              Submit your resume or email{' '}
+                            <p className="text-sm text-ink/70">
+                              Submit your resume or CV directly to{' '}
                               <a
-                                href={`mailto:hello@imaginitylabs.io?subject=Application for ${encodeURIComponent(role.t)}`}
+                                href={`mailto:hello.imaginitylabs@gmail.com?subject=Application for ${encodeURIComponent(role.t)}`}
                                 className="text-ink font-medium underline underline-offset-4 hover:text-[#3B5BFF]"
                               >
-                                hello@imaginitylabs.io
+                                hello.imaginitylabs@gmail.com
                               </a>
-                              .
+                            </p>
+                            <p className="text-xs text-ink/50 flex items-center gap-1.5 pt-1 font-sans">
+                              <Paperclip size={12} className="text-[#3B5BFF]" />
+                              <span>Attach your CV/Resume PDF and portfolio link before sending.</span>
                             </p>
                           </div>
 
-                          <Button to={`/contact?role=${encodeURIComponent(role.t)}`} size="sm" className="shrink-0">
-                            Apply for this Position
-                          </Button>
+                          <div className="flex items-center flex-wrap gap-2.5 shrink-0">
+                            <Button
+                              href={`mailto:hello.imaginitylabs@gmail.com?subject=${encodeURIComponent(`Application for ${role.t}`)}&body=${encodeURIComponent(`Hi Imaginity Labs team,\n\nI would like to apply for the ${role.t} position.\n\nPlease find my CV / Resume and portfolio attached to this email.\n\nFull Name: \nPhone Number: \nLinkedIn / Portfolio / GitHub: \nRelevant Experience: \n\nLooking forward to hearing from you!\n`)}`}
+                              size="sm"
+                              className="shrink-0"
+                            >
+                              Send CV via Email
+                            </Button>
+
+                            <button
+                              type="button"
+                              suppressHydrationWarning
+                              onClick={() => handleCopyEmail(role.id)}
+                              aria-label="Copy email address"
+                              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-full border border-black/15 bg-white/80 hover:bg-white text-ink transition-all shadow-xs cursor-pointer"
+                            >
+                              {copiedId === role.id ? (
+                                <>
+                                  <Check size={13} className="text-emerald-600" />
+                                  <span className="text-emerald-700 font-medium">Copied!</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy size={13} className="text-ink/60" />
+                                  <span>Copy Email</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </motion.div>
@@ -341,7 +411,21 @@ export default function Careers() {
       </Section>
 
       {/* 5. CTA */}
-      <CTAPanel title={<>Don&apos;t see your role? Reach <It>out anyway.</It></>} />
+      <CTAPanel
+        eyebrow="Open Applications"
+        title={<>Don&apos;t see your role? Reach <It>out anyway.</It></>}
+        line="Send your CV or portfolio directly to hello.imaginitylabs@gmail.com. We are always eager to meet driven creators and engineers."
+        primaryBtn={{
+          label: 'Send Your CV',
+          href: 'mailto:hello.imaginitylabs@gmail.com?subject=Open%20Application%20%2F%20CV%20Submission&body=Hi%20Imaginity%20Labs%20team%2C%0D%0A%0D%0AI%20am%20interested%20in%20opportunities%20at%20Imaginity%20Labs.%20Please%20find%20my%20CV%2FResume%20attached.%0D%0A%0D%0AFull%20Name%3A%20%0D%0APrimary%20Skills%3A%20%0D%0APortfolio%20%2F%20GitHub%3A%20',
+          variant: 'yellow',
+        }}
+        secondaryBtn={{
+          label: 'Contact Founders',
+          to: '/contact',
+          variant: 'ghost-light',
+        }}
+      />
     </div>
   )
 }

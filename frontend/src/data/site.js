@@ -30,7 +30,7 @@ export const NAV = [
 
 export const SITE = {
   name: 'IMAGINITY LABS',
-  email: 'hello@imaginitylabs.io',
+  email: 'hello.imaginitylabs@gmail.com',
   city: 'Bhubaneswar · Remote-first',
   tz: 'Asia/Kolkata',
 }

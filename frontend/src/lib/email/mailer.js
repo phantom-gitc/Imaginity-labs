@@ -5,7 +5,7 @@
  */
 
 export async function sendEnquiryNotification({ name, email, service, scope, message }) {
-  const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || 'hello@imaginitylabs.io'
+  const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || 'hello.imaginitylabs@gmail.com'
   const resendApiKey = process.env.RESEND_API_KEY
 
   const subject = `[New Project Brief] ${name} - ${service || 'General Enquiry'}`
@@ -33,7 +33,7 @@ Received: ${new Date().toISOString()}
           Authorization: `Bearer ${resendApiKey}`,
         },
         body: JSON.stringify({
-          from: process.env.SMTP_FROM || 'Imaginity Labs <hello@imaginitylabs.io>',
+          from: process.env.SMTP_FROM || 'Imaginity Labs <hello.imaginitylabs@gmail.com>',
           to: [receiverEmail],
           reply_to: email,
           subject,

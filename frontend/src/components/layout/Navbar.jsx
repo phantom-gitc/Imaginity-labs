@@ -174,7 +174,7 @@ export function Navbar() {
               ))}
             </motion.ul>
             <div className="relative flex items-center justify-between">
-              <a href="mailto:hello@imaginitylabs.io" className="mono text-white/70">hello@imaginitylabs.io</a>
+              <a href="mailto:hello.imaginitylabs@gmail.com" className="mono text-white/70">hello.imaginitylabs@gmail.com</a>
               <Button to="/contact" variant="yellow" size="sm">Let&apos;s Talk</Button>
             </div>
           </motion.div>
