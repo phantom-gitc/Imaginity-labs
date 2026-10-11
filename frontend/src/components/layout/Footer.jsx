@@ -248,6 +248,9 @@ export function Footer() {
             <p className="mt-6 max-w-[28ch] font-serif text-[clamp(28px,3vw,40px)] leading-[1.02]">
               Software, AI and automation for teams that <em className="it">ship.</em>
             </p>
+            <p className="mt-2 text-xs text-white/50 font-mono tracking-wide">
+              Imaginity Labs (iLabs) &middot; Autonomous AI &amp; Software Studio
+            </p>
             <form suppressHydrationWarning onSubmit={submit} className="mt-8 flex max-w-md items-center gap-2 rounded-full border border-white/20 p-1.5 pl-5 focus-within:border-yellow">
               {/* Honeypot field */}
               <input
@@ -298,7 +301,7 @@ export function Footer() {
         </div>
 
         <div className="relative mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/55">
-          <span>© 2026 Imaginity Labs · {SITE.city}</span>
+          <span>© 2026 Imaginity Labs (iLabs) · {SITE.city}</span>
           <a href={`mailto:${SITE.email}`} className="min-h-6 hover:text-white">{SITE.email}</a>
           <button suppressHydrationWarning type="button" onClick={() => scrollToTop(false)} className="inline-flex min-h-11 items-center gap-2 hover:text-white">
             Back to top <ArrowUp size={16} />

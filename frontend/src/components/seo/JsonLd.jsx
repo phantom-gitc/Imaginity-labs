@@ -1,5 +1,5 @@
-import { SITE_URL, SITE_NAME, ALTERNATE_SITE_NAME, absoluteUrl } from '../../lib/site-url'
-import { SITE } from '../../data/site'
+import { SITE_URL, SITE_NAME, ALTERNATE_SITE_NAME, ALTERNATE_SITE_NAMES, absoluteUrl } from '../../lib/site-url'
+import { SITE, FAQ } from '../../data/site'
 import { SOLUTIONS } from '../../data/services'
 import { CASES, ROLES, TEAM } from '../../data/work'
 import { ARTICLES } from '../../data/articles'
@@ -11,7 +11,7 @@ export function JsonLd({ data }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serialize(data) }} />
 }
 
-/** Official WebSite schema declaring primary brand name and alternate brand name. */
+/** Official WebSite schema declaring primary brand name and alternate brand name variations (iLabs, i labs, etc.). */
 export function WebSiteJsonLd() {
   return (
     <JsonLd
@@ -19,12 +19,13 @@ export function WebSiteJsonLd() {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         name: SITE_NAME,
-        alternateName: [ALTERNATE_SITE_NAME],
+        alternateName: ALTERNATE_SITE_NAMES,
         url: SITE_URL,
-        description: 'Software development, agentic AI, and workflow automation studio for teams that ship.',
+        description: 'Imaginity Labs (iLabs) — Software development, agentic AI, and workflow automation studio for teams that ship.',
         publisher: {
           '@type': 'Organization',
           name: SITE_NAME,
+          alternateName: ALTERNATE_SITE_NAMES,
           url: SITE_URL,
         },
       }}
@@ -40,12 +41,16 @@ export function OrganizationJsonLd() {
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: SITE_NAME,
-        alternateName: ALTERNATE_SITE_NAME,
+        legalName: 'Imaginity Labs',
+        alternateName: ALTERNATE_SITE_NAMES,
         url: SITE_URL,
         logo: absoluteUrl('/img/imaginity-icon-trimmed.png'),
+        image: absoluteUrl('/img/hero.webp'),
         email: SITE.email,
         description:
-          'Imaginity Labs is a digital product and AI engineering studio. We build web applications, autonomous AI agents, and enterprise automations.',
+          'Imaginity Labs (iLabs) is a digital product and AI engineering studio. We build web applications, autonomous AI agents, and enterprise automations.',
+        disambiguatingDescription:
+          'Imaginity Labs (also known as iLabs, Imaginity Technology, imaginitytechnology, imaginiti, imaginiti website, imaginity.in, imaginity.com, and imaginii) is an AI engineering and custom software development studio.',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Bhubaneswar',
@@ -358,11 +363,11 @@ export function ContactJsonLd() {
         '@type': 'ContactPage',
         name: `Contact ${SITE_NAME}`,
         url: absoluteUrl('/contact'),
-        description: `Start a software or AI project conversation with ${SITE_NAME}.`,
+        description: `Start a software or AI project conversation with ${SITE_NAME} (iLabs).`,
         mainEntity: {
           '@type': 'Organization',
           name: SITE_NAME,
-          alternateName: ALTERNATE_SITE_NAME,
+          alternateName: ALTERNATE_SITE_NAMES,
           url: SITE_URL,
           email: SITE.email,
           contactPoint: {
@@ -373,6 +378,26 @@ export function ContactJsonLd() {
             hoursAvailable: 'Mo-Fr 09:00-18:00',
           },
         },
+      }}
+    />
+  )
+}
+
+/** FAQPage schema for Google Search rich question snippets on brand SERPs. */
+export function FAQPageJsonLd() {
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: FAQ.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.a,
+          },
+        })),
       }}
     />
   )

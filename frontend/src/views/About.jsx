@@ -25,7 +25,7 @@ export default function About() {
             A senior studio creating software that people <It>actually enjoy using.</It>
           </H>
           <p className="lede mt-8 text-xl leading-relaxed max-w-[48ch]">
-            Imaginity Labs (also known as Imaginity) is a senior product and AI technology studio. We operate without middlemen, inflated decks, or corporate theater—just direct collaboration between visionary leaders and senior technologists who take pride in craftsmanship.
+            Imaginity Labs (popularly known as iLabs, Imaginity Technology, or Imaginity) is a senior product, agentic AI, and software engineering studio. We operate without middlemen, inflated decks, or corporate theater—just direct collaboration between visionary leaders and senior technologists who take pride in craftsmanship.
           </p>
         </div>
       </Section>

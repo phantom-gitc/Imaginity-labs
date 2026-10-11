@@ -68,12 +68,12 @@ export const FOOTER_COLS = [
 ]
 
 export const SEO = {
-  '/': ['Imaginity Labs — Software, AI & Automation Studio', 'Software, agentic AI and automation for teams that ship. Production-ready digital products with senior craft.'],
-  '/solutions': ['Solutions Architecture & Engineering Paradigms | Imaginity Labs', 'Explore eight interconnected software and AI solution paradigms engineered for scaleups and category leaders.'],
-  '/services': ['Studio Services & Dedicated Squads | Imaginity Labs', 'Product engineering, agentic AI, workflow automation, cloud systems, and design. Choose between focused sprints, embedded squads, or long-term partnerships.'],
-  '/work': ['Case Studies & Shipped Products Portfolio | Imaginity Labs', 'Selected production case studies across fintech, health, logistics, and dev tools with measurable business impact.'],
-  '/about': ['About Imaginity Labs — Senior Product & AI Studio', 'A senior technology studio creating software people actually enjoy using. Direct collaboration, no middle layers, uncompromising craft.'],
-  '/insights': ['Insights, Research & Engineering Field Notes | Imaginity Labs', 'Field notes on autonomous AI agents, system architecture, RAG pipelines, and digital craft from the Imaginity team.'],
-  '/careers': ['Careers at Imaginity Labs — Senior Engineering & Design Roles', 'Join a compact senior squad shipping real AI products. Autonomous pods, remote-first culture, generous equity, and quiet focus time.'],
-  '/contact': ['Start a Project — Contact Our Founding Partners | Imaginity Labs', 'Tell us what you are building. Founding partners review all inquiries and respond within one working day with a clear scope roadmap.'],
+  '/': ['Imaginity Labs (iLabs) — Software, AI & Automation Studio', 'Imaginity Labs (iLabs / i Labs) is a digital product and AI engineering studio. We build custom software, autonomous AI agents, and enterprise cloud solutions.'],
+  '/solutions': ['Solutions Architecture & Engineering Paradigms | Imaginity Labs (iLabs)', 'Explore eight interconnected software and AI solution paradigms engineered for scaleups and category leaders by Imaginity Labs (iLabs).'],
+  '/services': ['Studio Services & Dedicated Squads | Imaginity Labs (iLabs)', 'Product engineering, agentic AI, workflow automation, cloud systems, and design. Choose between focused sprints, embedded squads, or long-term partnerships with Imaginity Labs (iLabs).'],
+  '/work': ['Case Studies & Shipped Products Portfolio | Imaginity Labs (iLabs)', 'Selected production case studies by Imaginity Labs (iLabs) across fintech, health, logistics, and dev tools with measurable business impact.'],
+  '/about': ['About Imaginity Labs (iLabs) — Senior Product & AI Studio', 'About Imaginity Labs (popularly known as iLabs). A senior technology studio creating software people actually enjoy using. Direct collaboration, no middle layers, uncompromising craft.'],
+  '/insights': ['Insights, Research & Engineering Field Notes | Imaginity Labs (iLabs)', 'Field notes on autonomous AI agents, system architecture, RAG pipelines, and digital craft from the Imaginity Labs (iLabs) team.'],
+  '/careers': ['Careers at Imaginity Labs (iLabs) — Senior Engineering & Design Roles', 'Join Imaginity Labs (iLabs) — a compact senior squad shipping real AI products. Autonomous pods, remote-first culture, generous equity, and quiet focus time.'],
+  '/contact': ['Start a Project — Contact Our Founding Partners | Imaginity Labs (iLabs)', 'Tell us what you are building. Imaginity Labs (iLabs) founding partners review all inquiries and respond within one working day with a clear scope roadmap.'],
 }
