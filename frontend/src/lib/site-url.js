@@ -2,7 +2,12 @@
  * Public canonical production origin.
  * Set NEXT_PUBLIC_SITE_URL in the deployment environment if deploying to a custom domain.
  */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://imaginitylabs.io').replace(/\/+$/, '')
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}` : null) ||
+  (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : null) ||
+  'https://imaginity-kappa.vercel.app'
+).replace(/\/+$/, '')
 
 export const SITE_NAME = 'Imaginity Labs'
 export const BRAND_SHORT_NAME = 'iLabs'
@@ -35,6 +40,7 @@ export const ALTERNATE_SITE_NAMES = [
   'ilabs studio',
 
   // Domain-based search queries
+  'imaginity-kappa.vercel.app',
   'imaginity.com',
   'imaginity.in',
   'imaginity.io',

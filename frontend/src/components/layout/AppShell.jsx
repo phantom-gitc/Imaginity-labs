@@ -6,7 +6,6 @@ import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { Cursor } from './Cursor'
 import { Preloader } from './Preloader'
-import { FloatingCTA } from './FloatingCTA'
 import { ScrollProgress } from './ScrollProgress'
 import { PageTransition } from './PageTransition'
 import { ScrollProvider, syncScrollEngine } from '../../hooks/useScrollSmooth'
@@ -70,7 +69,6 @@ export function AppShell({ children }) {
           {children}
         </main>
         <Footer />
-        <FloatingCTA />
       </PageTransition>
     </ScrollProvider>
   )
