@@ -95,7 +95,7 @@ export function Obj({ img, className = '', alt = '', mult = false, style }) {
 }
 
 /** Portrait on a solid pastel background, arch crop. */
-export function Portrait({ img, tint = '#E9E4FF', className = '', alt = '', arch = true, ratio = '4/5', pos = 'center', mult = false }) {
+export function Portrait({ img, tint = '#E9E4FF', className = '', alt = '', arch = true, ratio = '4/5', pos = 'center', scale = 'scale-[1.02]', mult = false }) {
   return (
     <div
       className={`relative overflow-hidden ${className}`}
@@ -107,7 +107,7 @@ export function Portrait({ img, tint = '#E9E4FF', className = '', alt = '', arch
         height={img.h}
         alt={alt}
         unoptimized
-        className={`absolute inset-0 size-full object-cover scale-[1.02] ${mult ? 'mult' : ''}`}
+        className={`absolute inset-0 size-full object-cover ${scale} ${mult ? 'mult' : ''}`}
         style={{ objectPosition: pos }}
       />
     </div>

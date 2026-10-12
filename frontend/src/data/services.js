@@ -33,7 +33,7 @@ export const SOLUTIONS = [
   { id: 'automation', t: 'Automation', line: 'Fewer clicks, more output.', icon: Workflow, tint: 'mint', obj: 4, img: A.svcHero, chips: ['Back-office', 'Document AI', 'Integrations', 'Alerts'], outcomes: ['Hours saved per person weekly', 'Auditable every step', 'Plugs into your stack'] },
   { id: 'cloud', t: 'Cloud Infrastructure', line: 'Fast to ship, safe to scale.', icon: Cloud, tint: 'peach', obj: 0, img: A.cloud, chips: ['IaC', 'CI/CD', 'Observability', 'Security'], outcomes: ['Deploy many times a day', '30% lower cloud spend', 'Clear on-call runbooks'] },
   { id: 'data', t: 'Data & Analytics', line: 'Decisions on trusted numbers.', icon: BarChart3, tint: 'butter', obj: 2, img: A.arch, chips: ['Warehouse', 'Pipelines', 'Dashboards', 'ML features'], outcomes: ['One source of truth', 'Self-serve dashboards', 'Model-ready datasets'] },
-  { id: 'mobile', t: 'Mobile Apps', line: 'Native feel, shared codebase.', icon: Smartphone, tint: 'lavender', obj: 5, img: A.case[1], chips: ['iOS', 'Android', 'Offline-first', 'Push'], outcomes: ['4.8★ store ratings', 'Shared logic, native polish', 'Release every sprint'] },
+  { id: 'mobile', t: 'Mobile Apps', line: 'Native feel, shared codebase.', icon: Smartphone, tint: 'lavender', obj: 5, img: A.case[1], chips: ['iOS', 'Android', 'Offline-first', 'Push'], outcomes: ['4.8/5 app store rating', 'Shared logic, native polish', 'Release every sprint'] },
   { id: 'integrations', t: 'APIs & Integrations', line: 'Make your systems talk.', icon: Plug, tint: 'sky', obj: 2, img: A.case[2], chips: ['REST & GraphQL', 'Webhooks', 'ERP / CRM', 'Event buses'], outcomes: ['Single clean API layer', 'Versioned & documented', 'Monitored end to end'] },
 ]
 
@@ -49,7 +49,7 @@ export const INDUSTRIES = [
 ]
 
 export const GOALS = [
-  { id: 'launch', tab: 'Launch faster', t: 'Get to market in weeks, not quarters.', points: ['Scoped MVP in 3–6 weeks', 'Weekly shippable demos', 'Launch with analytics on'], img: A.case[0], icon: Rocket },
+  { id: 'launch', tab: 'Launch faster', t: 'Get to market in weeks, not quarters.', points: ['Scoped MVP in 3 to 6 weeks', 'Weekly shippable demos', 'Launch with analytics on'], img: A.case[0], icon: Rocket },
   { id: 'cost', tab: 'Cut cost', t: 'Trim cloud and process waste.', points: ['FinOps audit in week one', 'Automate the manual 20%', 'Retire redundant tools'], img: A.cloud, icon: PiggyBank },
   { id: 'automate', tab: 'Automate work', t: 'Give your team their hours back.', points: ['Map the highest-effort flows', 'Agent + rules hybrid', 'Audit logs on every step'], img: A.case[3], icon: Workflow },
   { id: 'scale', tab: 'Scale safely', t: 'Grow without the 3 a.m. pages.', points: ['Load-tested architecture', 'Observability & SLOs', 'Security by default'], img: A.arch, icon: ShieldCheck },

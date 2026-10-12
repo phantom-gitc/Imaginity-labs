@@ -37,7 +37,7 @@ export function buildMetadata({
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: `${title} — ${SITE_NAME}`,
+          alt: `${title} | ${SITE_NAME}`,
         },
       ],
     },

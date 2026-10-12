@@ -272,6 +272,16 @@ export default function Contact() {
                   <MapPin size={16} className="text-[#3B5BFF]" />
                   <span>Bhubaneswar &middot; Global Remote First</span>
                 </div>
+                <div className="flex flex-wrap items-center gap-2.5 text-xs text-ink/75 pt-1">
+                  <span className="font-mono uppercase tracking-wider text-ink/45">Connect:</span>
+                  <a href="#" className="font-medium text-ink/80 hover:text-[#3B5BFF] transition-colors underline-offset-4 hover:underline">LinkedIn</a>
+                  <span className="text-ink/30">&middot;</span>
+                  <a href="#" className="font-medium text-ink/80 hover:text-[#3B5BFF] transition-colors underline-offset-4 hover:underline">X (Twitter)</a>
+                  <span className="text-ink/30">&middot;</span>
+                  <a href="#" className="font-medium text-ink/80 hover:text-[#3B5BFF] transition-colors underline-offset-4 hover:underline">GitHub</a>
+                  <span className="text-ink/30">&middot;</span>
+                  <a href="#" className="font-medium text-ink/80 hover:text-[#3B5BFF] transition-colors underline-offset-4 hover:underline">Instagram</a>
+                </div>
                 <div className="p-4 rounded-2xl bg-white/70 border border-black/[0.08] space-y-2 mt-3">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold uppercase tracking-wider text-ink/60">Career &amp; CV Submission</span>

@@ -127,7 +127,7 @@ export const ARTICLES = [
         num: '09',
         title: 'Conclusion',
         content:
-          'The future of enterprise software is not a chat box in the corner of your screen — it is autonomous, reliable background intelligence that quietly does the heavy lifting so human teams can focus on strategy and craft.',
+          'The future of enterprise software is not a chat box in the corner of your screen; it is autonomous, reliable background intelligence that quietly does the heavy lifting so human teams can focus on strategy and craft.',
       },
     ],
     takeaways: [

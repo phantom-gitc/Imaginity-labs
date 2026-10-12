@@ -15,7 +15,7 @@ export const CASES = [
     slug: 'imaginity', title: 'Imaginity', client: 'Imaginity Studio', category: 'Product', year: '2025', tint: 'sky', img: A.imaginity,
     line: 'A creative workspace that turns briefs into campaigns.',
     role: ['Web platform', 'UX research', 'Brand-ready UI'], stack: ['React', 'Node', 'WebGL', 'AWS'],
-    results: [{ n: 3, s: 'x', l: 'Faster briefs' }, { n: 48, s: 'k', l: 'Active creators' }, { n: 4.8, s: '★', l: 'Avg. rating' }],
+    results: [{ n: 3, s: 'x', l: 'Faster briefs' }, { n: 48, s: 'k', l: 'Active creators' }, { n: 4.8, s: '/5', l: 'Client rating' }],
     challenge: 'Creative teams juggled six tools to ship a single campaign.',
     solution: 'One calm workspace with shared assets, approvals and AI assist.',
     gallery: [A.imaginity, A.lake, A.obj[1]],
@@ -33,7 +33,7 @@ export const CASES = [
     slug: 'pulse', title: 'Pulse Health', client: 'Pulse Care', category: 'Mobile', year: '2025', tint: 'blush', img: A.case[1],
     line: 'A patient app people actually open every day.',
     role: ['Mobile apps', 'UX', 'Compliance'], stack: ['React Native', 'Node', 'FHIR', 'AWS'],
-    results: [{ n: 4.8, s: '★', l: 'Store rating' }, { n: 71, s: '%', l: 'Weekly retention' }, { n: 5, s: 'wk', l: 'To first release' }],
+    results: [{ n: 4.8, s: '/5', l: 'Store rating' }, { n: 71, s: '%', l: 'Weekly retention' }, { n: 5, s: 'wk', l: 'To first release' }],
     challenge: 'Patients dropped off after the first appointment.',
     solution: 'A friendly, privacy-first app with nudges that respect attention.',
     gallery: [A.case[1], A.team, A.obj[0]],
@@ -70,7 +70,8 @@ export const TEAM = [
   { name: 'Saroj Kumar Padhi', role: 'Founder & Creative Director', p: 0, tint: 'lavender' },
   { name: 'Debasish Rout', role: 'Co-Founder | CFO & Sales Lead', p: 1, tint: 'blush' },
   { name: 'Lucky Roshan', role: 'Co-Founder | Head of Technology', p: 2, tint: 'sky' },
-  { name: 'Sairam Panda', role: 'Senior Full-Stack Engineer', p: 3, tint: 'mint' },
+  { name: 'Manisha Sahu', role: 'Senior Software Engineer', p: 4, tint: 'peach' },
+  { name: 'Sairam Panda', role: 'Senior Full-Stack Developer', p: 3, tint: 'mint' },
 ]
 
 export const VALUES = [
@@ -135,8 +136,8 @@ export const ROLES = [
   {
     id: 'mern',
     t: 'MERN Stack Developer',
-    meta: 'Remote · Fresher · 0–1 Yr Exp',
-    exp: 'Fresher (0–1 Year)',
+    meta: 'Remote · Fresher · 0 to 1 Yr Exp',
+    exp: 'Fresher (0 to 1 Year)',
     stack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JavaScript (ES6+)', 'Tailwind CSS', 'Git & GitHub'],
     d: 'Kickstart your engineering career by building responsive web applications, interactive client portals, and RESTful APIs alongside senior mentors. You will write clean, component-driven code, participate in sprint demos, and contribute directly to live client products.',
     responsibilities: [
@@ -175,8 +176,8 @@ export const ROLES = [
   {
     id: 'python',
     t: 'Python Developer',
-    meta: 'Remote · Fresher · 0–1 Yr Exp',
-    exp: 'Fresher (0–1 Year)',
+    meta: 'Remote · Fresher · 0 to 1 Yr Exp',
+    exp: 'Fresher (0 to 1 Year)',
     stack: ['Python 3.11+', 'FastAPI', 'PostgreSQL', 'Pandas', 'Playwright / BeautifulSoup', 'Docker', 'Git'],
     d: 'Work alongside our AI and automation engineers to build robust data scraping pipelines, background job queues, and FastAPI microservices. You will learn production software engineering standards, async Python concurrency, and modern AI integration patterns.',
     responsibilities: [

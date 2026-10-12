@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { Rocket, Star, TrendingUp, Move3d } from 'lucide-react'
+import { Rocket, Clock, TrendingUp, Move3d } from 'lucide-react'
 import { gsap, MQ } from '../../lib/gsap'
 import { A } from '../../data/site'
 import { Button } from '../ui/Button'
@@ -10,7 +10,7 @@ import { GradientBackdrop } from '../ui/GradientBackdrop'
 const CHIPS = [
   { a: '-20deg', icon: Rocket, big: '45+', small: 'products shipped', rot: 'rot-a' },
   { a: '110deg', icon: TrendingUp, big: '98%', small: 'client retention', rot: 'rot-b' },
-  { a: '225deg', icon: Star, big: '4.9', small: 'average rating', rot: 'rot-a' },
+  { a: '225deg', icon: Clock, big: '6 wk', small: 'avg time to launch', rot: 'rot-a' },
 ]
 
 export function Hero() {
@@ -20,7 +20,7 @@ export function Hero() {
   const orb3dRef = useRef(null)
   const glareRef = useRef(null)
   const shadowRef = useRef(null)
-  
+
   const [isDragging, setIsDragging] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
   const dragStart = useRef({ x: 0, y: 0, rotX: 0, rotY: 0 })
@@ -43,7 +43,7 @@ export function Hero() {
       const setOrbRotZ = gsap.quickTo(orb, 'rotation', { duration: 1.1, ease: 'power2.out' })
       const setOrbX = gsap.quickTo(orb, 'x', { duration: 1, ease: 'power2.out' })
       const setOrbY = gsap.quickTo(orb, 'y', { duration: 1, ease: 'power2.out' })
-      
+
       const setShadowX = shadow ? gsap.quickTo(shadow, 'x', { duration: 1, ease: 'power2.out' }) : null
       const setShadowScaleX = shadow ? gsap.quickTo(shadow, 'scaleX', { duration: 1, ease: 'power2.out' }) : null
       const setShadowScaleY = shadow ? gsap.quickTo(shadow, 'scaleY', { duration: 1, ease: 'power2.out' }) : null
@@ -151,7 +151,7 @@ export function Hero() {
     dragStart.current.active = false
     try {
       e.currentTarget.releasePointerCapture?.(e.pointerId)
-    } catch {}
+    } catch { }
 
     // Smoothly spring back to rest position
     if (orb3dRef.current) {
@@ -187,20 +187,6 @@ export function Hero() {
             <div data-reveal="up" data-intro data-delay="0.45" className="flex flex-wrap items-center gap-3">
               <Button to="/contact">Start a project</Button>
               <Button to="/work" variant="outline">See our work</Button>
-            </div>
-            <div data-reveal="up" data-intro data-delay="0.55" className="mt-2 flex items-center gap-4">
-              <div className="flex -space-x-3">
-                {A.portrait.map((p, i) => (
-                  <Image key={i} src={p.src} width={88} height={88} unoptimized alt="" className="size-11 rounded-full border-2 border-bg object-cover" style={{ background: ['#E9E4FF', '#FFE1EA', '#DCEBFF', '#DDF5E6'][i] }} />
-                ))}
-              </div>
-              <div>
-                <div className="flex items-center gap-0.5 text-yellow" aria-label="Rated 4.9 out of 5">
-                  {[0, 1, 2, 3, 4].map((i) => <Star key={i} size={15} fill="currentColor" strokeWidth={0} />)}
-                  <span className="ml-2 text-sm font-medium text-ink">4.9</span>
-                </div>
-                <p className="muted text-[13px]">from 60+ founders and teams</p>
-              </div>
             </div>
           </div>
 
@@ -304,9 +290,8 @@ export function Hero() {
 
                 {/* Interactive hint badge */}
                 <div
-                  className={`pointer-events-none absolute bottom-[-4px] left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-black/5 bg-white/70 px-3 py-1 text-[11px] font-medium tracking-wide text-ink/60 shadow-sm backdrop-blur-md transition-all duration-500 ${
-                    hasInteracted ? 'opacity-0 translate-y-2' : 'opacity-80'
-                  }`}
+                  className={`pointer-events-none absolute bottom-[-4px] left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-black/5 bg-white/70 px-3 py-1 text-[11px] font-medium tracking-wide text-ink/60 shadow-sm backdrop-blur-md transition-all duration-500 ${hasInteracted ? 'opacity-0 translate-y-2' : 'opacity-80'
+                    }`}
                 >
                   <Move3d size={13} className="text-accent" />
                   <span>Interactive 3D · Drag or move mouse</span>

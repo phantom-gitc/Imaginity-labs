@@ -44,7 +44,7 @@ export function WorkCard({ c, ratio = '4/3', index, className = '', flip = false
             eager={eager}
             sizes="(max-width: 768px) 100vw, 100vw"
             bg={`var(--c-${c.tint}, #E9E4FF)`}
-            alt={`${c.title} — ${c.line}`}
+            alt={`${c.title}: ${c.line}`}
           >
             <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between p-4 md:p-5">
               <Tag tint={c.tint}>{c.category}</Tag>

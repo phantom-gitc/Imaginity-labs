@@ -10,6 +10,8 @@ export function TeamSection() {
     blush: '#FFE1EA',
     sky: '#DCEBFF',
     mint: '#DDF5E6',
+    peach: '#FFE6D2',
+    butter: '#FFF3B0',
   }
 
   return (
@@ -36,6 +38,8 @@ export function TeamSection() {
               <Portrait
                 img={A.portrait[member.p]}
                 tint={tintColors[member.tint] || '#E9E4FF'}
+                scale={member.scale}
+                pos={member.pos}
                 alt={member.name}
                 ratio="4/5"
               />

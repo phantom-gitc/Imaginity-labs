@@ -171,7 +171,7 @@ export function ServicesScroller() {
         {/* Left Rotated Label */}
         <div className="hidden lg:flex absolute left-8 z-20 items-center justify-center">
           <span className="vertical-label mono text-ink/30 text-xs tracking-[0.3em]">
-            SERVICES — 2026
+            SERVICES / 2026
           </span>
         </div>
 

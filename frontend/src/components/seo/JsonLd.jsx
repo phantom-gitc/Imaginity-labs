@@ -11,7 +11,7 @@ export function JsonLd({ data }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serialize(data) }} />
 }
 
-/** Official WebSite schema declaring primary brand name and alternate brand name variations (iLabs, i labs, etc.). */
+/** Official WebSite schema declaring primary brand name, alternate names, and Sitelinks searchbox. */
 export function WebSiteJsonLd() {
   return (
     <JsonLd
@@ -21,19 +21,56 @@ export function WebSiteJsonLd() {
         name: SITE_NAME,
         alternateName: ALTERNATE_SITE_NAMES,
         url: SITE_URL,
-        description: 'Imaginity Labs (iLabs) — Software development, agentic AI, and workflow automation studio for teams that ship.',
+        description: 'Imaginity Labs (iLabs) | Software development, agentic AI, and workflow automation studio for teams that ship.',
         publisher: {
           '@type': 'Organization',
           name: SITE_NAME,
           alternateName: ALTERNATE_SITE_NAMES,
           url: SITE_URL,
         },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${SITE_URL}/insights?q={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
       }}
     />
   )
 }
 
-/** Organization schema matching visible studio branding, location, social presence, and founders. */
+/** Official SiteNavigationElement schema to feed Google Sitelinks under the main search snippet. */
+export function SiteNavigationJsonLd() {
+  const links = [
+    { name: 'About Us', url: '/about', description: 'About Imaginity Labs: senior product engineering, AI agents, and custom software studio.' },
+    { name: 'Services', url: '/services', description: 'Dedicated studio squads: Product engineering, AI agents, automation, and cloud platforms.' },
+    { name: 'Solutions', url: '/solutions', description: 'Eight scalable software and AI paradigms engineered for high-growth category leaders.' },
+    { name: 'Work', url: '/work', description: 'Case studies and production digital flagships delivered by Imaginity Labs.' },
+    { name: 'Insights', url: '/insights', description: 'Research, AI engineering field notes, RAG pipelines, and systems design articles.' },
+    { name: 'Careers', url: '/careers', description: 'Join Imaginity Labs: autonomous engineering pods, remote-first culture, and equity.' },
+    { name: 'Contact Us', url: '/contact', description: 'Start a project brief directly with our founding engineering partners.' },
+  ]
+
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@graph': links.map((l, i) => ({
+          '@type': 'SiteNavigationElement',
+          '@id': absoluteUrl(`${l.url}#nav`),
+          position: i + 1,
+          name: l.name,
+          description: l.description,
+          url: absoluteUrl(l.url),
+        })),
+      }}
+    />
+  )
+}
+
+/** Organization schema matching visible studio branding, location, social presence, and founders for Google Knowledge Graph. */
 export function OrganizationJsonLd() {
   return (
     <JsonLd
@@ -47,6 +84,20 @@ export function OrganizationJsonLd() {
         logo: absoluteUrl('/img/imaginity-icon-trimmed.png'),
         image: absoluteUrl('/img/hero.webp'),
         email: SITE.email,
+        telephone: SITE.phone || undefined,
+        foundingDate: '2024',
+        foundingLocation: {
+          '@type': 'Place',
+          name: 'Bhubaneswar, Odisha, India',
+        },
+        areaServed: [
+          'Worldwide',
+          'India',
+          'United States',
+          'United Kingdom',
+          'Singapore',
+          'United Arab Emirates',
+        ],
         description:
           'Imaginity Labs (iLabs) is a digital product and AI engineering studio. We build web applications, autonomous AI agents, and enterprise automations.',
         disambiguatingDescription:
@@ -54,13 +105,12 @@ export function OrganizationJsonLd() {
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Bhubaneswar',
-          addressCountry: 'India',
+          addressRegion: 'Odisha',
+          addressCountry: 'IN',
         },
-        sameAs: [
-          'https://github.com/imaginitylabs',
-          'https://linkedin.com/company/imaginitylabs',
-          'https://twitter.com/imaginitylabs',
-        ],
+        ...(SITE.socials?.some((s) => s.href?.startsWith('http'))
+          ? { sameAs: SITE.socials.map((s) => s.href).filter((h) => h.startsWith('http')) }
+          : {}),
         knowsAbout: [
           'Software Engineering',
           'Agentic AI',
@@ -68,7 +118,47 @@ export function OrganizationJsonLd() {
           'Cloud Architecture',
           'Full-Stack Web Development',
           'Product Design Systems',
+          'Autonomous LLM Agents',
+          'Enterprise Digital Transformation',
         ],
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'Studio Services Catalog',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Product Engineering',
+                url: absoluteUrl('/services'),
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Agentic AI & LLMs',
+                url: absoluteUrl('/services'),
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Workflow Automation',
+                url: absoluteUrl('/services'),
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Cloud & DevOps Architecture',
+                url: absoluteUrl('/services'),
+              },
+            },
+          ],
+        },
         founders: TEAM.map((m) => ({
           '@type': 'Person',
           name: m.name,
@@ -78,7 +168,7 @@ export function OrganizationJsonLd() {
           '@type': 'ContactPoint',
           contactType: 'customer service',
           email: SITE.email,
-          availableLanguage: ['English'],
+          availableLanguage: ['English', 'Hindi', 'Odia'],
         },
       }}
     />

@@ -35,7 +35,7 @@ export default function CaseDetail({ slug }) {
             <span className="mono text-xs text-ink/40">COMPLETED {c.year}</span>
           </div>
           <H as="h1" size="xl">
-            {c.title} — <It>{c.line}</It>
+            {c.title}: <It>{c.line}</It>
           </H>
         </div>
 

@@ -10,6 +10,7 @@ import { StatsRow } from '../components/sections/StatsRow'
 import { Capabilities } from '../components/sections/Capabilities'
 import { ServicesScroller } from '../components/sections/ServicesScroller'
 import { SelectedWork } from '../components/sections/SelectedWork'
+import { WhatWeSolve } from '../components/sections/WhatWeSolve'
 import { ProcessTimeline } from '../components/sections/ProcessTimeline'
 import { TeamSection } from '../components/sections/TeamSection'
 import { InsightsPreview } from '../components/sections/InsightsPreview'
@@ -46,6 +47,9 @@ export default function Home() {
 
       {/* 7. Selected Work on the warm beige band */}
       <SelectedWork />
+
+      {/* 7.5 What We Solve: problem-solution matrix & technology ecosystem */}
+      <WhatWeSolve />
 
       {/* 8. Process: dark section with interactive dotted timeline */}
       <ProcessTimeline />

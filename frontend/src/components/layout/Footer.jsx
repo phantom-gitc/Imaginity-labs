@@ -280,7 +280,7 @@ export function Footer() {
             {err && <p className="mt-2 text-xs text-red-400">{err}</p>}
           </div>
 
-          <nav aria-label="Footer" className="col-span-12 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7 lg:pl-16">
+          <nav aria-label="Footer" className="col-span-12 grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-7 lg:pl-10">
             {FOOTER_COLS.map((col) => (
               <div key={col.title}>
                 <h2 className="mono text-white/45">{col.title}</h2>
