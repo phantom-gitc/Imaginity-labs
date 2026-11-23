@@ -48,7 +48,7 @@ export function Hero() {
       const setShadowScaleX = shadow ? gsap.quickTo(shadow, 'scaleX', { duration: 1, ease: 'power2.out' }) : null
       const setShadowScaleY = shadow ? gsap.quickTo(shadow, 'scaleY', { duration: 1, ease: 'power2.out' }) : null
 
-      const handleMouseMove = (e) => {
+      const paint = (e) => {
         if (dragStart.current.active) return
 
         const rect = stage.getBoundingClientRect()
@@ -97,8 +97,23 @@ export function Hero() {
         }
       }
 
+      // Coalesce pointer updates to one paint per frame (no layout thrash).
+      let frame = 0
+      let latest = null
+      const handleMouseMove = (e) => {
+        latest = e
+        if (frame) return
+        frame = requestAnimationFrame(() => {
+          frame = 0
+          if (latest) paint(latest)
+        })
+      }
+
       window.addEventListener('mousemove', handleMouseMove, { passive: true })
-      return () => window.removeEventListener('mousemove', handleMouseMove)
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        if (frame) cancelAnimationFrame(frame)
+      }
     })
 
     return () => mm.revert()
@@ -175,14 +190,14 @@ export function Hero() {
       <div className="wrap relative">
         <div className="g12 items-center gap-y-14">
           <div className="col-span-12 flex flex-col items-start gap-7 lg:col-span-7">
-            <Eyebrow intro dot="#FFD93D">Imaginity Labs · Software &amp; AI Studio</Eyebrow>
+            <Eyebrow intro dot={false} className="eyebrow-brand">SureNext · Digital &amp; Software Studio</Eyebrow>
             <div className="relative">
               <h1 data-reveal="lines" data-intro className="display h-hero">
                 Software that <span className="relative inline-block"><It>moves</It><Underline intro className="-bottom-[0.08em] h-[0.2em]" /></span> business
               </h1>
             </div>
             <p data-reveal="up" data-intro data-delay="0.35" className="lede max-w-[34ch] !text-[17px]">
-              Imaginity Labs engineers web applications, autonomous AI agents, and resilient automations for teams that ship.
+              SureNext is a small studio for web applications, practical AI, and the automation that keeps them running.
             </p>
             <div data-reveal="up" data-intro data-delay="0.45" className="flex flex-wrap items-center gap-3">
               <Button to="/contact">Start a project</Button>

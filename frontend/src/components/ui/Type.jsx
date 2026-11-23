@@ -5,8 +5,14 @@ import { ArrowLink } from './Button'
 export const It = ({ children }) => <em className="it">{children}</em>
 
 export function Eyebrow({ children, dot = '#3B5BFF', className = '', intro = false }) {
+  const plain = dot === false
   return (
-    <p data-reveal="up" {...(intro ? { 'data-intro': '' } : {})} className={`eyebrow ${className}`} style={{ '--dot': dot }}>
+    <p
+      data-reveal="up"
+      {...(intro ? { 'data-intro': '' } : {})}
+      className={`eyebrow ${plain ? 'eyebrow--plain' : ''} ${className}`}
+      style={plain ? undefined : { '--dot': dot }}
+    >
       {children}
     </p>
   )

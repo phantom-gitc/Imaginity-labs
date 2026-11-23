@@ -47,7 +47,7 @@ export function Testimonials() {
                       alt={current.name}
                       width={112}
                       height={112}
-                      unoptimized
+                      sizes="56px"
                       className="size-full object-cover"
                     />
                   </div>

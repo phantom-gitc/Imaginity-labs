@@ -1,16 +1,17 @@
 'use client'
 
+import { forwardRef } from 'react'
 import Link from 'next/link'
 import { useTransitionNav } from '../../lib/transition'
 
 /** Internal link that routes through the page-transition wipe. Renders a real, crawlable, prefetched <a href>. */
-export function TLink({ to, children, className = '', onClick, ...rest }) {
+export const TLink = forwardRef(function TLink({ to, children, className = '', onClick, ...rest }, ref) {
   const { go } = useTransitionNav()
   const isExternal = !to || to.startsWith('http') || to.startsWith('mailto:') || to.startsWith('tel:') || to === '#' || to.startsWith('#')
 
   if (isExternal) {
     return (
-      <a href={to || '#'} onClick={onClick} className={className} {...rest}>
+      <a ref={ref} href={to || '#'} onClick={onClick} className={className} {...rest}>
         {children}
       </a>
     )
@@ -23,8 +24,8 @@ export function TLink({ to, children, className = '', onClick, ...rest }) {
     go(to)
   }
   return (
-    <Link href={to} onClick={handle} className={className} {...rest}>
+    <Link ref={ref} href={to} onClick={handle} className={className} {...rest}>
       {children}
     </Link>
   )
-}
+})

@@ -1,5 +1,5 @@
 /**
- * IMAGINITY LABS — Motion Tokens
+ * SURENEXT — Motion Tokens
  * Centralized durations, eases, staggers, and responsive media queries.
  */
 

@@ -3,19 +3,17 @@
 @source not "../../scripts";
 
 /* ============================================================
-   IMAGINITY LABS — design system
+   SURENEXT — design system
    ============================================================ */
 @theme inline {
   --font-serif: var(--font-instrument-serif), "Instrument Serif", "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-inter), "Inter", "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-poppins-next: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Server-rendered preloader markup stays hidden unless the early script flagged a first visit. */
+/* Server-rendered preloader markup is visible while mounted until the timeline unmounts it. */
 .nx-preloader {
-  display: none;
-}
-html.nx-pre .nx-preloader {
   display: block;
 }
 
@@ -258,22 +256,23 @@ button {
 }
 .eyebrow::before {
   content: "";
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 99px;
   background: var(--dot, #3b5bff);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot, #3b5bff) 18%, transparent);
-  animation: dotPulse 2.8s ease-in-out infinite;
+  opacity: 0.9;
 }
-@keyframes dotPulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.35);
-    opacity: 0.75;
-  }
+.eyebrow--plain::before {
+  display: none;
+}
+/* Editorial studio badge: humanist type, no status dot. */
+.eyebrow-brand {
+  font-family: var(--font-poppins-next);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  word-spacing: 0.08em;
+  line-height: 1.2;
 }
 
 /* Custom branded scrollbar */
@@ -657,10 +656,6 @@ html.motion [data-reveal="mask"]:not([data-intro]) {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
   50% { transform: translateY(-10px) rotate(calc(var(--rot, 0deg) * -1)); }
 }
-@keyframes pulse-dot {
-  0% { box-shadow: 0 0 0 0 rgb(34 197 94 / 0.55); }
-  100% { box-shadow: 0 0 0 10px rgb(34 197 94 / 0); }
-}
 .orbit {
   position: absolute;
   inset: 0;
@@ -678,17 +673,6 @@ html.motion [data-reveal="mask"]:not([data-intro]) {
   transform: translate(-50%, -50%);
   white-space: nowrap;
   pointer-events: auto;
-}
-.live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 99px;
-  background: #22c55e;
-  animation: pulse-dot 1.6s ease-out infinite;
-}
-.live-dot.off {
-  background: #f59e0b;
-  animation: none;
 }
 .float {
   animation: floaty 7s ease-in-out infinite;
@@ -742,15 +726,6 @@ html.motion [data-reveal="mask"]:not([data-intro]) {
   gap: clamp(40px, 6vw, 88px);
   padding-right: clamp(40px, 6vw, 88px);
   will-change: transform;
-}
-.logo-item {
-  color: rgb(10 10 10 / 0.38);
-  filter: grayscale(1);
-  transition: color 0.4s, filter 0.4s, opacity 0.4s;
-  display: inline-flex;
-}
-.logo-item:hover {
-  filter: grayscale(0);
 }
 
 /* ---------- accordion / forms ---------- */
@@ -867,7 +842,7 @@ html.motion [data-reveal="mask"]:not([data-intro]) {
   display: block;
   font-family: var(--font-serif);
   line-height: 0.82;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   white-space: nowrap;
   text-transform: uppercase;
   user-select: none;
@@ -877,6 +852,13 @@ html.motion [data-reveal="mask"]:not([data-intro]) {
   overflow: hidden;
   vertical-align: top;
   padding-bottom: 0.06em;
+  padding-inline: 0.025em;
+  margin-inline: -0.025em;
+}
+/* Give the final letter's serif room inside its own reveal mask. */
+.wordmark .mask:last-child {
+  padding-right: 0.09em;
+  margin-right: -0.06em;
 }
 .wordmark-stack {
   position: relative;
@@ -965,9 +947,6 @@ html.has-cursor [contenteditable="true"] {
     transform: translateY(0);
     opacity: 1;
   }
-}
-.logo-item:hover {
-  color: var(--hc, #0a0a0a);
 }
 .ln-mask,
 .ln {

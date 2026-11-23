@@ -11,8 +11,7 @@ export const A = {
   arch: a('system-architecture', 1920, 1080, 'jpg'),
   insights: a('insights-featured', 1920, 1080, 'jpg'),
   avenya: a('work-avenya', 1600, 1200, 'jpg'),
-  imaginity: a('work-imaginity', 1600, 1200, 'jpg'),
-  lake: a('work-imaginity', 1600, 1200, 'jpg'),
+  halcyon: a('work-halcyon', 1600, 1200, 'jpg'),
   obj: [1, 2, 3, 4, 5, 6].map((n) => a(`obj-${n}`, 413, 416, 'webp')),
   portrait: [
     ...[1, 2, 3, 4].map((n) => a(`team-${n}`, 512, 640, 'webp')),
@@ -32,8 +31,8 @@ export const NAV = [
 ]
 
 export const SITE = {
-  name: 'IMAGINITY LABS',
-  email: 'hello.imaginitylabs@gmail.com',
+  name: 'SURENEXT',
+  email: 'hello.surenext@gmail.com',
   city: 'Bhubaneswar · Remote-first',
   tz: 'Asia/Kolkata',
   socials: [
@@ -78,12 +77,12 @@ export const FOOTER_COLS = [
 ]
 
 export const SEO = {
-  '/': ['Imaginity Labs (iLabs) | Software Development, Agentic AI & Automation Studio', 'Imaginity Labs (iLabs) is a senior product engineering and AI studio based in Bhubaneswar. We build custom full-stack software, autonomous AI agents, and enterprise cloud solutions for growing companies worldwide.'],
-  '/solutions': ['Enterprise Solutions Architecture & Software Paradigms | Imaginity Labs (iLabs)', 'Scalable software solutions, agentic AI systems, enterprise workflow automation, and cloud platforms engineered for scaleups and category leaders by Imaginity Labs.'],
-  '/services': ['Custom Software Engineering & Dedicated Studio Squads | Imaginity Labs (iLabs)', 'Full-stack web engineering, autonomous AI agents, workflow automation, cloud systems, and UX design. Partner with senior engineers who ship production software weekly.'],
-  '/work': ['Portfolio & Production Case Studies | Imaginity Labs (iLabs)', 'Proven production case studies across fintech, healthtech, logistics, and AI developer platforms engineered by Imaginity Labs with measurable business impact.'],
-  '/about': ['About Imaginity Labs (iLabs) | Senior Software Engineering & AI Studio', 'Imaginity Labs is a senior technology studio founded in 2024 in Bhubaneswar. Direct collaboration with experienced engineers, zero agency overhead, and uncompromising craft.'],
-  '/insights': ['Engineering Insights, AI Research & Field Notes | Imaginity Labs (iLabs)', 'Technical articles and field notes on autonomous LLM agents, RAG architectures, scalable systems design, and full-stack software craft from the Imaginity Labs team.'],
-  '/careers': ['Careers at Imaginity Labs (iLabs) | Senior Engineering & AI Roles', 'Join Imaginity Labs in building next-generation software and AI systems. Autonomous pods, remote-first flexibility, equity opportunities, and high-impact projects.'],
-  '/contact': ['Start a Project | Contact Imaginity Labs (iLabs) Founding Partners', 'Discuss your software, AI agent, or automation project directly with our founding engineering partners. We review inquiries within 24 hours with a scoped roadmap.'],
+  '/': ['SureNext | Software & Product Studio', 'SureNext is a small, senior software studio in Bhubaneswar. We design and build web products, AI features, and automation for teams that need to ship.'],
+  '/solutions': ['Solutions — Software Architecture, Automation & AI | SureNext', 'How we approach software at SureNext: product engineering, workflow automation, retrieval systems, and cloud architecture built to hold up in production.'],
+  '/services': ['Software Engineering, AI & Product Design Services | SureNext', 'Product engineering, AI features, automation, cloud systems, and interface design. Work directly with the senior people doing the work, with progress you can see every week.'],
+  '/work': ['Work & Case Studies | SureNext', 'Selected projects from SureNext across fintech, healthcare, logistics, and developer tools — with the constraints, decisions, and results behind each one.'],
+  '/about': ['About SureNext — A Senior Software & Product Studio', 'SureNext is an independent software studio founded in 2026 in Bhubaneswar. Small teams, direct access to the people building your product, and no agency overhead.'],
+  '/insights': ['Insights & Field Notes | SureNext', 'Practical notes on software engineering, AI systems, product design, and the trade-offs we run into while building software for real teams.'],
+  '/careers': ['Careers at SureNext — Engineering & Design Roles', 'Join SureNext to work on real products with a small senior team. Remote-first, honest scope, and space to do careful work.'],
+  '/contact': ['Start a Project — Contact SureNext', 'Tell us what you are building and what is getting in the way. Your note goes straight to our founding partners, and we reply within one business day.'],
 }

@@ -32,7 +32,7 @@ export default function Insights() {
             Notes from the <It>engineering floor.</It>
           </H>
           <p className="lede mt-6 text-lg">
-            Perspectives on software design, real-world AI applications, and resilient digital architectures.
+            Notes on software design, AI in production, and systems that hold up under load.
           </p>
         </div>
       </Section>

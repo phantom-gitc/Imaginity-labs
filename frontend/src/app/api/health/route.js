@@ -9,7 +9,7 @@ export async function GET() {
     connectToDatabase().then((res) => ({
       available: res.available,
       status: res.available ? 'connected' : 'unavailable',
-      database: res.available ? (process.env.MONGODB_DB_NAME || 'imaginity-labs') : null,
+      database: res.available ? (process.env.MONGODB_DB_NAME || 'surenext') : null,
     })),
     checkRedisHealth(),
   ])

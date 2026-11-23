@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import {
   AvenyaArtwork,
-  ImaginityArtwork,
+  SureNextArtwork,
   EnterpriseArtwork,
 } from './WorkCardArtwork';
 
@@ -145,14 +145,14 @@ export function SelectedWork({ onOpenContact }) {
       artwork: <AvenyaArtwork />,
     },
     {
-      title: 'Imaginity',
+      title: 'SureNext',
       category: 'Agentic Dev Platform',
       year: '2025',
       metric: '4.8x Velocity • 50k Engineers',
       description:
         'Intelligent collaborative development platform integrating agentic coding routines and visual architecture canvases.',
       tags: ['GEN AI', 'CANVAS', 'DEVTOOLS'],
-      artwork: <ImaginityArtwork />,
+      artwork: <SureNextArtwork />,
     },
     {
       title: 'Enterprise Platform',

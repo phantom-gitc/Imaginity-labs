@@ -6,7 +6,7 @@ try {
   dns.setServers(['8.8.8.8', '1.1.1.1'])
 } catch {}
 
-const mongoUri = 'mongodb+srv://sarojkumarpadhi01_db_user:P1clXTJYng1V6IPL@backend-live.zezimrz.mongodb.net/imaginity-labs'
+const mongoUri = 'mongodb+srv://sarojkumarpadhi01_db_user:P1clXTJYng1V6IPL@backend-live.zezimrz.mongodb.net/surenext'
 const redisUrl = 'redis://default:73TmD4T55m8VelsGUq5Uv297TSTIYYt6@nest-mask-party-48782.db.redis.io:15465'
 
 console.log('Testing live credentials from frontend...')
@@ -16,9 +16,9 @@ async function testMongo() {
     const client = new MongoClient(mongoUri, { serverSelectionTimeoutMS: 5000 })
     await client.connect()
     console.log('✔ MongoDB connected successfully!')
-    const db = client.db('imaginity-labs')
+    const db = client.db('surenext')
     const collections = await db.listCollections().toArray()
-    console.log('  Collections in imaginity-labs:', collections.map(c => c.name))
+    console.log('  Collections in surenext:', collections.map(c => c.name))
     await client.close()
   } catch (err) {
     console.error('❌ MongoDB connection error:', err.message)
@@ -34,8 +34,8 @@ async function testRedis() {
     })
     await redis.connect()
     console.log('✔ Redis connected successfully!')
-    await redis.set('imaginity:test', 'hello_redis', 'EX', 10)
-    const val = await redis.get('imaginity:test')
+    await redis.set('surenext:test', 'hello_redis', 'EX', 10)
+    const val = await redis.get('surenext:test')
     console.log('  Redis test key value:', val)
     await redis.quit()
   } catch (err) {

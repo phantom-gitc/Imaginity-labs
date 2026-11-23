@@ -180,7 +180,7 @@ export function Footer() {
                   { name: 'X / Twitter', href: 'https://x.com' },
                   { name: 'LinkedIn', href: 'https://linkedin.com' },
                   { name: 'Discord', href: 'https://discord.com' },
-                  { name: 'hello.imaginitylabs@gmail.com', href: 'mailto:hello.imaginitylabs@gmail.com' },
+                  { name: 'hello.surenext@gmail.com', href: 'mailto:hello.surenext@gmail.com' },
                 ].map((item) => (
                   <li key={item.name}>
                     <a

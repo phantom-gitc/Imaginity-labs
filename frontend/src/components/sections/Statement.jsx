@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { Compass, Palette, TrendingUp, Zap } from 'lucide-react'
+import { Compass, Palette, Zap } from 'lucide-react'
 import { gsap } from '../../lib/gsap'
 import { useMagnetic } from '../../hooks/useMagnetic'
 import { A } from '../../data/site'
@@ -49,7 +49,7 @@ function InteractiveImagePill({ img }) {
         width={img.w}
         height={img.h}
         alt=""
-        unoptimized
+        sizes="160px"
         className="size-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
       />
     </span>
@@ -57,16 +57,14 @@ function InteractiveImagePill({ img }) {
 }
 
 const TOKENS = [
-  'Crafting',
-  { chip: 'Creativity', icon: Palette, tint: 'lavender', iconMotion: 'group-hover:rotate-12 group-hover:scale-125' },
+  'Senior',
+  { chip: 'product', icon: Palette, tint: 'lavender', iconMotion: 'group-hover:rotate-12 group-hover:scale-125' },
   'and',
-  { chip: 'Innovation', icon: Zap, tint: 'butter', iconMotion: 'group-hover:-rotate-12 group-hover:scale-125' },
-  'into software, AI and automation for',
+  { chip: 'AI', icon: Zap, tint: 'butter', iconMotion: 'group-hover:-rotate-12 group-hover:scale-125' },
+  'work for',
   { img: A.team },
-  'teams that',
-  { chip: 'Scale', icon: TrendingUp, tint: 'mint', iconMotion: 'group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-125' },
-  'with',
-  { chip: 'Strategy', icon: Compass, tint: 'sky', iconMotion: 'group-hover:rotate-45 group-hover:scale-125' },
+  'teams that care about',
+  { chip: 'the craft', icon: Compass, tint: 'sky', iconMotion: 'group-hover:rotate-45 group-hover:scale-125' },
 ]
 
 /** Large statement: key words are pastel chips; words fade gray → ink as you scroll (scrubbed). */
@@ -98,7 +96,7 @@ export function Statement() {
         <p
           ref={ref}
           className="display mt-8 w-full max-w-none text-center text-[clamp(44px,5.8vw,92px)] !leading-[1.18] tracking-[-0.02em] md:!leading-[1.20]"
-          aria-label="Crafting creativity and innovation into software, AI and automation for teams that scale with strategy."
+          aria-label="Senior product and AI work for teams that care about the craft."
         >
           {TOKENS.map((t, i) => {
             if (typeof t === 'string') {

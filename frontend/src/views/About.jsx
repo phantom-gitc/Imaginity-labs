@@ -2,10 +2,10 @@
 
 import { useRef } from 'react'
 import { A } from '../data/site'
-import { VALUES, TEAM, AWARDS } from '../data/work'
+import { VALUES, AWARDS } from '../data/work'
 import { useReveal } from '../hooks/useReveal'
 import { Eyebrow, H, It, Section, SectionHeader } from '../components/ui/Type'
-import { Frame, Portrait } from '../components/ui/Img'
+import { Frame } from '../components/ui/Img'
 import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
 import { Globe } from 'lucide-react'
@@ -20,12 +20,12 @@ export default function About() {
       {/* 1. Big Editorial Statement */}
       <Section bg="light" className="pt-8 pb-16">
         <div className="max-w-4xl">
-          <Eyebrow intro dot="#C45CB0">About Imaginity Labs</Eyebrow>
+          <Eyebrow intro dot="#C45CB0">About SureNext</Eyebrow>
           <H as="h1" intro size="xl" className="mt-6 leading-[1.05]">
             A senior studio creating software that people <It>actually enjoy using.</It>
           </H>
           <p className="lede mt-8 text-xl leading-relaxed max-w-[48ch]">
-            Imaginity Labs (popularly known as iLabs, Imaginity Technology, or Imaginity) is a senior product, agentic AI, and software engineering studio. We operate without middlemen, inflated decks, or corporate bureaucracy. We focus on direct collaboration between visionary leaders and senior technologists who take pride in craftsmanship.
+            SureNext is a small software and product studio. We design, build, and maintain web products for founders and in-house teams — without an account layer, a hand-off to people who were not in the room, or a deck between you and the work.
           </p>
         </div>
       </Section>
@@ -36,7 +36,7 @@ export default function About() {
           <Frame
             img={A.team}
             ratio="21/9"
-            alt="The Imaginity studio team"
+            alt="The SureNext studio team"
             eager={true}
             radius={28}
             className="shadow-md"
@@ -62,13 +62,13 @@ export default function About() {
           <div className="lg:col-span-5">
             <Eyebrow dot="#E5A624">Engineering Philosophy</Eyebrow>
             <H as="h2" size="lg" className="mt-4 leading-tight">
-              Why we built Imaginity Labs <It>differently.</It>
+              Why we built SureNext <It>this way.</It>
             </H>
             <p className="lede mt-6 text-base leading-relaxed text-ink/75">
-              Founded in 2024 in Bhubaneswar, Imaginity Labs (iLabs) was formed by senior technologists who saw a recurring failure mode in digital consulting: bloated account management layers, junior developers substituted behind the scenes, and brittle code disguised behind glossy keynote slides.
+              We started SureNext in 2026 in Bhubaneswar after seeing the same pattern in software consulting: senior people sell the work, junior people do it, and the gap is covered with slides. We wanted no part of that.
             </p>
             <p className="mt-4 text-base leading-relaxed text-ink/70">
-              We replaced that agency theater with autonomous senior pods. When you partner with us, you work directly with seasoned architects, full-stack engineers, and product designers who take personal pride in every line of code committed to production.
+              So we kept the studio deliberately small. You work directly with the architects, engineers, and designers building your product. We share progress every week, and every repository, deployment, and design file lives in your accounts.
             </p>
           </div>
 
@@ -85,7 +85,7 @@ export default function About() {
               <span className="mono text-xs text-[#C45CB0] font-semibold uppercase tracking-wider block mb-2">02 / Production Rigor</span>
               <h3 className="display text-xl text-ink font-semibold mb-2">Measured, Reliable AI</h3>
               <p className="text-sm text-ink/70 leading-relaxed">
-                We engineer agentic workflows and retrieval systems with deterministic guardrails, evals, and human checkpoints to prevent unverified model outputs.
+                We build AI features with explicit guardrails, test sets, and human checkpoints — so the system fails safely instead of inventing an answer.
               </p>
             </div>
 
@@ -136,43 +136,7 @@ export default function About() {
         </div>
       </Section>
 
-      {/* 4. Team Portraits */}
-      <Section bg="light">
-        <SectionHeader
-          eyebrow="Leadership"
-          dot="#7B61FF"
-          title={<>The creative <It>partners.</It></>}
-          line="Meet the leaders directing engineering, design, and AI research."
-        />
-
-        <div data-reveal="stagger" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-          {TEAM.map((m) => (
-            <div key={m.name} className="group">
-              <Portrait
-                img={A.portrait[m.p]}
-                tint={
-                  m.tint === 'lavender' ? '#E9E4FF' :
-                  m.tint === 'blush' ? '#FFE1EA' :
-                  m.tint === 'sky' ? '#DCEBFF' :
-                  m.tint === 'peach' ? '#FFE6D2' :
-                  m.tint === 'butter' ? '#FFF3B0' :
-                  '#DDF5E6'
-                }
-                scale={m.scale}
-                pos={m.pos}
-                alt={m.name}
-                ratio="4/5"
-              />
-              <div className="mt-4">
-                <h4 className="display text-xl text-ink">{m.name}</h4>
-                <p className="text-sm text-ink/60">{m.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* 5. Awards Row */}
+      {/* 4. Awards Row */}
       <Section bg="light" tight>
         <div className="border-y border-line py-10 flex flex-wrap items-center justify-between gap-6">
           <span className="mono text-xs text-ink/40">INDUSTRY HONORS</span>

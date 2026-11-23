@@ -8,7 +8,7 @@ import { TLink } from '../ui/TLink'
 import { Logo } from './Logo'
 import { scrollToTop } from '../../hooks/useScrollSmooth'
 
-const WORD = 'IMAGINITY LABS'
+const WORD = 'SURENEXT'
 
 /** Giant wordmark scaled to full width. Transparent outline by default; circular glowing spotlight illuminates vibrant colors on hover. */
 function Wordmark() {
@@ -30,7 +30,9 @@ function Wordmark() {
     const fit = () => {
       if (!box.current || !probe.current) return
       const w100 = probe.current.getBoundingClientRect().width
-      if (w100) setFs((box.current.clientWidth / w100) * 100)
+      // Leave a small right-side gutter so the final T's serif is never clipped,
+      // even with negative tracking and the masked-letter reveal.
+      if (w100) setFs(((box.current.clientWidth - 12) / w100) * 97)
     }
     fit()
     document.fonts?.ready.then(fit)
@@ -39,8 +41,9 @@ function Wordmark() {
     return () => ro.disconnect()
   }, [])
 
-  // Smooth spring / lerp animation loop for the circular spotlight
+  // Spotlight lerp runs only while hovered, so no rAF work when the footer is idle.
   useEffect(() => {
+    if (!isHovered) return undefined
     const loop = () => {
       currentX.current += (targetX.current - currentX.current) * 0.16
       currentY.current += (targetY.current - currentY.current) * 0.16
@@ -65,7 +68,7 @@ function Wordmark() {
     return () => {
       if (rafId.current) cancelAnimationFrame(rafId.current)
     }
-  }, [])
+  }, [isHovered])
 
   // Entrance animation: Ensure letters are always visible by default (never trapped at yPercent 105)
   useEffect(() => {
@@ -187,7 +190,7 @@ function Wordmark() {
           {row('o')}
         </div>
 
-        {/* 3. Base Color Layer: Elegant subtle gradient fill so IMAGINITY LABS is always 100% visible */}
+        {/* 3. Base Color Layer: Elegant subtle gradient fill so SURENEXT is always 100% visible */}
         <div className="wordmark absolute inset-0 select-none opacity-45 pointer-events-none" style={{ fontSize: fs }}>
           {row('f')}
         </div>
@@ -249,7 +252,7 @@ export function Footer() {
               Software, AI and automation for teams that <em className="it">ship.</em>
             </p>
             <p className="mt-2 text-xs text-white/50 font-mono tracking-wide">
-              Imaginity Labs (iLabs) &middot; Autonomous AI &amp; Software Studio
+              SureNext &middot; Software &amp; Product Studio
             </p>
             <form suppressHydrationWarning onSubmit={submit} className="mt-8 flex max-w-md items-center gap-2 rounded-full border border-white/20 p-1.5 pl-5 focus-within:border-yellow">
               {/* Honeypot field */}
@@ -301,7 +304,7 @@ export function Footer() {
         </div>
 
         <div className="relative mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/55">
-          <span>© 2026 Imaginity Labs (iLabs) · {SITE.city}</span>
+          <span>© 2026 SureNext · {SITE.city}</span>
           <a href={`mailto:${SITE.email}`} className="min-h-6 hover:text-white">{SITE.email}</a>
           <button suppressHydrationWarning type="button" onClick={() => scrollToTop(false)} className="inline-flex min-h-11 items-center gap-2 hover:text-white">
             Back to top <ArrowUp size={16} />

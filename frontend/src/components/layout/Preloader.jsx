@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { gsap } from '../../lib/gsap'
+import { gsap, prefersReducedMotion } from '../../lib/gsap'
+import { stopScroll } from '../../hooks/useScrollSmooth'
 import { Logo } from './Logo'
 
 /**
@@ -10,8 +11,8 @@ import { Logo } from './Logo'
  * Plays once per session.
  *
  * Hydration-safe: the first render is identical on server and client. The server markup is
- * hidden by CSS unless the early script marked `html.nx-pre` (first visit, motion allowed);
- * sessionStorage is only read inside the effect.
+ * visible by default and the early script removes `html.nx-pre` for bots/reduced motion.
+ * A failsafe always releases the overlay and scroll lock if the timeline is interrupted.
  */
 export function Preloader() {
   const [show, setShow] = useState(true)
@@ -33,15 +34,23 @@ export function Preloader() {
       return undefined
     }
 
-    document.documentElement.style.overflow = 'hidden'
+    // Lock native scrolling and Lenis together. The provider honours this lock
+    // if it initialises after this child effect.
+    stopScroll(true, 'preloader')
+    // Failsafe: never leave the page scroll-locked if the timeline is interrupted.
+    const release = () => {
+      document.documentElement.classList.remove('nx-pre')
+      stopScroll(false, 'preloader')
+      setShow(false)
+    }
+    let failsafe = setTimeout(release, 4500)
     const proxy = { v: 0 }
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
-          document.documentElement.classList.remove('nx-pre')
-          document.documentElement.style.overflow = ''
-          setShow(false)
+          clearTimeout(failsafe)
+          release()
         },
       })
 
@@ -92,8 +101,9 @@ export function Preloader() {
     }, root)
 
     return () => {
+      clearTimeout(failsafe)
       ctx.revert()
-      document.documentElement.style.overflow = ''
+      stopScroll(false, 'preloader')
     }
   }, [])
 
@@ -102,7 +112,7 @@ export function Preloader() {
   return (
     <div
       ref={root}
-      className="nx-preloader fixed inset-0 z-[400] pointer-events-none overflow-hidden select-none"
+      className="nx-preloader fixed inset-0 z-[400] pointer-events-auto overflow-hidden select-none"
       role="status"
       aria-label="Loading"
     >
@@ -123,9 +133,13 @@ export function Preloader() {
         ref={content}
         className="dark-ui absolute inset-0 flex flex-col justify-between p-6 text-white md:p-10 pointer-events-auto"
       >
-        <div className="mono text-white/50 tracking-wider">Imaginity Labs · Studio</div>
+        <div className="mono text-white/50 tracking-wider">SureNext · Studio</div>
         <div className="flex items-end justify-between gap-6">
-          <div ref={logo} className="scale-[1.6] origin-bottom-left md:scale-[2.4]">
+          <div
+            ref={logo}
+            className="scale-[1.6] origin-bottom-left md:scale-[2.4]"
+            style={{ clipPath: 'inset(0 100% 0 0)' }}
+          >
             <Logo dark />
           </div>
           <div

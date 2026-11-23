@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
-import { NAV } from '../../data/site'
+import { NAV, SITE } from '../../data/site'
 import { TLink } from '../ui/TLink'
 import { Button } from '../ui/Button'
 import { Logo } from './Logo'
@@ -54,7 +54,7 @@ export function Navbar() {
   }, [])
 
   useEffect(() => {
-    stopScroll(open)
+    stopScroll(open, 'navbar')
     if (!open) return undefined
     const esc = (e) => e.key === 'Escape' && setOpen(false)
     window.addEventListener('keydown', esc)
@@ -72,7 +72,7 @@ export function Navbar() {
             scrolled ? 'shadow-[0_12px_36px_-10px_rgba(10,10,30,0.12)]' : ''
           }`}
         >
-          <TLink to="/" aria-label="Imaginity Labs home" className="mr-2 flex min-h-11 items-center">
+          <TLink to="/" aria-label="SureNext home" className="mr-2 flex min-h-11 items-center">
             <Logo />
           </TLink>
 
@@ -111,9 +111,9 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-1">
-            <Button to="/contact" size="sm" className="hidden sm:inline-flex">
-              Let&apos;s Talk
-            </Button>
+            <span className="hidden sm:inline-flex">
+              <Button to="/contact" size="sm">Let&apos;s Talk</Button>
+            </span>
 
             {/* Morphing Hamburger / Close Icon */}
             <button
@@ -174,7 +174,7 @@ export function Navbar() {
               ))}
             </motion.ul>
             <div className="relative flex items-center justify-between">
-              <a href="mailto:hello.imaginitylabs@gmail.com" className="mono text-white/70">hello.imaginitylabs@gmail.com</a>
+              <a href={`mailto:${SITE.email}`} className="mono text-white/70">{SITE.email}</a>
               <Button to="/contact" variant="yellow" size="sm">Let&apos;s Talk</Button>
             </div>
           </motion.div>

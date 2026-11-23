@@ -63,7 +63,7 @@ Features an airy light palette, electric blue and yellow accents, editorial seri
 7. **Selected Work** (`SelectedWork.jsx`):
    - Pure white background with 3 vivid project showcases:
      - `Avenya`: Electric blue gradient with animated voice-waveform.
-     - `Imaginity`: Vibrant yellow/coral generative canvas with floating UI blocks.
+     - `Halcyon`: Vibrant yellow/coral generative canvas with floating UI blocks.
      - `Enterprise Platform`: Violet/blue distributed node-graph with data pulses.
    - 3D cursor tilt, image zoom, impact chips, and custom "View" cursor bubble.
 8. **CTA Section** (`CTASection.jsx`):

@@ -21,7 +21,7 @@ export function WebSiteJsonLd() {
         name: SITE_NAME,
         alternateName: ALTERNATE_SITE_NAMES,
         url: SITE_URL,
-        description: 'Imaginity Labs (iLabs) | Software development, agentic AI, and workflow automation studio for teams that ship.',
+        description: 'SureNext — a small, senior software and product studio building web products, AI features, and automation.',
         publisher: {
           '@type': 'Organization',
           name: SITE_NAME,
@@ -44,12 +44,12 @@ export function WebSiteJsonLd() {
 /** Official SiteNavigationElement schema to feed Google Sitelinks under the main search snippet. */
 export function SiteNavigationJsonLd() {
   const links = [
-    { name: 'About Us', url: '/about', description: 'About Imaginity Labs: senior product engineering, AI agents, and custom software studio.' },
+    { name: 'About Us', url: '/about', description: 'About SureNext: an independent software and product studio.' },
     { name: 'Services', url: '/services', description: 'Dedicated studio squads: Product engineering, AI agents, automation, and cloud platforms.' },
     { name: 'Solutions', url: '/solutions', description: 'Eight scalable software and AI paradigms engineered for high-growth category leaders.' },
-    { name: 'Work', url: '/work', description: 'Case studies and production digital flagships delivered by Imaginity Labs.' },
+    { name: 'Work', url: '/work', description: 'Case studies and shipped products from the SureNext studio.' },
     { name: 'Insights', url: '/insights', description: 'Research, AI engineering field notes, RAG pipelines, and systems design articles.' },
-    { name: 'Careers', url: '/careers', description: 'Join Imaginity Labs: autonomous engineering pods, remote-first culture, and equity.' },
+    { name: 'Careers', url: '/careers', description: 'Join SureNext: a small senior team, remote-first, with room to do careful work.' },
     { name: 'Contact Us', url: '/contact', description: 'Start a project brief directly with our founding engineering partners.' },
   ]
 
@@ -78,14 +78,14 @@ export function OrganizationJsonLd() {
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: SITE_NAME,
-        legalName: 'Imaginity Labs',
+        legalName: 'SureNext',
         alternateName: ALTERNATE_SITE_NAMES,
         url: SITE_URL,
-        logo: absoluteUrl('/img/imaginity-icon-trimmed.png'),
-        image: absoluteUrl('/img/hero.webp'),
+        logo: absoluteUrl('/img/surenext-icon.png'),
+        image: absoluteUrl('/img/surenext-og.png'),
         email: SITE.email,
         telephone: SITE.phone || undefined,
-        foundingDate: '2024',
+        foundingDate: '2026',
         foundingLocation: {
           '@type': 'Place',
           name: 'Bhubaneswar, Odisha, India',
@@ -99,9 +99,9 @@ export function OrganizationJsonLd() {
           'United Arab Emirates',
         ],
         description:
-          'Imaginity Labs (iLabs) is a digital product and AI engineering studio. We build web applications, autonomous AI agents, and enterprise automations.',
+          'SureNext is an independent software and product studio. We build web applications, AI features, and workflow automation for growing teams.',
         disambiguatingDescription:
-          'Imaginity Labs (also known as iLabs, Imaginity Technology, imaginitytechnology, imaginiti, imaginiti website, imaginity.in, imaginity.com, and imaginii) is an AI engineering and custom software development studio.',
+          'SureNext (also written Sure Next, SureNext Studio, or SureNext Digital) is a software engineering and product design studio based in Bhubaneswar, India.',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Bhubaneswar',
@@ -159,7 +159,7 @@ export function OrganizationJsonLd() {
             },
           ],
         },
-        founders: TEAM.map((m) => ({
+        founders: TEAM.filter((m) => /founder/i.test(m.role)).map((m) => ({
           '@type': 'Person',
           name: m.name,
           jobTitle: m.role,
@@ -335,7 +335,7 @@ export function BlogJsonLd() {
         '@type': 'Blog',
         name: `${SITE_NAME} Insights & Engineering Field Notes`,
         url: absoluteUrl('/insights'),
-        description: 'Field notes on AI, engineering and product design from the Imaginity studio team.',
+        description: 'Field notes on AI, engineering and product design from the SureNext team.',
         publisher: {
           '@type': 'Organization',
           name: SITE_NAME,
@@ -381,7 +381,7 @@ export function ArticleJsonLd({ a }) {
           url: SITE_URL,
           logo: {
             '@type': 'ImageObject',
-            url: absoluteUrl('/img/imaginity-icon-trimmed.png'),
+            url: absoluteUrl('/img/surenext-icon.png'),
           },
         },
         mainEntityOfPage: {
@@ -417,7 +417,7 @@ export function CareersJsonLd() {
               name: SITE_NAME,
               alternateName: ALTERNATE_SITE_NAME,
               sameAs: SITE_URL,
-              logo: absoluteUrl('/img/imaginity-icon-trimmed.png'),
+              logo: absoluteUrl('/img/surenext-icon.png'),
             },
             ...(isRemote
               ? {
@@ -453,7 +453,7 @@ export function ContactJsonLd() {
         '@type': 'ContactPage',
         name: `Contact ${SITE_NAME}`,
         url: absoluteUrl('/contact'),
-        description: `Start a software or AI project conversation with ${SITE_NAME} (iLabs).`,
+        description: `Start a software or AI project conversation with ${SITE_NAME}.`,
         mainEntity: {
           '@type': 'Organization',
           name: SITE_NAME,

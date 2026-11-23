@@ -1,5 +1,5 @@
 /**
- * Lightweight Canvas Confetti burst using Imaginity brand colors.
+ * Lightweight Canvas Confetti burst using SureNext brand colors.
  */
 export function fireConfetti() {
   if (typeof window === 'undefined') return

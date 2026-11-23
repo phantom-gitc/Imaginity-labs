@@ -1,6 +1,8 @@
-import { useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { gsap, SplitText, MQ, introDelay } from '../lib/gsap'
 import { DURATIONS, EASES, DISTANCES, STAGGERS } from './tokens'
+
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 /**
  * Universal Data-Attribute Reveal System
@@ -19,7 +21,7 @@ import { DURATIONS, EASES, DISTANCES, STAGGERS } from './tokens'
  *   data-delay="0.2"       extra delay
  */
 export function useReveal(scope, deps = []) {
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = scope?.current || (typeof document !== 'undefined' ? document : null)
     if (!root) return undefined
 
@@ -43,6 +45,7 @@ export function useReveal(scope, deps = []) {
             q('[data-reveal]').forEach((el) => {
               el.style.opacity = '1'
               el.style.transform = 'none'
+              el.style.visibility = 'visible'
             })
             q('[data-count]').forEach((el) => {
               el.textContent = el.dataset.count
@@ -60,42 +63,47 @@ export function useReveal(scope, deps = []) {
           // 1. Text Lines Reveal (Wait for document.fonts.ready)
           const lineEls = q('[data-reveal="lines"]')
           if (lineEls.length > 0 && typeof document !== 'undefined') {
-            document.fonts.ready.then(() => {
+            const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve()
+            fontPromise.then(() => {
               if (!isMounted) return
               lineEls.forEach((el) => {
                 const intro = el.hasAttribute('data-intro')
-                SplitText.create(el, {
-                  type: 'lines',
-                  mask: 'lines',
-                  linesClass: 'ln',
-                  autoSplit: true,
-                  onSplit(self) {
-                    el.style.visibility = 'visible'
-                    const tl = gsap.timeline({
-                      delay: delayOf(el),
-                      scrollTrigger: trig(el, intro, 'top 92%'),
-                    })
-                    tl.from(self.lines, {
-                      yPercent: 115,
-                      duration: mob ? DURATIONS.base : DURATIONS.slow,
-                      ease: EASES.expo,
-                      stagger: mob ? STAGGERS.quick : STAGGERS.base,
-                    })
-                    const its = el.querySelectorAll('.it')
-                    if (its.length) {
-                      tl.from(
-                        its,
-                        {
-                          opacity: 0,
-                          duration: DURATIONS.base,
-                          ease: EASES.power2,
-                        },
-                        '-=0.55'
-                      )
-                    }
-                    return tl
-                  },
-                })
+                try {
+                  SplitText.create(el, {
+                    type: 'lines',
+                    mask: 'lines',
+                    linesClass: 'ln',
+                    autoSplit: true,
+                    onSplit(self) {
+                      el.style.visibility = 'visible'
+                      const tl = gsap.timeline({
+                        delay: delayOf(el),
+                        scrollTrigger: trig(el, intro, 'top 92%'),
+                      })
+                      tl.from(self.lines, {
+                        yPercent: 115,
+                        duration: mob ? DURATIONS.base : DURATIONS.slow,
+                        ease: EASES.expo,
+                        stagger: mob ? STAGGERS.quick : STAGGERS.base,
+                      })
+                      const its = el.querySelectorAll('.it')
+                      if (its.length) {
+                        tl.from(
+                          its,
+                          {
+                            opacity: 0,
+                            duration: DURATIONS.base,
+                            ease: EASES.power2,
+                          },
+                          '-=0.55'
+                        )
+                      }
+                      return tl
+                    },
+                  })
+                } catch {
+                  el.style.visibility = 'visible'
+                }
               })
             })
           }
@@ -103,26 +111,31 @@ export function useReveal(scope, deps = []) {
           // 2. Text Chars Reveal
           const charEls = q('[data-reveal="chars"]')
           if (charEls.length > 0 && typeof document !== 'undefined') {
-            document.fonts.ready.then(() => {
+            const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve()
+            fontPromise.then(() => {
               if (!isMounted) return
               charEls.forEach((el) => {
                 const intro = el.hasAttribute('data-intro')
-                SplitText.create(el, {
-                  type: 'chars',
-                  charsClass: 'ch',
-                  onSplit(self) {
-                    el.style.visibility = 'visible'
-                    gsap.from(self.chars, {
-                      opacity: 0,
-                      y: 20,
-                      duration: 0.6,
-                      ease: EASES.power3,
-                      stagger: 0.02,
-                      delay: delayOf(el),
-                      scrollTrigger: trig(el, intro, 'top 92%'),
-                    })
-                  },
-                })
+                try {
+                  SplitText.create(el, {
+                    type: 'chars',
+                    charsClass: 'ch',
+                    onSplit(self) {
+                      el.style.visibility = 'visible'
+                      gsap.from(self.chars, {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.6,
+                        ease: EASES.power3,
+                        stagger: 0.02,
+                        delay: delayOf(el),
+                        scrollTrigger: trig(el, intro, 'top 92%'),
+                      })
+                    },
+                  })
+                } catch {
+                  el.style.visibility = 'visible'
+                }
               })
             })
           }

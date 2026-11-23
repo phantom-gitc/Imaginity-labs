@@ -82,8 +82,7 @@ export function BlogCard({ a, className = '', ratio = '4/5', eager = false }) {
           height={a.cover.h}
           alt={`${a.title} cover`}
           priority={eager}
-          unoptimized
-          sizes="(max-width: 768px) 100vw, 100vw"
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="size-full object-cover"
         />
       </div>

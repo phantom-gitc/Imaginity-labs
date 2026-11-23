@@ -20,12 +20,12 @@ let cachedDb = null
  */
 function hashIp(ip) {
   if (!ip) return 'anonymous'
-  return crypto.createHash('sha256').update(ip + (process.env.IP_SALT || 'imaginity_default_salt')).digest('hex').slice(0, 16)
+  return crypto.createHash('sha256').update(ip + (process.env.IP_SALT || 'surenext_default_salt')).digest('hex').slice(0, 16)
 }
 
 export async function connectToDatabase() {
   const uri = process.env.MONGODB_URI
-  const dbName = process.env.MONGODB_DB_NAME || 'imaginity-labs'
+  const dbName = process.env.MONGODB_DB_NAME || 'surenext'
 
   if (!uri) {
     return { client: null, db: null, available: false }

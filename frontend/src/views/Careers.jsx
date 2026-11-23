@@ -1,8 +1,8 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ROLES, PERKS } from '../data/work'
-import { A } from '../data/site'
+import { A, SITE } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
 import { Eyebrow, H, It, Section, SectionHeader } from '../components/ui/Type'
 import { Frame } from '../components/ui/Img'
@@ -11,7 +11,7 @@ import { CTAPanel } from '../components/ui/CTAPanel'
 import { GradientBackdrop } from '../components/ui/GradientBackdrop'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, Mail, Copy, Check, Paperclip } from 'lucide-react'
-import { syncScrollEngine } from '../hooks/useScrollSmooth'
+import { engine } from '../hooks/useScrollSmooth'
 
 const ROLE_DEPARTMENTS = {
   fs: 'Engineering',
@@ -37,7 +37,7 @@ export default function Careers() {
 
   const handleCopyEmail = (id) => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText('hello.imaginitylabs@gmail.com')
+      navigator.clipboard.writeText(SITE.email)
       if (id) {
         setCopiedId(id)
         setTimeout(() => setCopiedId(null), 2000)
@@ -48,11 +48,20 @@ export default function Careers() {
     }
   }
 
-  const toggleRole = (id) => {
+  const toggleRole = (id, e) => {
+    e?.preventDefault?.()
+    e?.stopPropagation?.()
     setExpandedRole((prev) => (prev === id ? null : id))
-    setTimeout(() => syncScrollEngine(), 100)
-    setTimeout(() => syncScrollEngine(), 420)
   }
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (typeof window !== 'undefined' && engine?.lenis) {
+        engine.lenis.resize()
+      }
+    }, 450)
+    return () => clearTimeout(t)
+  }, [expandedRole])
 
   const filteredRoles = selectedCategory === 'All'
     ? ROLES
@@ -64,9 +73,9 @@ export default function Careers() {
       {/* 1. Hero */}
       <Section bg="light" className="pt-8 pb-16">
         <div className="max-w-3xl">
-          <Eyebrow intro dot="#C45CB0">Careers at Imaginity</Eyebrow>
+          <Eyebrow intro dot="#C45CB0">Careers at SureNext</Eyebrow>
           <H as="h1" intro size="xl" className="mt-4">
-            Build products that matter, <It>autonomously.</It>
+            Build things people <It>rely on.</It>
           </H>
           <p className="lede mt-6 text-lg">
             We are a compact, senior squad. No bureaucracy, no micromanagement, just deep work and shared pride in what we ship.
@@ -81,7 +90,7 @@ export default function Careers() {
             <Frame
               img={A.team}
               ratio="16/9"
-              alt="Imaginity team workshop"
+              alt="The SureNext team at a studio workshop"
               eager={true}
               radius={28}
             />
@@ -186,7 +195,7 @@ export default function Careers() {
                 Direct Email Application
               </p>
               <p className="text-xs text-ink/75 leading-relaxed">
-                Click <strong>Send CV via Email</strong> on any role below to open a pre-filled draft in your mail app, attach your resume PDF, and send directly to <span className="font-semibold text-ink">hello.imaginitylabs@gmail.com</span>.
+                Click <strong>Send CV via Email</strong> on any role below to open a pre-filled draft in your mail app, attach your resume PDF, and send directly to <span className="font-semibold text-ink">{SITE.email}</span>.
               </p>
             </div>
           </div>
@@ -197,7 +206,7 @@ export default function Careers() {
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium border border-[#3B5BFF]/30 bg-white hover:bg-[#F5F3FF] text-[#2F4AD0] transition-colors shrink-0 cursor-pointer self-start sm:self-auto"
           >
             {copiedGeneral ? <Check size={13} className="text-emerald-600" /> : <Copy size={13} />}
-            <span>{copiedGeneral ? 'Copied hello.imaginitylabs@gmail.com' : 'Copy Application Email'}</span>
+            <span>{copiedGeneral ? `Copied ${SITE.email}` : 'Copy Application Email'}</span>
           </button>
         </div>
 
@@ -223,7 +232,7 @@ export default function Careers() {
                 <button
                   type="button"
                   suppressHydrationWarning
-                  onClick={() => toggleRole(role.id)}
+                  onClick={(e) => toggleRole(role.id, e)}
                   aria-expanded={isOpen}
                   className="w-full text-left cursor-pointer group px-3 sm:px-6 py-7 sm:py-8 transition-all duration-300"
                 >
@@ -344,10 +353,10 @@ export default function Careers() {
                             <p className="text-sm text-ink/70">
                               Submit your resume or CV directly to{' '}
                               <a
-                                href={`mailto:hello.imaginitylabs@gmail.com?subject=Application for ${encodeURIComponent(role.t)}`}
+                                href={`mailto:${SITE.email}?subject=Application for ${encodeURIComponent(role.t)}`}
                                 className="text-ink font-medium underline underline-offset-4 hover:text-[#3B5BFF]"
                               >
-                                hello.imaginitylabs@gmail.com
+                                {SITE.email}
                               </a>
                             </p>
                             <p className="text-xs text-ink/50 flex items-center gap-1.5 pt-1 font-sans">
@@ -358,7 +367,7 @@ export default function Careers() {
 
                           <div className="flex items-center flex-wrap gap-2.5 shrink-0">
                             <Button
-                              href={`mailto:hello.imaginitylabs@gmail.com?subject=${encodeURIComponent(`Application for ${role.t}`)}&body=${encodeURIComponent(`Hi Imaginity Labs team,\n\nI would like to apply for the ${role.t} position.\n\nPlease find my CV / Resume and portfolio attached to this email.\n\nFull Name: \nPhone Number: \nLinkedIn / Portfolio / GitHub: \nRelevant Experience: \n\nLooking forward to hearing from you!\n`)}`}
+                              href={`mailto:${SITE.email}?subject=${encodeURIComponent(`Application for ${role.t}`)}&body=${encodeURIComponent(`Hi SureNext team,\n\nI would like to apply for the ${role.t} position.\n\nPlease find my CV / Resume and portfolio attached to this email.\n\nFull Name: \nPhone Number: \nLinkedIn / Portfolio / GitHub: \nRelevant Experience: \n\nLooking forward to hearing from you!\n`)}`}
                               size="sm"
                               className="shrink-0"
                             >
@@ -414,10 +423,10 @@ export default function Careers() {
       <CTAPanel
         eyebrow="Open Applications"
         title={<>Don&apos;t see your role? Reach <It>out anyway.</It></>}
-        line="Send your CV or portfolio directly to hello.imaginitylabs@gmail.com. We are always eager to meet driven creators and engineers."
+        line={`Send your CV or portfolio directly to ${SITE.email}. We read every application ourselves.`}
         primaryBtn={{
           label: 'Send Your CV',
-          href: 'mailto:hello.imaginitylabs@gmail.com?subject=Open%20Application%20%2F%20CV%20Submission&body=Hi%20Imaginity%20Labs%20team%2C%0D%0A%0D%0AI%20am%20interested%20in%20opportunities%20at%20Imaginity%20Labs.%20Please%20find%20my%20CV%2FResume%20attached.%0D%0A%0D%0AFull%20Name%3A%20%0D%0APrimary%20Skills%3A%20%0D%0APortfolio%20%2F%20GitHub%3A%20',
+          href: `mailto:${SITE.email}?subject=Open%20Application%20%2F%20CV%20Submission&body=Hi%20SureNext%20team%2C%0D%0A%0D%0AI%20am%20interested%20in%20opportunities%20at%20SureNext.%20Please%20find%20my%20CV%2FResume%20attached.%0D%0A%0D%0AFull%20Name%3A%20%0D%0APrimary%20Skills%3A%20%0D%0APortfolio%20%2F%20GitHub%3A%20`,
           variant: 'yellow',
         }}
         secondaryBtn={{

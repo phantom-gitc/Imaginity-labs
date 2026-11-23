@@ -1,14 +1,14 @@
-import { Cpu, Layers, ShieldCheck, Zap, Database, GitBranch, ArrowRight } from 'lucide-react'
-import { Eyebrow, H, It, Section, SectionHeader } from '../ui/Type'
+import { Cpu, Layers, ShieldCheck, Zap, ArrowRight } from 'lucide-react'
+import { It, Section, SectionHeader } from '../ui/Type'
 import { TLink } from '../ui/TLink'
 
 const PILLARS = [
   {
     num: '01',
     category: 'Enterprise Automation',
-    title: 'From Manual Bottlenecks to Autonomous Workflows',
-    problem: 'Growing companies lose thousands of billable hours each quarter to disconnected tools, manual copy-pasting across software, and fragile spreadsheets that break under volume.',
-    solution: 'We engineer event-driven automation pipelines and intelligent background integrations that quietly run your back-office operations, sync customer records in real time, and eliminate human data entry.',
+    title: 'Manual work, quietly automated',
+    problem: 'Teams lose hours every week moving data between tools that do not talk to each other. The spreadsheet that saved time last year is now the bottleneck.',
+    solution: 'We map the most expensive flows first, then replace the copy-paste with event-driven pipelines and integrations that keep systems in sync.',
     keywords: ['Workflow Automation', 'Document AI', 'API Integrations', 'Event-Driven Systems'],
     tint: 'mint',
     icon: Zap,
@@ -16,19 +16,19 @@ const PILLARS = [
   {
     num: '02',
     category: 'Applied Artificial Intelligence',
-    title: 'Production-Grade Agentic AI and Retrieval Systems',
-    problem: 'Standard chat interfaces and unguided language models frequently hallucinate, lack business context, and cannot safely interact with sensitive company databases.',
-    solution: 'We build scoped, multi-agent AI architectures and retrieval-augmented generation (RAG) pipelines backed by deterministic evaluation suites, strict schema validation, and human checkpoints.',
-    keywords: ['Agentic AI', 'Enterprise RAG', 'Multi-Agent Workflows', 'Guardrails & Evals'],
+    title: 'AI that answers from your own data',
+    problem: 'Generic chat tools sound confident and get things wrong. They do not know your customers, your documents, or your rules.',
+    solution: 'We scope the problem, ground answers in your data, and add evals, schema checks and human review so the system fails safely.',
+    keywords: ['Grounded AI', 'RAG search', 'Multi-step workflows', 'Guardrails & evals'],
     tint: 'lavender',
     icon: Cpu,
   },
   {
     num: '03',
     category: 'Product Engineering',
-    title: 'Full-Stack Web Applications Built to Scale Cleanly',
-    problem: 'Rushed prototypes often suffer from poor database design, slow page loads, difficult maintenance, and high rework costs when traffic spikes.',
-    solution: 'Our senior squads engineer high-performance web and mobile platforms using Next.js, React, Node.js, and TypeScript. Every release is built with accessibility, clean modular architecture, and comprehensive test coverage.',
+    title: 'Web products built to last',
+    problem: 'Fast prototypes often hide slow queries, brittle data models and accessibility debt that surface the moment traffic arrives.',
+    solution: 'Senior engineers build with Next.js, React and TypeScript: accessible interfaces, clean modules, and tests around the parts that matter.',
     keywords: ['Next.js & React', 'High-Concurrency Backends', 'TypeScript', 'Clean Architecture'],
     tint: 'sky',
     icon: Layers,
@@ -36,9 +36,9 @@ const PILLARS = [
   {
     num: '04',
     category: 'Cloud Infrastructure',
-    title: 'Resilient Cloud Architecture and DevOps Pipelines',
-    problem: 'Unoptimized infrastructure leads to unexpected cloud bills, painful deployment outages, and zero observability when production services degrade.',
-    solution: 'We configure reproducible infrastructure as code, automated continuous deployment (CI/CD), proactive monitoring, and FinOps cloud spend optimizations across AWS and Google Cloud.',
+    title: 'Infrastructure you can reason about',
+    problem: 'Cloud bills creep, deploys get scary, and nobody can tell why production slowed down last Tuesday.',
+    solution: 'We set up reproducible infrastructure, CI/CD, monitoring and cost controls on AWS and Google Cloud — then document how it fits together.',
     keywords: ['AWS & GCP', 'Kubernetes & Docker', 'Terraform IaC', 'FinOps Auditing'],
     tint: 'butter',
     icon: ShieldCheck,
@@ -70,8 +70,8 @@ export function WhatWeSolve() {
       <SectionHeader
         eyebrow="What We Solve"
         dot="#3B5BFF"
-        title={<>Engineering solutions for <It>high-stakes challenges.</It></>}
-        line="We replace fragmented tools, fragile AI experiments, and technical debt with clean, dependable software systems."
+        title={<>The problems we are usually <It>hired to fix.</It></>}
+        line="The same four issues come up again and again. Here is how we handle them."
       />
 
       {/* 4 Core Problem-Solution Pillars */}
@@ -144,7 +144,7 @@ export function WhatWeSolve() {
             Built on modern, proven foundations.
           </h3>
           <p className="text-sm text-ink/70 mt-2 leading-relaxed">
-            We avoid fragile dependencies and transient hype. Every framework, database, and cloud tool we choose is selected for long-term maintainability, developer ergonomics, and verifiable stability.
+            We choose proven tools and explain the trade-offs. That keeps the stack maintainable long after we hand it over.
           </p>
         </div>
 

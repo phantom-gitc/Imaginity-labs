@@ -3,7 +3,7 @@ import Lenis from 'lenis'
 import { gsap, ScrollTrigger, prefersReducedMotion } from '../lib/gsap'
 
 /**
- * IMAGINITY LABS — Single Unified Scroll Engine (Lenis + GSAP Ticker)
+ * SURENEXT — Single Unified Scroll Engine (Lenis + GSAP Ticker)
  * Synchronized directly with GSAP ticker & ScrollTrigger.
  */
 export const scrollState = {
@@ -11,6 +11,12 @@ export const scrollState = {
 }
 
 const SmoothScrollContext = createContext(scrollState)
+
+// Named owners prevent unrelated shell effects from releasing each other's scroll locks.
+// The preloader's child effect runs before Navbar's and before the parent provider, so a
+// simple boolean would be cleared by
+//  Navbar's initial `stopScroll(false)` on mount.
+const scrollLocks = new Set()
 
 export function SmoothScrollProvider({ children }) {
   const lenisRef = useRef(null)
@@ -48,20 +54,28 @@ export function SmoothScrollProvider({ children }) {
 
     ScrollTrigger.refresh()
 
-    // 4. Smooth Anchor Link Navigation
+    // 4. Smooth Anchor Link Navigation. Ignore modified/non-primary clicks and
+    // anything already handled by React so this never steals accordion/button clicks.
     const handleAnchorClick = (e) => {
-      const link = e.target.closest('a[href^="#"]')
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const link = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null
       if (!link) return
       const hash = link.getAttribute('href')
-      if (hash && hash !== '#') {
-        const target = document.querySelector(hash)
-        if (target) {
-          e.preventDefault()
-          lenis.scrollTo(target, { offset: -80, duration: 1.2 })
-        }
+      if (hash && hash !== '#' && hash.length > 1) {
+        try {
+          const target = document.querySelector(hash)
+          if (target) {
+            e.preventDefault()
+            lenis.scrollTo(target, { offset: -80, duration: 1.2 })
+          }
+        } catch {}
       }
     }
     document.addEventListener('click', handleAnchorClick)
+
+    // The preloader child effect runs before this provider effect, so it may already
+    // have requested a scroll lock. Honour it on the freshly created Lenis instance.
+    if (scrollLocks.size > 0) lenis.stop()
 
     return () => {
       document.removeEventListener('click', handleAnchorClick)
@@ -103,19 +117,49 @@ export function scrollToTop(immediate = true) {
 }
 
 /** Freeze / unfreeze scroll during overlays, modals, and preloader */
-export function stopScroll(stop = true) {
+export function stopScroll(stop = true, owner = 'default') {
+  if (stop) scrollLocks.add(owner)
+  else scrollLocks.delete(owner)
+
+  const locked = scrollLocks.size > 0
+  document.documentElement.style.overflow = locked ? 'hidden' : ''
+
   const l = scrollState.lenis
   if (l) {
-    stop ? l.stop() : l.start()
-  } else {
-    document.documentElement.style.overflow = stop ? 'hidden' : ''
+    locked ? l.stop() : l.start()
   }
 }
 
-/** Recalculate dimensions across route changes and layout shifts */
+export function isScrollLocked() {
+  return scrollLocks.size > 0
+}
+
+/**
+ * Recalculate dimensions after route changes or major layout shifts
+ * while safely preserving the current scroll position.
+ */
 export function syncScrollEngine() {
-  if (scrollState.lenis) {
-    scrollState.lenis.resize()
-  }
+  if (typeof window === 'undefined') return
+
+  const lenis = scrollState.lenis
+  const startY = window.scrollY
+
+  if (lenis) lenis.resize()
   ScrollTrigger.refresh()
+
+  const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
+  const targetY = Math.max(0, Math.min(startY, maxY))
+
+  if (lenis) lenis.scrollTo(targetY, { immediate: true, force: true })
+  if (Math.abs(window.scrollY - targetY) > 0.5) window.scrollTo(0, targetY)
+  ScrollTrigger.update()
+}
+
+/** Resize Lenis safely after layout transitions settle without triggering pinned layout shifts. */
+export function syncScrollAfter(delay = 400) {
+  return setTimeout(() => {
+    if (typeof window !== 'undefined' && scrollState.lenis) {
+      scrollState.lenis.resize()
+    }
+  }, delay)
 }

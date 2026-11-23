@@ -13,7 +13,7 @@ export function Img({
   className = '',
   eager = false,
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw',
-  unoptimized = true,
+  unoptimized = false,
   style,
 }) {
   const ref = useRef(null)
@@ -86,7 +86,6 @@ export function Obj({ img, className = '', alt = '', mult = false, style }) {
       width={img.w}
       height={img.h}
       alt={alt}
-      unoptimized
       aria-hidden={alt ? undefined : true}
       className={`select-none pointer-events-none ${mult ? 'mult' : ''} ${className}`}
       style={style}
@@ -106,7 +105,7 @@ export function Portrait({ img, tint = '#E9E4FF', className = '', alt = '', arch
         width={img.w}
         height={img.h}
         alt={alt}
-        unoptimized
+        sizes="(max-width: 768px) 100vw, 33vw"
         className={`absolute inset-0 size-full object-cover ${scale} ${mult ? 'mult' : ''}`}
         style={{ objectPosition: pos }}
       />

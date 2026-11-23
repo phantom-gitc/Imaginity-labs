@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { A } from '../data/site'
+import { A, SITE } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
 import { Eyebrow, H, It, Section } from '../components/ui/Type'
 import { Obj } from '../components/ui/Img'
@@ -33,7 +33,7 @@ export default function Contact() {
 
   const handleCopyEmail = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText('hello.imaginitylabs@gmail.com')
+      navigator.clipboard.writeText(SITE.email)
       setCopiedEmail(true)
       setTimeout(() => setCopiedEmail(false), 2000)
     }
@@ -50,7 +50,7 @@ export default function Contact() {
         setFormState((prev) => ({
           ...prev,
           service: `Job Application: ${role}`,
-          message: `Hi Imaginity team,\n\nI would like to apply for the ${role} position.`,
+          message: `Hi SureNext team,\n\nI would like to apply for the ${role} position.`,
         }))
       })
     }
@@ -82,7 +82,7 @@ export default function Contact() {
       setSubmitted(true)
       fireConfetti()
     } catch (err) {
-      setErrorMessage(err.message || 'Something went wrong. Please email us directly at hello.imaginitylabs@gmail.com.')
+      setErrorMessage(err.message || `Something went wrong. Please email us directly at ${SITE.email}.`)
     } finally {
       setIsSubmitting(false)
     }
@@ -116,14 +116,14 @@ export default function Contact() {
                     </h4>
                     <p className="text-sm text-ink/75 mt-1 leading-relaxed">
                       To send your CV, resume, or portfolio attachments directly to our founding engineers, please submit your application via email to{' '}
-                      <strong className="text-ink font-semibold">hello.imaginitylabs@gmail.com</strong>.
+                      <strong className="text-ink font-semibold">{SITE.email}</strong>.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 pt-1">
                   <a
-                    href={`mailto:hello.imaginitylabs@gmail.com?subject=${encodeURIComponent(roleParam ? `Application for ${roleParam}` : 'Job Application / Resume')}&body=${encodeURIComponent(`Hi Imaginity Labs team,\n\nI would like to apply for ${roleParam || 'an open role'}.\n\nPlease find my CV / Resume and portfolio attached to this email.\n\nFull Name: \nPhone Number: \nLinkedIn / Portfolio: \n\nLooking forward to speaking with you!`)}`}
+                    href={`mailto:${SITE.email}?subject=${encodeURIComponent(roleParam ? `Application for ${roleParam}` : 'Job Application / Resume')}&body=${encodeURIComponent(`Hi SureNext team,\n\nI would like to apply for ${roleParam || 'an open role'}.\n\nPlease find my CV / Resume and portfolio attached to this email.\n\nFull Name: \nPhone Number: \nLinkedIn / Portfolio: \n\nLooking forward to speaking with you!`)}`}
                     className="btn btn-primary btn-sm inline-flex items-center gap-2"
                   >
                     <Mail size={14} /> Open Email Client &amp; Send CV
@@ -146,9 +146,9 @@ export default function Contact() {
                 <div className="size-12 rounded-full bg-[#167A4A] text-white flex items-center justify-center mb-4">
                   <Check size={24} strokeWidth={3} />
                 </div>
-                <h3 className="display text-2xl text-ink font-semibold">Message dispatched!</h3>
+                <h3 className="display text-2xl text-ink font-semibold">Message sent.</h3>
                 <p className="text-sm text-ink/75 mt-2 leading-relaxed max-w-[40ch]">
-                  Thank you for reaching out. One of our partners will review your notes and reply by tomorrow morning.
+                  Thanks for the note. A founder will read it and reply by the next business day.
                 </p>
               </div>
             ) : (
@@ -245,7 +245,7 @@ export default function Contact() {
 
                 <div className="pt-4">
                   <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? 'Dispatching Brief...' : 'Submit Brief'}
+                    {isSubmitting ? 'Sending...' : 'Send brief'}
                   </Button>
                 </div>
               </form>
@@ -264,8 +264,8 @@ export default function Contact() {
               <div className="space-y-4 pt-6 border-t border-black/10">
                 <div className="flex items-center gap-3 text-sm text-ink/80">
                   <Mail size={16} className="text-[#3B5BFF]" />
-                  <a href="mailto:hello.imaginitylabs@gmail.com" className="hover:text-[#3B5BFF] transition-colors focus-visible:underline">
-                    hello.imaginitylabs@gmail.com
+                  <a href={`mailto:${SITE.email}`} className="hover:text-[#3B5BFF] transition-colors focus-visible:underline">
+                    {SITE.email}
                   </a>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-ink/80">
@@ -292,7 +292,7 @@ export default function Contact() {
                   </p>
                   <div className="flex items-center gap-3 pt-1">
                     <a
-                      href="mailto:hello.imaginitylabs@gmail.com?subject=Resume%20Submission%20-%20Job%20Application&body=Hi%20Imaginity%20Labs%20team%2C%0D%0A%0D%0APlease%20find%20my%20CV%2FResume%20attached.%0D%0A%0D%0AName%3A%20%0D%0APhone%3A%20%0D%0APortfolio%20%2F%20LinkedIn%3A%20"
+                      href={`mailto:${SITE.email}?subject=Resume%20Submission%20-%20Job%20Application&body=Hi%20SureNext%20team%2C%0D%0A%0D%0APlease%20find%20my%20CV%2FResume%20attached.%0D%0A%0D%0AName%3A%20%0D%0APhone%3A%20%0D%0APortfolio%20%2F%20LinkedIn%3A%20`}
                       className="text-xs font-semibold text-[#3B5BFF] hover:underline inline-flex items-center gap-1"
                     >
                       <Paperclip size={12} /> Send CV via Email &rarr;

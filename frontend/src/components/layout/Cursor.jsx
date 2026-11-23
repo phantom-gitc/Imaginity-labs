@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { prefersReducedMotion } from '../../lib/gsap'
 
 /**
  * Curated vivid & happy color palette for following stars and sparkles
@@ -118,10 +119,8 @@ export function Cursor() {
     const isTouchMobile = 'ontouchstart' in window && window.innerWidth < 768 && !window.matchMedia('(any-pointer: fine)').matches
     if (isTouchMobile) return
 
-    document.documentElement.classList.add('has-cursor')
-
     const canvas = canvasRef.current
-    if (!canvas) return
+    if (!canvas || !pointerRef.current) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
@@ -175,10 +174,13 @@ export function Cursor() {
         life: maxLife,
         maxLife,
       })
+      ensureLoop()
     }
 
-    // 120 FPS buttery smooth animation render loop
+    // The render loop only runs while particles are alive. An idle cursor costs
+    // no frames at all instead of clearing a full-screen canvas forever.
     const render = () => {
+      animId = null
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -212,15 +214,23 @@ export function Cursor() {
         })
       }
 
-      animId = requestAnimationFrame(render)
+      if (particles.length > 0) animId = requestAnimationFrame(render)
     }
 
-    animId = requestAnimationFrame(render)
+    function ensureLoop() {
+      if (animId === null) animId = requestAnimationFrame(render)
+    }
 
     // Direct mouse tracking for zero-latency 1:1 crisp pointer response
     const handleMouseMove = (e) => {
       const mouseX = e.clientX
       const mouseY = e.clientY
+
+      // Hide the native pointer only once the custom pointer can actually paint.
+      // This prevents a blank/invisible cursor if the canvas context is unavailable.
+      if (!document.documentElement.classList.contains('has-cursor')) {
+        document.documentElement.classList.add('has-cursor')
+      }
 
       if (pointerRef.current) {
         pointerRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`
@@ -282,19 +292,26 @@ export function Cursor() {
       }
     }
 
+    const handleTouchStart = () => {
+      document.documentElement.classList.remove('has-cursor')
+      if (pointerRef.current) pointerRef.current.style.opacity = '0'
+    }
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
     window.addEventListener('mousedown', handleMouseDown)
     window.addEventListener('mouseup', handleMouseUp)
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
     document.addEventListener('mouseover', handleMouseOver, { passive: true })
     document.addEventListener('mouseout', handleMouseLeaveWindow)
 
     return () => {
       document.documentElement.classList.remove('has-cursor')
-      cancelAnimationFrame(animId)
+      if (animId !== null) cancelAnimationFrame(animId)
       window.removeEventListener('resize', resizeCanvas)
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mousedown', handleMouseDown)
       window.removeEventListener('mouseup', handleMouseUp)
+      window.removeEventListener('touchstart', handleTouchStart)
       document.removeEventListener('mouseover', handleMouseOver)
       document.removeEventListener('mouseout', handleMouseLeaveWindow)
     }

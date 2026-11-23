@@ -1,4 +1,4 @@
-import { Inter, Geist_Mono, Instrument_Serif } from 'next/font/google'
+import { Inter, Geist_Mono, Instrument_Serif, Poppins } from 'next/font/google'
 import './globals.css'
 import { AppShell } from '../components/layout/AppShell'
 import { SITE_URL, SITE_NAME } from '../lib/site-url'
@@ -13,117 +13,86 @@ const instrumentSerif = Instrument_Serif({
   display: 'swap',
   variable: '--font-instrument-serif',
 })
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  variable: '--font-poppins',
+})
 
 const [, homeDescription] = SEO['/']
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Imaginity Labs (iLabs) | Software Development & AI Solutions',
-    template: '%s | Imaginity Labs (iLabs)',
+    default: 'SureNext | Software & Product Studio',
+    template: '%s | SureNext',
   },
   description: homeDescription,
-  applicationName: 'Imaginity Labs (iLabs)',
+  applicationName: 'SureNext',
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
   keywords: [
-    'Imaginity Labs',
-    'Imaginity',
-    'iLabs',
-    'i Labs',
-    'ilabs',
-    'i lbas',
-    'ilbas',
-    'i-labs',
-    'Imaginity iLabs',
-    'Imaginity Labs (iLabs)',
-
-    // User requested variations & compound forms
-    'imaginitytechnology',
-    'imaginity technology',
-    'imaginity technologies',
-    'imaginity.com',
-    'imaginity.in',
-    'imaginity.io',
-    'imaginitylabs.io',
-    'imaginitylabs.com',
-    'imaginitylabs.in',
-    'imaginiti website',
-    'imaginiti webisite',
-    'imaginiti',
-    'imaginiti labs',
-    'imaginiti technology',
-    'imaginii',
-    'imaginty',
-    'imaginty labs',
-    'imaginty.com',
-    'imaginity website',
-    'imaginity web',
-    'imaginity official website',
-    'imaginiity',
-    'imaginityy',
-    'imaginitty',
-    'imaginety',
-    'imaginaty',
+    'SureNext',
+    'Sure Next',
+    'surenext',
+    'surenext.studio',
+    'surenext.com',
+    'SureNext Studio',
+    'SureNext Digital',
+    'SureNext Software',
+    'SureNext Technology',
+    'SureNext Bhubaneswar',
 
     // Studio & service keywords
-    'ilabs software',
-    'ilabs tech',
-    'ilabs technology',
-    'ilabs ai',
-    'ilabs agency',
-    'ilabs studio',
-    'ilabs engineering',
-    'imaginity labs bhubaneswar',
-    'AI software company',
-    'Agentic AI development',
-    'Custom software development',
-    'Workflow automation studio',
-    'Full-stack engineering',
-    'Cloud systems architecture',
-    'autonomous AI agents',
-    'enterprise LLM applications',
-    'RAG pipeline development',
+    'software product studio',
+    'custom software development',
+    'web application development',
+    'AI feature development',
+    'retrieval augmented generation',
+    'workflow automation',
+    'full-stack engineering',
+    'cloud systems architecture',
     'SaaS product development',
-    'Next.js development company',
-    'React development studio',
+    'Next.js development',
+    'React development',
+    'product design studio',
     'Bhubaneswar software studio',
-    'custom web application engineering',
   ],
   alternates: {
     canonical: SITE_URL,
   },
   icons: {
     icon: [
-      { url: '/img/imaginity-icon-trimmed.png', sizes: '32x32', type: 'image/png' },
-      { url: '/img/imaginity-icon-trimmed.png', sizes: '192x192', type: 'image/png' },
+      { url: '/img/surenext-icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/img/surenext-icon.png', sizes: '192x192', type: 'image/png' },
     ],
-    apple: [{ url: '/img/imaginity-icon-trimmed.png', sizes: '180x180', type: 'image/png' }],
+    apple: [{ url: '/img/surenext-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Imaginity Labs (iLabs)',
-    title: 'Imaginity Labs (iLabs) | Software Development & AI Solutions',
+    siteName: 'SureNext',
+    title: 'SureNext | Software & Product Studio',
     description: homeDescription,
     url: SITE_URL,
     images: [
       {
-        url: '/img/hero.webp',
+        url: '/img/surenext-og.png',
         width: 1200,
         height: 630,
-        alt: 'Imaginity Labs (iLabs) | Software Development & AI Solutions',
+        alt: 'SureNext — software and product studio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Imaginity Labs (iLabs) | Software Development & AI Solutions',
+    title: 'SureNext | Software & Product Studio',
     description: homeDescription,
-    images: ['/img/hero.webp'],
-    creator: '@imaginitylabs',
-    site: '@imaginitylabs',
+    images: ['/img/surenext-og.png'],
+    creator: '@surenext',
+    site: '@surenext',
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
@@ -149,15 +118,18 @@ export const viewport = {
 }
 
 /**
- * Runs before first paint. Mirrors the previous index.html script:
+ * Runs before first paint. The preloader is server-rendered visible by default so it
+ * cannot be lost if this inline script is stripped by a CSP. The script only removes it
+ * for reduced-motion users and bots; normal visitors keep the branded intro.
+ *
  * - `motion` enables the "pre-hidden" reveal states only when motion is allowed.
- * - `nx-pre` marks that the once-per-session preloader should cover the page.
+ * - `nx-pre` keeps the preloader visible until its timeline releases it.
  */
-const earlyScript = `(function(){try{var d=document.documentElement;d.classList.add('motion');var isBot=/Lighthouse|PageSpeed|Googlebot/i.test(navigator.userAgent);if(!isBot){d.classList.add('nx-pre')}}catch(e){}})()`
+const earlyScript = `(function(){try{var d=document.documentElement;var isBot=/Lighthouse|PageSpeed|Googlebot/i.test(navigator.userAgent);d.classList.add('motion');if(isBot){d.classList.remove('nx-pre')}}catch(e){}})()`
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`motion ${inter.variable} ${geistMono.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${geistMono.variable} ${instrumentSerif.variable} ${poppins.variable} nx-pre`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: earlyScript }} />
       </head>

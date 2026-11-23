@@ -1,22 +1,29 @@
 'use client'
 
-import { useId, useState, useCallback } from 'react'
-import { syncScrollEngine } from '../../hooks/useScrollSmooth'
+import { useId, useState, useCallback, useEffect } from 'react'
+import { engine } from '../../hooks/useScrollSmooth'
 
-/** Accessible, GPU-accelerated buttery-smooth accordion that never sticks. */
+/** Accessible, GPU-accelerated buttery-smooth accordion that never sticks or jumps. */
 export function Accordion({ items, defaultOpen = 0, className = '', titleClass = 'display h-sm', render }) {
   const [open, setOpen] = useState(defaultOpen)
   const uid = useId()
 
-  const handleToggle = useCallback((idx) => {
+  const handleToggle = useCallback((idx, e) => {
+    e?.preventDefault?.()
+    e?.stopPropagation?.()
     setOpen((prev) => (prev === idx ? -1 : idx))
-    const t1 = setTimeout(() => syncScrollEngine(), 100)
-    const t2 = setTimeout(() => syncScrollEngine(), 380)
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-    }
   }, [])
+
+  // Safely inform Lenis of height change once accordion transition settles,
+  // without calling ScrollTrigger.refresh() which would unpin sections and jump to footer.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (typeof window !== 'undefined' && engine?.lenis) {
+        engine.lenis.resize()
+      }
+    }, 380)
+    return () => clearTimeout(t)
+  }, [open])
 
   return (
     <div className={className}>
@@ -31,7 +38,7 @@ export function Accordion({ items, defaultOpen = 0, className = '', titleClass =
                 aria-expanded={isOpen}
                 aria-controls={`${uid}-p${i}`}
                 className="acc-btn cursor-pointer group"
-                onClick={() => handleToggle(i)}
+                onClick={(e) => handleToggle(i, e)}
                 suppressHydrationWarning
               >
                 <span className={`${titleClass} transition-colors duration-300 group-hover:text-ink/85`}>
@@ -81,10 +88,20 @@ export function Tabs({ tabs, children, className = '', listClass = '' }) {
     document.getElementById(`${uid}-t${n}`)?.focus()
   }
 
-  const handleTabChange = (idx) => {
+  const handleTabChange = useCallback((idx, e) => {
+    e?.preventDefault?.()
+    e?.stopPropagation?.()
     setActive(idx)
-    setTimeout(() => syncScrollEngine(), 80)
-  }
+  }, [])
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (typeof window !== 'undefined' && engine?.lenis) {
+        engine.lenis.resize()
+      }
+    }, 380)
+    return () => clearTimeout(t)
+  }, [active])
 
   return (
     <div className={className}>
@@ -98,7 +115,7 @@ export function Tabs({ tabs, children, className = '', listClass = '' }) {
             aria-selected={active === i}
             aria-controls={`${uid}-p${i}`}
             tabIndex={active === i ? 0 : -1}
-            onClick={() => handleTabChange(i)}
+            onClick={(e) => handleTabChange(i, e)}
             className={`min-h-11 rounded-full border px-5 text-[15px] font-medium transition-all duration-300 cursor-pointer ${
               active === i ? 'border-yellow bg-yellow text-ink shadow-sm' : 'border-white/25 text-white/80 hover:border-white hover:text-white'
             }`}

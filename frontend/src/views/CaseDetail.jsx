@@ -107,14 +107,14 @@ export default function CaseDetail({ slug }) {
             <div>
               <h2 className="display text-3xl text-ink mb-4">The Challenge</h2>
               <p className="text-lg text-ink/80 leading-relaxed max-w-[55ch]">
-                {c.challenge} As operations expanded, legacy manual procedures and brittle ad-hoc scripting created unpredictable friction and severe engineering bottlenecks.
+                {c.challenge}
               </p>
             </div>
 
             <div>
-              <h2 className="display text-3xl text-ink mb-4">The Imaginity Solution</h2>
+              <h2 className="display text-3xl text-ink mb-4">The {c.title} Solution</h2>
               <p className="text-lg text-ink/80 leading-relaxed max-w-[55ch]">
-                {c.solution} We architected and delivered a unified, fault-tolerant infrastructure equipped with real-time feedback loops, comprehensive telemetry, and intuitive operator dashboards.
+                {c.solution}
               </p>
             </div>
 

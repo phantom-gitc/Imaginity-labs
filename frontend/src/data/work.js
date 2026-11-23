@@ -12,13 +12,13 @@ export const CASES = [
     gallery: [A.case[3], A.ai, A.obj[3]],
   },
   {
-    slug: 'imaginity', title: 'Imaginity', client: 'Imaginity Studio', category: 'Product', year: '2025', tint: 'sky', img: A.imaginity,
+    slug: 'halcyon', title: 'Halcyon', client: 'Halcyon Studio', category: 'Product', year: '2025', tint: 'sky', img: A.halcyon,
     line: 'A creative workspace that turns briefs into campaigns.',
     role: ['Web platform', 'UX research', 'Brand-ready UI'], stack: ['React', 'Node', 'WebGL', 'AWS'],
     results: [{ n: 3, s: 'x', l: 'Faster briefs' }, { n: 48, s: 'k', l: 'Active creators' }, { n: 4.8, s: '/5', l: 'Client rating' }],
     challenge: 'Creative teams juggled six tools to ship a single campaign.',
     solution: 'One calm workspace with shared assets, approvals and AI assist.',
-    gallery: [A.imaginity, A.lake, A.obj[1]],
+    gallery: [A.halcyon, A.ai, A.obj[1]],
   },
   {
     slug: 'ledgerly', title: 'Ledgerly', client: 'Ledgerly Finance', category: 'Platform', year: '2026', tint: 'lavender', img: A.case[0],

@@ -56,8 +56,8 @@ export function AvenyaArtwork({ className = 'w-full h-full' }) {
   );
 }
 
-// Card 2: Imaginity - Yellow/coral generative canvas with floating UI blocks
-export function ImaginityArtwork({ className = 'w-full h-full' }) {
+// Card 2: SureNext - Yellow/coral generative canvas with floating UI blocks
+export function SureNextArtwork({ className = 'w-full h-full' }) {
   return (
     <div
       className={`relative w-full aspect-[4/3] bg-gradient-to-br from-[#FFD43B] via-[#FFA94D] to-[#FF7A59] overflow-hidden select-none p-6 flex flex-col justify-center items-center ${className}`}

@@ -5,7 +5,7 @@ import { sanitizeText, sanitizeEmail } from '../src/lib/security/sanitize.js'
 import { checkRateLimit } from '../src/lib/security/rate-limit.js'
 import { securityHeaders } from '../src/lib/security/headers.js'
 
-console.log('🧪 Starting Imaginity Labs Backend Test Suite...\n')
+console.log('🧪 Starting SureNext Backend Test Suite...\n')
 
 // 1. Sanitization Tests
 console.log('--- Test 1: Sanitization ---')

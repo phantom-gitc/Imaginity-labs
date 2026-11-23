@@ -68,7 +68,7 @@ export async function POST(request) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Thank you for subscribing to Imaginity Studio field notes.',
+        message: 'Thank you for subscribing to SureNext field notes.',
       },
       {
         status: 200,

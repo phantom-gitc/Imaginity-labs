@@ -35,7 +35,7 @@ export function AppShell({ children }) {
       }
       e.preventDefault()
       if (e.clipboardData) {
-        e.clipboardData.setData('text/plain', '© Imaginity Labs. Content is protected.')
+        e.clipboardData.setData('text/plain', '© SureNext. Content is protected.')
       }
     }
 

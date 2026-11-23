@@ -58,7 +58,7 @@ export default function Article({ slug }) {
           {/* Author info */}
           <div className="lg:col-span-4 p-6 rounded-[22px] bg-[#FAFAFB] border border-line">
             <span className="mono text-xs text-ink/40">WRITTEN BY</span>
-            <h4 className="font-semibold text-ink text-base mt-2">{a.author || 'Imaginity Labs Engineering'}</h4>
+            <h4 className="font-semibold text-ink text-base mt-2">{a.author || 'SureNext Engineering'}</h4>
             <p className="text-xs text-ink/60 mt-1">{a.authorRole || 'Studio Core Team'}</p>
             <p className="text-xs text-ink/75 mt-3 leading-relaxed">{a.authorBio || 'We design and build production-ready digital products.'}</p>
           </div>

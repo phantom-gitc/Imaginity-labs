@@ -14,8 +14,10 @@ import { securityHeaders } from './src/lib/security/headers.js'
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  experimental: {
+    agentUpgrade: 'security',
+  },
   images: {
-    unoptimized: true,
     qualities: [75, 95],
   },
   turbopack: {

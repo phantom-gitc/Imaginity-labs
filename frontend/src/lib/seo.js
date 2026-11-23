@@ -13,7 +13,7 @@ export function buildMetadata({
   path,
   title,
   description,
-  image = '/img/hero.webp',
+  image = '/img/surenext-og.png',
   type = 'website',
 }) {
   const canonicalUrl = absoluteUrl(path)
@@ -46,8 +46,8 @@ export function buildMetadata({
       title,
       description,
       images: [imageUrl],
-      creator: '@imaginitylabs',
-      site: '@imaginitylabs',
+      creator: '@surenext',
+      site: '@surenext',
     },
     robots: {
       index: true,
@@ -66,8 +66,8 @@ export function buildMetadata({
 /** Metadata for a static route using the verified brand SEO copy in data/site.js. */
 export function staticRouteMetadata(path) {
   const [title, description] = SEO[path] || [
-    'Imaginity Labs | Software Development & AI Solutions',
-    'Software, agentic AI, and automation studio for teams that ship.',
+    'SureNext | Software & Product Studio',
+    'A small, senior studio building web products, AI features, and automation for teams that ship.',
   ]
   return buildMetadata({ path, title, description })
 }
